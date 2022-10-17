@@ -1,8 +1,9 @@
 .wrapper {
     height: 309px;
     width: 341px;
+    text-decoration: none;
+    color: #000000;
 }
-
 .img{
     width: 341px;
     height: 193.17px;
@@ -30,6 +31,11 @@
     align-items: center;
 }
 
+.location, .cost, .area {
+    display:flex;
+    align-items: center;
+    padding: 2px 0;
+}
 
 
 .likeBtn{
@@ -45,6 +51,7 @@
     color: #484848;
     background-color: white;
 }
+
 .province{
     font-family: 'Roboto';
     font-style: normal;
@@ -55,6 +62,7 @@
     color: #767676;
     padding: 0px 6px
 }
+
 .ratingPoint{
     font-family: 'Roboto';
     font-style: normal;
@@ -72,8 +80,6 @@
     font-size: 14px;
     line-height: 21px;
     /* identical to box height, or 150% */
-
-
     color: #000000;
 }
 
@@ -86,5 +92,4 @@
     font-size: 14px;
     line-height: 21px;
     color: #060606;
-
 }
