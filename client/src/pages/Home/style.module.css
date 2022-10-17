@@ -1,0 +1,20 @@
+.wrapper{ 
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.inner{
+    height: 100%;
+    width: 1560px;
+}
+.itemList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap : wrap;
+    justify-content: space-between;
+}
+.social-container{
+    background-color: red;
+}

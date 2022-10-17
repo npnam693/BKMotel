@@ -1,0 +1,36 @@
+:root {
+    --primary-color: #00A699;
+    --black: #000;
+    --text-color: #333;
+    
+    /* Default layout */
+    --default-layout-header-height: 80px;
+    --default-layout-footer-height: 50px;
+    --default-layout-width: 1560px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* font-size: 62.5%; */
+    font-size: 55.5555%;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizespeed;
+    color: var(--text-color);
+    overflow-y: overlay;
+}
+
+/* Scrollbar css */
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
