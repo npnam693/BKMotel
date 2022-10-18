@@ -4,9 +4,10 @@
     --text-color: #333;
     
     /* Default layout */
+    --font-family: 'Roboto';
     --default-layout-header-height: 80px;
     --default-layout-footer-height: 50px;
-    --default-layout-width: 1560px;
+    --default-layout-width: 1360px;
 }
 
 * {

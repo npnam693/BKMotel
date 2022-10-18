@@ -7,7 +7,7 @@
 
 .inner{
     height: 100%;
-    width: 1560px;
+    width: var(--default-layout-width);
 }
 .itemList{
     display: flex;
