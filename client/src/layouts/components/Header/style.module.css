@@ -19,6 +19,10 @@
 .inner{
     height: 100%;
     width: var(--default-layout-width);
+<<<<<<< HEAD
+=======
+    padding: 0 var(--default-layout-horizontal-spacer);
+>>>>>>> 31394c55e938d4ef56676320213eca249c025ecf
     display: flex;
     align-items: center;
     justify-content: space-between;

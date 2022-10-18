@@ -1,15 +1,21 @@
+import dotenv from 'dotenv'
 import express from 'express';
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
 
 import route from './routes/index.js'
+import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
 
+dotenv.config()
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 route(app)
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(notFound)
+app.use(errorHandler)
+
 
 const CONNECTION_URL = "mongodb+srv://nam_memory:nam_memory@cluster0.s8dtb44.mongodb.net/BKMotel?retryWrites=true&w=majority"
 
