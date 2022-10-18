@@ -21,15 +21,15 @@ function RoomItem() {
                     </div>
                 </div>
                 <div className = {styles.location}>
-                    <GeoAlt color="currentColor" size={18} />
+                    <GeoAlt color="#000000" size={18} />
                     <span className = {styles.locationContent}>Thủ Đức, TP.HCM</span>
                 </div>
                 <div className = {styles.cost}>
-                    <Cash color="currentColor" size={18} />
+                    <Cash color="#000000" size={18} />
                     <span className = {styles.costContent}>500.000 / tháng </span>
                 </div>
                 <div className = {styles.area}>
-                    <House color="currentColor" size={18} />
+                    <House color="#000000" size={18} />
                     <span className = {styles.areaContent}>10m2</span>
                 </div>
             </div>

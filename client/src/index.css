@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;;900&display=swap');
+
+
+
 :root {
+    --font-family: 'Roboto', sans-serif;
     --primary-color: #00A699;
     --black: #000;
     --text-color: #333;
@@ -6,7 +11,13 @@
     /* Default layout */
     --default-layout-header-height: 80px;
     --default-layout-footer-height: 50px;
-    --default-layout-width: 1560px;
+    --default-layout-width: 1365px;
+    --default-horizontal-spacer: 30px;
+
+
+    /* Variable */
+
+    --button-border-radius: 20px;
 }
 
 * {
