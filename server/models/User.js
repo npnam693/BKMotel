@@ -6,8 +6,14 @@ const UserSchema = new mongoose.Schema({
     password: {type: String, trim: true, require: true, minLength: 8},
     name: {type: String, required: true, minLength: 5},
     avatar: String,
-    favourites: [String],
-    reviews : [String],
+    favourites: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room'
+    }],
+    reviews : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
     phoneNumber: String,
 }, {
     timestamps: true

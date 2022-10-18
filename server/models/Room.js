@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import slug from 'mongoose-slug-generator';
 
-const roomSchema = mongoose.Schema({
+const RoomSchema = new mongoose.Schema({
     title: String,
     creator: {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,15 +15,12 @@ const roomSchema = mongoose.Schema({
     description: String,
     
     slug: {type: String, slug: 'title', unique: true},
-
-    createAt: {
-        type: Date,
-        default: new Date(),
-    }
+}, {
+    timestamps: true
 })
 
 
  
-const Room = mongoose.model('Room', roomSchema)
+const Room = mongoose.model('Room', RoomSchema)
 
 export default Room;

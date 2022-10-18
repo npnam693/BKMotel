@@ -14,8 +14,10 @@ const validatePhone = (phone) => {
 }
 
 // [GET] /api/users
-export const getAllUsers = (req, res) =>{
-
+export const getAllUsers = (req, res, next) =>{
+    User.find({})
+        .then(users => res.status(201).json(users))
+        .catch(next)
 }
 
 //[POST] /api/users
