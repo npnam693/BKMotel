@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ReviewSchema = mongoose.Schema({
+const ReviewSchema = new mongoose.Schema({
     ratingPoint : Number,
     description : String,
     creator: {
@@ -10,13 +10,11 @@ const ReviewSchema = mongoose.Schema({
     room: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Room",
-    },
-    createAt: {
-        type: Date,
-        default: new Date(),
     }
+}, {
+    timestamps: true
 })
  
-const Review = mongoose.model('Review', roomSchema)
+const Review = mongoose.model('Review', ReviewSchema)
 
 export default Review;
