@@ -12,7 +12,6 @@
     --font-family: 'Roboto';
     --default-layout-header-height: 80px;
     --default-layout-footer-height: 50px;
-<<<<<<< HEAD
     --default-layout-width: 1365px;
     --default-horizontal-spacer: 30px;
 
@@ -20,9 +19,7 @@
     /* Variable */
 
     --button-border-radius: 20px;
-=======
     --default-layout-width: 1360px;
->>>>>>> 31394c55e938d4ef56676320213eca249c025ecf
 }
 
 * {
