@@ -36,8 +36,7 @@
     text-decoration: none;
     color: #2C2C2B;
 
-    font-family: 'Roboto';
-    font-style: normal;
+    font-family: var(--font-family);
     font-weight: 400;
     font-size: 16px;
 }

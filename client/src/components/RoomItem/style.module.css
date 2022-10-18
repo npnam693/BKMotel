@@ -47,8 +47,7 @@
     width: 78px;
     height: 28px;
     border: 1px solid #484848;
-    font-family: 'Roboto';
-    font-style: normal;
+    font-family: var(--font-family);
     font-weight: 700;
     font-size: 12px;
     line-height: 12px;
