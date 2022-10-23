@@ -5,7 +5,7 @@ import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
 function RoomItem() {
     return (
         <a href = '/' className = {styles.wrapper}>
-            <img className = {styles.img} src="https://kreatecube.com/usefull/vendor/12222/gallery/2971.jpg" 
+            <img className = {styles.img} src="https://media.gq.com/photos/6283ce92bad17dc46fce8234/master/w_2000,h_1333,c_limit/East_Hampton,_New_York.jpg" 
                 alt="Avatar" 
             />         
             <div className={styles.content}>
