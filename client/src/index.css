@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;;900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
 
 :root {
@@ -11,14 +12,13 @@
     /* Default layout */
     --default-layout-header-height: 80px;
     --default-layout-footer-height: 50px;
-    --default-layout-width: 1365px;
     --default-horizontal-spacer: 30px;
 
 
     /* Variable */
 
     --button-border-radius: 20px;
-    --default-layout-width: 1360px;
+    --default-layout-width: 1365px;
 }
 
 * {
