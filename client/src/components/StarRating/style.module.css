@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stars {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-left: -22px;
+}

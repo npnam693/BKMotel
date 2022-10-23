@@ -1,6 +1,8 @@
 import styles from './style.module.css';
 import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Telephone} from 'react-bootstrap-icons';
 
+import StarRating from '../../components/StarRating'
+
 
 function DetailPage() {
     return ( 
@@ -140,21 +142,24 @@ function DetailPage() {
                             </div>
                         </div>
                     </div>
-
-                    
-
-
                         
                 </div>
                 <div className = {styles.reviewsContainer}>
                     <div className = {styles.ratingContainer}>
                         <p className = {styles.ratingTitle}>Đánh giá</p>
                         <div className = {styles.ratingOverview}>
-                                <StarFill color="#00A699" size={15} />
-                                <p className={styles.ratingPoint}>4.9</p>
-                                <p className={styles.ratingCount}>260 đánh giá</p>
+                                <StarFill color="#00A699" size={20} />
+                                <p>4.9</p>
+                                <p>260 đánh giá</p>                       
                         </div>
+                        
+                        <StarRating className = {styles.ratingRow} number = {5} size = {18} value = {90}/>
+                        <StarRating className = {styles.ratingRow} number = {4} size = {18} value = {90}/>
+                        <StarRating className = {styles.ratingRow} number = {3} size = {18} value = {90}/>
+                        <StarRating className = {styles.ratingRow} number = {2} size = {18} value = {90}/>
+                        <StarRating className = {styles.ratingRow} number = {1} size = {18} value = {90}/>
                     </div>
+ 
                 </div>
             </div>
         </div> 

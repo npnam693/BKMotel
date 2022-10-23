@@ -287,14 +287,19 @@
 }
 
 .ratingOverview{
-    margin-top:10px;
+    margin: 10px 0 5px 0;
     display: flex;
     flex-direction: row;
     align-items: center;
     background: #eeeeee;
     border-radius: 30px;
-    padding: 5px;
+    padding: 5px 10px 5px 10px;
     width: 70%;
-    justify-content: center;
-    /* font-size: 18px; */
+    justify-content: space-evenly;
+    line-height: 18px;
+    font-size: 18px;
+}
+
+.ratingRow{
+    margin-top: 10px;
 }
