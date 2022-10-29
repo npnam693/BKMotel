@@ -1,0 +1,32 @@
+.reviewContainer{
+    padding: 20px;
+    position: relative;
+    width: 1005px;
+    border: 1px solid rgb(125, 122, 122);
+    margin-top: 30px;
+}
+
+.avatar{
+    width: 80px;
+    height: 80px;
+}
+.userIntro{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+.name{
+    font-family: 'Inter', sans-serif ;
+    font-size: 26px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+.rating{
+    position: absolute;
+    top:20px;
+    right:20px;
+}
+.content{
+    margin: 0 20px 0 100px;
+    font-size: 18px;
+}
