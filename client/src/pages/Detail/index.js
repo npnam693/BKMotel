@@ -2,7 +2,7 @@ import styles from './style.module.css';
 import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Telephone, Star} from 'react-bootstrap-icons';
 import { useState } from 'react';
 
-import ReviewItem from '../../components/ReviewItem';
+import ReviewItem from '../../components/Review';
 
 
 import { Rating  } from '@mui/material';

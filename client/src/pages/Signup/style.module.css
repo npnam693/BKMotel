@@ -12,16 +12,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 90px 50px 90px;
+    padding: 60px 90px 30px 90px;
 }
 
-.loginActionContainer{
+.passworkWrapper{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
-.loginAction{
-    display: flex;
-    flex-direction: column;
+
+.signupBtn{
+    margin-left: auto;
+    margin-top: 20px;
 }

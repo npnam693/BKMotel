@@ -5,7 +5,6 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import {FormControlLabel, Checkbox, Link, OutlinedInput } from '@mui/material'
 
 const theme = createTheme({
     components: {
@@ -74,24 +73,7 @@ const theme = createTheme({
     },
   });
 
-  const theme1 = createTheme({
-    components: {
-        // Name of the component
-            MuiButton: {
-                styleOverrides: {
-                    root: {
-                        borderRadius: '20px',
-                        fontSize: '15px',
-                        fontFamily: '"Inter", sans-serif',
-                        fontWeight: 600,
-                        height: '50px',
-                        width: '400px',
-                        color: '#1488DB',
-                    },
-                }
-            },
-    },
-  });
+  
 
 function LoginPage({children}) {
     return ( 
@@ -104,33 +86,34 @@ function LoginPage({children}) {
                 <span style = {{fontSize:16, color:'#00A699'}}>Motel</span>
             .</p>
 
-            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 15}}>Đăng nhập để tiếp tục</p>
+            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 15}}>Đăng ký tài khoản mới</p>
             
             <Divider variant="middle" theme = {theme}/>
             <ThemeProvider theme={theme}>
-                <TextField id="outlined-basic" label="Nhập Email / Tên đăng nhập"fullWidth color='bkmotel' shrink  />
                 
-                <TextField id="outlined-basic" label="Nhập mật khẩu" type="password" variant="outlined" fullWidth color='bkmotel' />
+                <TextField id="outlined-basic" label="Nhập Email / Tên đăng nhập" fullWidth color='bkmotel' shrink  />
+                
+                <div className = {styles.passworkWrapper}>
             
-            
-            <div className = {styles.loginActionContainer}>
-                <div className = {styles.loginAction}>
-                    <Link href="/resetpassword" underline="none" color='#00A699'> Quên mật khẩu ?</Link>
-                    
-                    <FormControlLabel 
-                        control={<Checkbox defaultChecked color='bkmotel' sx={{ '& .MuiSvgIcon-root': { fontSize: 22 }}}/> } 
-                        label= 'Nhớ tài khoản'
-                    />
+                    <TextField id="outlined-basic" label="Nhập mật khẩu" type="password" variant="outlined"  color='bkmotel' style = {{width: 230}}  />
+                
+                    <TextField id="outlined-basic" label="Xác nhận mật khẩu" type="password" variant="outlined"  color='bkmotel' style = {{width: 230}} />
+
                 </div>
+                
+                <Divider variant="middle" theme = {theme}/>
+                
+                <TextField id="outlined-basic" label="Họ và tên" variant="outlined"  color='bkmotel' fullWidth />
 
-                <Button variant="contained" size='large' color='bkmotel'>ĐĂNG NHẬP</Button>
-            </div>
-            <Divider variant="middle" theme = {theme}/>
+                <TextField id="outlined-basic" label="Số điện thoại" variant="outlined"  color='bkmotel' fullWidth />
 
-            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
+
+
+                <Button style= {{marginLeft: 'auto', marginTop: 10, width: 120}} variant="contained" size='large' color='bkmotel'>ĐĂNG KÝ</Button>
+
+
             </ThemeProvider>
 
-            <Button href="/signup" theme={theme1} className = {styles.logInBTN} variant="outlined"  size='large' >ĐĂNG KÝ TÀI KHOẢN</Button>
         
         </div>
 
