@@ -1,0 +1,57 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--default-horizontal-spacer);
+}
+
+.img {
+    width: 25%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.content {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.address {
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2rem;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 3.2rem;
+}
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    color: #00A699;
+}
+
+.eval {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+    width: 50%;
+    height: 20px;
+}
