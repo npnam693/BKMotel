@@ -1,22 +1,12 @@
-
-body {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 1.6rem;
-    line-height: 1.5;
-    text-rendering: optimizespeed;
-    color: var(--text-color);
-    overflow-y: overlay;
-}
-
-
 .inner{
+    font-family: 'Josefin Sans', sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -345px;
+    margin-top: -330px;
     margin-left: -330px;
     width: 660px;
-    height: 690px;
+    height: 660px;
     border-radius: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
