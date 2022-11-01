@@ -110,10 +110,10 @@ function LoginPage({children}) {
         // console.log(email, password);
         try {
 
-            const { data } = await axios.post(
-                "/api/users/login",
-                { email, password },
-            );
+      const { data } = await axios.post(
+        "/api/users/login",
+        { email, password },
+      );
 
             // console.log(JSON.stringify(data))
 
