@@ -107,7 +107,7 @@ const handleSubmit = async ({email, password}) => {
 
       const { data } = await axios.post(
         "/api/users/login",
-        { email, password },
+        { email, password }
       );
 
       // console.log(JSON.stringify(data));
