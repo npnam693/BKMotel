@@ -144,6 +144,7 @@ function LoginPage({children}) {
                 { email, password },
             );
 
+
             // console.log(JSON.stringify(data))
 
             localStorage.setItem("userInfo", JSON.stringify(data));
