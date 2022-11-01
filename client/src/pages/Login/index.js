@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import  { useNavigate } from 'react-router-dom'
+
 
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
@@ -96,34 +98,36 @@ components: {
 
 
 
-const handleSubmit = async ({email, password}) => {
-    
-    if (!email || !password) {
-      return;
-    }
-
-    // console.log(email, password);
-    try {
-
-      const { data } = await axios.post(
-        "/api/users/login",
-        { email, password },
-      );
-
-      // console.log(JSON.stringify(data));
-      
-      localStorage.setItem("userInfo", JSON.stringify(data));
-    } catch (error) {    
-        console.log("error")
-    }
-  };
-
 function LoginPage({children}) {
+    let navigate = useNavigate();
+    
+    const handleSubmit = async ({email, password}) => {
+        
+        if (!email || !password) {
+        return;
+        }
+
+        // console.log(email, password);
+        try {
+
+            const { data } = await axios.post(
+                "/api/users/login",
+                { email, password },
+            );
+
+            // console.log(JSON.stringify(data))
+
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            navigate('/')
+        } catch (error) {    
+            console.log("error")
+        }
+    };
+
     const [values, setValues] = useState({
         email: "",
         password: "",
     })
-
     return ( 
         <>
             <HeaderOnlyLogo />
@@ -176,7 +180,7 @@ function LoginPage({children}) {
                         variant="contained" 
                         size='large' 
                         color='bkmotel'
-                        onClick={(e) => handleSubmit(values)}
+                        onClick={(e) => {handleSubmit(values)}}
                     >
                         ĐĂNG NHẬP
                     </Button>
@@ -187,7 +191,18 @@ function LoginPage({children}) {
             <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
             </ThemeProvider>
 
-            <Button href="/signup" theme={theme1} className = {styles.logInBTN} variant="outlined"  size='large' >ĐĂNG KÝ TÀI KHOẢN</Button>
+            <Button 
+                theme={theme1} 
+                className = {styles.logInBTN} 
+                variant="outlined"  
+                size='large' 
+                onClick = { () => {
+                        navigate('/signup')
+                    }
+                }
+            >
+                ĐĂNG KÝ TÀI KHOẢN
+            </Button>
             
         </div>
 

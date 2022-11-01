@@ -1,5 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+
+
 import styles from './style.module.css'
 import Search from '../Search'
+
 import { List, PersonCircle , ClipboardPlus, BoxArrowInRight , Heart , Cloud, PencilSquare, BoxArrowLeft} from 'react-bootstrap-icons'
 
 
@@ -44,7 +49,15 @@ const userActivedMenu = [
 ];
 
 function Header() {
-    const UserLogged = false;
+    var UserLogged = false;
+    useEffect(() => {
+
+        const user = JSON.parse(localStorage.getItem("userInfo"));
+        
+        if (user) UserLogged = true;
+    }, []);
+    
+
     return (
         <>
             <div className = {styles.container}></div>

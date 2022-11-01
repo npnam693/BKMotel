@@ -1,9 +1,14 @@
+import axios from "axios";
+import { useState } from "react";
+
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
+
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -73,9 +78,40 @@ const theme = createTheme({
     },
   });
 
-  
+
+
+const handleSubmit = async ({email, password, confirmPassword, name, phoneNumber}) => {
+    var avatar= 'alo'
+    if (!email || !password) {
+      return;
+    }
+
+    // console.log(email, password);
+    try {
+      const { data } = await axios.post(
+        "/api/users",
+        { name, email, password, avatar, phoneNumber  },
+      );
+
+      // console.log(JSON.stringify(data));
+      
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {    
+        console.log("error")
+    }
+};
+
+
 
 function LoginPage({children}) {
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '', 
+        phoneNumber: '',
+    })
+    console.log(values)
     return ( 
         <>
             <HeaderOnlyLogo />
@@ -91,26 +127,69 @@ function LoginPage({children}) {
             <Divider variant="middle" theme = {theme}/>
             <ThemeProvider theme={theme}>
                 
-                <TextField id="outlined-basic" label="Nhập Email / Tên đăng nhập" fullWidth color='bkmotel' shrink  />
+                <TextField 
+                    name="email" 
+                    label="Nhập Email / Tên đăng nhập" 
+                    fullWidth color='bkmotel' 
+                    onChange = {(e) => setValues({...values, [e.target.name]: e.target.value})}
+                    shrink  
+                />
                 
                 <div className = {styles.passworkWrapper}>
             
-                    <TextField id="outlined-basic" label="Nhập mật khẩu" type="password" variant="outlined"  color='bkmotel' style = {{width: 230}}  />
+                    <TextField 
+                        name = "password"
+                        label="Nhập mật khẩu" 
+                        type="password" 
+                        variant="outlined"  
+                        color='bkmotel' 
+                        style = {{width: 230}}
+                        onChange = {(e) => setValues({...values, [e.target.name]: e.target.value})}  
+                    />
                 
-                    <TextField id="outlined-basic" label="Xác nhận mật khẩu" type="password" variant="outlined"  color='bkmotel' style = {{width: 230}} />
+                    <TextField 
+                        name = "confirmPassword" 
+                        label="Xác nhận mật khẩu" 
+                        type="password" 
+                        variant="outlined"  
+                        color='bkmotel' 
+                        style = {{width: 230}}
+                        onChange = {(e) => setValues({...values, [e.target.name]: e.target.value})}
+                    />
 
                 </div>
                 
                 <Divider variant="middle" theme = {theme}/>
                 
-                <TextField id="outlined-basic" label="Họ và tên" variant="outlined"  color='bkmotel' fullWidth />
+                <TextField 
+                    name = "name" 
+                    label="Họ và tên" 
+                    variant="outlined"  
+                    color='bkmotel' 
+                    fullWidth 
+                    onChange = {(e) => setValues({...values, [e.target.name]: e.target.value})}
+                />
 
-                <TextField id="outlined-basic" label="Số điện thoại" variant="outlined"  color='bkmotel' fullWidth />
+                <TextField 
+                    name="phoneNumber" 
+                    label="Số điện thoại" 
+                    variant="outlined"  
+                    color='bkmotel' 
+                    fullWidth
+                    onChange = {(e) => setValues({...values, [e.target.name]: e.target.value})}
+                />
 
+            <Button 
+                style= {{marginLeft: 'auto', marginTop: 10, width: 120}} 
+                variant="contained" 
+                size='large' 
+                color='bkmotel'
+                onClick = { 
+                    () => handleSubmit(values)
+                }
+            >ĐĂNG KÝ
 
-
-                <Button style= {{marginLeft: 'auto', marginTop: 10, width: 120}} variant="contained" size='large' color='bkmotel'>ĐĂNG KÝ</Button>
-
+            </Button>
 
             </ThemeProvider>
 
