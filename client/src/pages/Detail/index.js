@@ -3,7 +3,6 @@ import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Tele
 import { useState } from 'react';
 import ReviewItem from '../../components/Review';
 
-import Grid from '@mui/material/Grid';
 import { Rating  } from '@mui/material';
 
 function DetailPage() {

@@ -1,10 +1,10 @@
 import styles from './style.module.css'
-
+import { Link } from 'react-router-dom';
 import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
 
 function RoomItem() {
     return (
-        <a href = '/detail/id' className = {styles.wrapper}>
+        <Link to = '/detail/id' className = {styles.wrapper}>
             <img className = {styles.img} src="https://media.gq.com/photos/6283ce92bad17dc46fce8234/master/w_2000,h_1333,c_limit/East_Hampton,_New_York.jpg" 
                 alt="Avatar" 
             />
@@ -34,7 +34,7 @@ function RoomItem() {
                     <span className = {styles.areaContent}>10m2</span>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 }
 

@@ -1,6 +1,7 @@
-import { useState } from "react";
 import axios from "axios";
-import  { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import React, { useState, useCallback, Fragment } from 'react';
+import { useSnackbar } from 'notistack';
 
 
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
@@ -59,17 +60,15 @@ const theme = createTheme({
                   },
                 },
               },
-              MuiOutlinedInput: {
+            MuiOutlinedInput: {
                 defaultProps: {
                   sx: {
                     fontSize: "16px",
                     fontFamily: "'Josefin Sans', sans-serif",
-
                   }
                 }
               }
             },
-
     palette: {
       bkmotel: {
         main: '#00A699',
@@ -78,7 +77,7 @@ const theme = createTheme({
   });
 
 const theme1 = createTheme({
-components: {
+    components: {
     // Name of the component
         MuiButton: {
             styleOverrides: {
@@ -96,20 +95,50 @@ components: {
 },
 });
 
+const snackbarMessage = {
+    lackInfo: {
+        variant: 'warning',
+        message: "Bạn phải điền đầy đủ các thông tin cần thiết."
+    },
+    wrongInfo: {
+        variant: 'error', 
+        message: 'Email hoặc mật khẩu không hợp lệ.'
+    },
+    successLogin: {
+        variant: 'success', 
+        message: 'Đăng nhập thành công.'
+    },
+    connectFail: {
+        variant: 'error', 
+        message: 'Không kết nối được đến server.'
+    },
+}
 
 
 function LoginPage({children}) {
     let navigate = useNavigate();
-    
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const showSnackbar = useCallback((detail) => {
+        enqueueSnackbar(snackbarMessage[detail].message, {
+            variant: snackbarMessage[detail].variant,
+            action: (key) => (
+                <Fragment>
+                    <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
+                        Dismiss
+                    </Button>
+                </Fragment>
+            )
+        });
+    }, [enqueueSnackbar, closeSnackbar]);
+
+
     const handleSubmit = async ({email, password}) => {
         
         if (!email || !password) {
-        return;
+            showSnackbar('lackInfo')
+            return
         }
-
-        // console.log(email, password);
         try {
-
             const { data } = await axios.post(
                 "/api/users/login",
                 { email, password },
@@ -118,9 +147,15 @@ function LoginPage({children}) {
             // console.log(JSON.stringify(data))
 
             localStorage.setItem("userInfo", JSON.stringify(data));
+            showSnackbar('successLogin')
+
             navigate('/')
         } catch (error) {    
-            console.log("error")
+            if (error.response.status === 500) {
+                showSnackbar('connectFail')
+            } else {
+                showSnackbar('wrongInfo')
+            }
         }
     };
 

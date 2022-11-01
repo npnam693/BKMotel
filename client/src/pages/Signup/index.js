@@ -1,15 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, Fragment, useCallback } from "react";
+import { useNavigate } from 'react-router-dom'
+
 
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
 
-import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-
+import { Divider, TextField, Button} from '@mui/material';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
+import { useSnackbar } from 'notistack';
+
+import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import { storage } from "../../firebase";
+import { v4 } from "uuid";
+
+
 
 const theme = createTheme({
     components: {
@@ -78,40 +84,108 @@ const theme = createTheme({
     },
   });
 
+const snackbarMessage = {
+    lackInfo: {
+        variant: 'warning',
+        message: "Bạn phải điền đầy đủ các thông tin cần thiết."
+    },
+    wrongConfirmPass: {
+        variant: 'error', 
+        message: 'Mật khẩu và mật khẩu xác thực không giống nhau'
+    },
+    notImg: {
+        variant: 'error', 
+        message: 'Ảnh đại diện tải lên phải là một file ảnh.'
+    },
+    connectFail: {
+        variant: 'error', 
+        message: 'Không kết nối được đến server.'
+    },
 
-
-const handleSubmit = async ({email, password, confirmPassword, name, phoneNumber}) => {
-    var avatar= 'alo'
-    if (!email || !password) {
-      return;
-    }
-
-    // console.log(email, password);
-    try {
-      const { data } = await axios.post(
-        "/api/users",
-        { name, email, password, avatar, phoneNumber  },
-      );
-
-      // console.log(JSON.stringify(data));
-      
-      localStorage.setItem("userInfo", JSON.stringify(data));
-    } catch (error) {    
-        console.log("error")
-    }
-};
+}
 
 
 
-function LoginPage({children}) {
+function SinUpPage({children}) {
+    let navigate = useNavigate()
     const [values, setValues] = useState({
         email: '',
         password: '',
         confirmPassword: '',
         name: '', 
         phoneNumber: '',
+        avatar: '',
     })
-    console.log(values)
+    
+    function uploadFile(imageUpload) {
+        if (imageUpload == null) return;
+        if (imageUpload.type !== "image/jpeg" && imageUpload.type !== "image/png" && imageUpload.type !== "image/webp") {
+            showSnackbar('notImg')
+            return
+        }
+        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                setValues({...values, 'avatar': url})
+            });
+        });
+    };
+
+    const handleSubmit = async ({email, password, confirmPassword, name, phoneNumber, avatar}) => {
+        console.log(email, password, confirmPassword, name, phoneNumber, avatar)
+
+        if (!email || !password || !name || !phoneNumber  || avatar === '') {
+            showSnackbar('lackInfo')
+            return
+        }
+
+        if (confirmPassword !== password) {
+            showSnackbar('wrongConfirmPass')
+            return
+        }
+        
+        try {
+          const { data } = await axios.post(
+            "/api/users",
+            { name, email, password, avatar, phoneNumber},
+          );
+    
+          localStorage.setItem("userInfo", JSON.stringify(data));
+          navigate('/')
+        } catch (error) {    
+            showSnackbarMessage(error.response.data.message)
+        }
+    };
+    
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const showSnackbar = useCallback((detail) => {
+        enqueueSnackbar(snackbarMessage[detail].message, {
+            variant: snackbarMessage[detail].variant,
+            action: (key) => (
+                <Fragment>
+                    <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
+                        Dismiss
+                    </Button>
+                </Fragment>
+            )
+        });
+    }, [enqueueSnackbar, closeSnackbar]);
+
+
+    const showSnackbarMessage = useCallback((message) => {
+        enqueueSnackbar(message, {
+            variant: 'warning',
+            action: (key) => (
+                <Fragment>
+                    <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
+                        Dismiss
+                    </Button>
+                </Fragment>
+            )
+        });
+    }, [enqueueSnackbar, closeSnackbar]);
+
+
     return ( 
         <>
             <HeaderOnlyLogo />
@@ -178,33 +252,43 @@ function LoginPage({children}) {
                     fullWidth
                     onChange = {(e) => setValues({...values, [e.target.name]: e.target.value})}
                 />
+            
+            <div className = {styles.fileArea}>
+                <label for="images">Ảnh đại diện</label>
+                <input 
+                    className={styles.inputFile} 
+                    type="file" 
+                    name="images" 
+                    id="images" 
+                    required="required" 
+                    multiple="multiple"
+                    onChange={(e) =>  uploadFile(e.target.files[0])}
+                />
+                <div className={styles.fileDummy}>
+                    <div className={styles.fileSuccess}>Ảnh đại diện đã được chọn</div>
+                    <div className={styles.fileDefault}>Click để chọn ảnh đại diện của bạn</div>
+                </div>
+            </div>
 
             <Button 
                 style= {{marginLeft: 'auto', marginTop: 10, width: 120}} 
                 variant="contained" 
                 size='large' 
                 color='bkmotel'
-                onClick = { 
-                    () => handleSubmit(values)
-                }
+                onClick = { () => {
+                    handleSubmit(values)
+                }}
             >ĐĂNG KÝ
 
             </Button>
 
             </ThemeProvider>
-
-        
         </div>
-
         
         <Footer />
         
         </>
-
-
-       
-
     );
 }
 
-export default LoginPage;
+export default SinUpPage;

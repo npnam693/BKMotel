@@ -48,3 +48,8 @@ html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
 }
+
+/* .SnackbarItem-variantWarning{
+    font-size:12px !important;
+    padding: 100px !important;
+} */
