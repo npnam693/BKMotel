@@ -78,7 +78,7 @@
     width: 250px;
     background-color: #FFFFFF;
     border-radius: 8px;
-    box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     padding: 3px 0px;
 }
 .menuActions{

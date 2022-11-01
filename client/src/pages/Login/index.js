@@ -1,11 +1,11 @@
+import { useState } from "react";
+
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
-import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import {FormControlLabel, Checkbox, Link, OutlinedInput } from '@mui/material'
+import {FormControlLabel, Checkbox, Link, Divider, TextField, Button} from '@mui/material'
 
 const theme = createTheme({
     components: {
@@ -74,26 +74,31 @@ const theme = createTheme({
     },
   });
 
-  const theme1 = createTheme({
-    components: {
-        // Name of the component
-            MuiButton: {
-                styleOverrides: {
-                    root: {
-                        borderRadius: '20px',
-                        fontSize: '15px',
-                        fontFamily: '"Inter", sans-serif',
-                        fontWeight: 600,
-                        height: '50px',
-                        width: '400px',
-                        color: '#1488DB',
-                    },
-                }
-            },
-    },
-  });
+const theme1 = createTheme({
+components: {
+    // Name of the component
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '20px',
+                    fontSize: '15px',
+                    fontFamily: '"Inter", sans-serif',
+                    fontWeight: 600,
+                    height: '50px',
+                    width: '400px',
+                    color: '#1488DB',
+                },
+            }
+        },
+},
+});
 
 function LoginPage({children}) {
+    const [values, setValues] = useState({
+        email: "",
+        password: "",
+    })
+    console.log(values)
     return ( 
         <>
             <HeaderOnlyLogo />
@@ -107,31 +112,52 @@ function LoginPage({children}) {
             <p style = {{fontSize:20, fontWeight: 500, marginBottom: 15}}>Đăng nhập để tiếp tục</p>
             
             <Divider variant="middle" theme = {theme}/>
-            <ThemeProvider theme={theme}>
-                <TextField id="outlined-basic" label="Nhập Email / Tên đăng nhập"fullWidth color='bkmotel' shrink  />
-                
-                <TextField id="outlined-basic" label="Nhập mật khẩu" type="password" variant="outlined" fullWidth color='bkmotel' />
             
-            
-            <div className = {styles.loginActionContainer}>
-                <div className = {styles.loginAction}>
-                    <Link href="/resetpassword" underline="none" color='#00A699'> Quên mật khẩu ?</Link>
-                    
-                    <FormControlLabel 
-                        control={<Checkbox defaultChecked color='bkmotel' sx={{ '& .MuiSvgIcon-root': { fontSize: 22 }}}/> } 
-                        label= 'Nhớ tài khoản'
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <ThemeProvider theme={theme}>
+                    <TextField 
+                        name = "email"
+                        label="Nhập Email / Tên đăng nhập" 
+                        fullWidth 
+                        color='bkmotel' 
+                        onChange = { e => {
+                            setValues({...values, [e.target.name]: e.target.value})
+                        }}    
                     />
+                    
+                    <TextField 
+                        name = "password"
+                        label="Nhập mật khẩu" 
+                        type="password" 
+                        variant="outlined" 
+                        fullWidth 
+                        color='bkmotel' 
+                        onChange = { e => {
+                            setValues({...values, [e.target.name]: e.target.value})
+                        }}    
+                    />
+                
+                
+                <div className = {styles.loginActionContainer}>
+                    <div className = {styles.loginAction}>
+                        <Link href="/resetpassword" underline="none" color='#00A699'> Quên mật khẩu ?</Link>
+                        
+                        <FormControlLabel 
+                            control={<Checkbox defaultChecked color='bkmotel' sx={{ '& .MuiSvgIcon-root': { fontSize: 22 }}}/> } 
+                            label= 'Nhớ tài khoản'
+                        />
+                    </div>
+
+                    <Button variant="contained" size='large' color='bkmotel'>ĐĂNG NHẬP</Button>
                 </div>
+                <Divider variant="middle" theme = {theme}/>
 
-                <Button variant="contained" size='large' color='bkmotel'>ĐĂNG NHẬP</Button>
-            </div>
-            <Divider variant="middle" theme = {theme}/>
+                <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
+                </ThemeProvider>
 
-            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
-            </ThemeProvider>
-
-            <Button href="/signup" theme={theme1} className = {styles.logInBTN} variant="outlined"  size='large' >ĐĂNG KÝ TÀI KHOẢN</Button>
-        
+                <Button href="/signup" theme={theme1} className = {styles.logInBTN} variant="outlined"  size='large' >ĐĂNG KÝ TÀI KHOẢN</Button>
+            
+            </form>
         </div>
 
         

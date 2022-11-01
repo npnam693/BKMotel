@@ -1,14 +1,16 @@
 import styles from './style.module.css';
 import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Telephone, Star} from 'react-bootstrap-icons';
 import { useState } from 'react';
-
 import ReviewItem from '../../components/Review';
 
-
+import Grid from '@mui/material/Grid';
 import { Rating  } from '@mui/material';
 
 function DetailPage() {
     const [starValue, setStarValue] = useState(0);
+    
+    
+    
     return ( 
         <div className = {styles.wrapper}>
             <div className = {styles.inner}> 
@@ -40,6 +42,7 @@ function DetailPage() {
                     </div>
                 </div>
                 <div className = {styles.imageContainer}>
+
                     <img className = {styles.imgCover} src="https://media.cntraveler.com/photos/5e18e330ac1cea00092e91d2/master/pass/airbnb-beach-dominican-6939168.jpeg" 
                         alt="anh" 
                     /> 
@@ -209,8 +212,7 @@ function DetailPage() {
                     </div>
                     <div className = {styles.review}>
                         <div className = {styles.reviewInput}>
-                            <textarea class={styles.reviewText} rows="4" cols="50" max>
-                            At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+                            <textarea class={styles.reviewText} rows="4" cols="50" max placeholder='Nhập đánh giá tại đây ... '>
                             </textarea>
                             <div className = {styles.rowRatingInput}>
                                 <Rating 
@@ -243,5 +245,7 @@ function DetailPage() {
     
         );
 }
+
+
 
 export default DetailPage;
