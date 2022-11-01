@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
@@ -93,12 +94,36 @@ components: {
 },
 });
 
+
+
+const handleSubmit = async ({email, password}) => {
+    
+    if (!email || !password) {
+      return;
+    }
+
+    // console.log(email, password);
+    try {
+
+      const { data } = await axios.post(
+        "/api/users/login",
+        { email, password },
+      );
+
+      // console.log(JSON.stringify(data));
+      
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {    
+        console.log("error")
+    }
+  };
+
 function LoginPage({children}) {
     const [values, setValues] = useState({
         email: "",
         password: "",
     })
-    console.log(values)
+
     return ( 
         <>
             <HeaderOnlyLogo />
@@ -112,32 +137,30 @@ function LoginPage({children}) {
             <p style = {{fontSize:20, fontWeight: 500, marginBottom: 15}}>Đăng nhập để tiếp tục</p>
             
             <Divider variant="middle" theme = {theme}/>
+            <ThemeProvider theme={theme}>
             
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <ThemeProvider theme={theme}>
-                    <TextField 
-                        name = "email"
-                        label="Nhập Email / Tên đăng nhập" 
-                        fullWidth 
-                        color='bkmotel' 
-                        onChange = { e => {
-                            setValues({...values, [e.target.name]: e.target.value})
-                        }}    
-                    />
-                    
-                    <TextField 
-                        name = "password"
-                        label="Nhập mật khẩu" 
-                        type="password" 
-                        variant="outlined" 
-                        fullWidth 
-                        color='bkmotel' 
-                        onChange = { e => {
-                            setValues({...values, [e.target.name]: e.target.value})
-                        }}    
-                    />
-                
-                
+            
+                <TextField 
+                    name = "email"
+                    label="Nhập Email / Tên đăng nhập" 
+                    fullWidth 
+                    color='bkmotel' 
+                    onChange = { e => {
+                        setValues({...values, [e.target.name]: e.target.value})
+                    }}    
+                />
+                <TextField 
+                    name = "password"
+                    label="Nhập mật khẩu" 
+                    type="password" 
+                    variant="outlined" 
+                    fullWidth 
+                    color='bkmotel' 
+                    onChange = { e => {
+                        setValues({...values, [e.target.name]: e.target.value})
+                    }}    
+                />
+        
                 <div className = {styles.loginActionContainer}>
                     <div className = {styles.loginAction}>
                         <Link href="/resetpassword" underline="none" color='#00A699'> Quên mật khẩu ?</Link>
@@ -148,16 +171,24 @@ function LoginPage({children}) {
                         />
                     </div>
 
-                    <Button variant="contained" size='large' color='bkmotel'>ĐĂNG NHẬP</Button>
+                    <Button 
+                        type = 'submit'
+                        variant="contained" 
+                        size='large' 
+                        color='bkmotel'
+                        onClick={(e) => handleSubmit(values)}
+                    >
+                        ĐĂNG NHẬP
+                    </Button>
                 </div>
-                <Divider variant="middle" theme = {theme}/>
+                    
+            <Divider variant="middle" theme = {theme}/>
 
-                <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
-                </ThemeProvider>
+            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
+            </ThemeProvider>
 
-                <Button href="/signup" theme={theme1} className = {styles.logInBTN} variant="outlined"  size='large' >ĐĂNG KÝ TÀI KHOẢN</Button>
+            <Button href="/signup" theme={theme1} className = {styles.logInBTN} variant="outlined"  size='large' >ĐĂNG KÝ TÀI KHOẢN</Button>
             
-            </form>
         </div>
 
         
