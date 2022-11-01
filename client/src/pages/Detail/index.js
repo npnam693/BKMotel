@@ -1,10 +1,16 @@
 import styles from './style.module.css';
-import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Telephone} from 'react-bootstrap-icons';
+import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Telephone, Star} from 'react-bootstrap-icons';
+import { useState } from 'react';
+import ReviewItem from '../../components/Review';
 
-import StarRating from '../../components/StarRating'
-
+import Grid from '@mui/material/Grid';
+import { Rating  } from '@mui/material';
 
 function DetailPage() {
+    const [starValue, setStarValue] = useState(0);
+    
+    
+    
     return ( 
         <div className = {styles.wrapper}>
             <div className = {styles.inner}> 
@@ -36,6 +42,7 @@ function DetailPage() {
                     </div>
                 </div>
                 <div className = {styles.imageContainer}>
+
                     <img className = {styles.imgCover} src="https://media.cntraveler.com/photos/5e18e330ac1cea00092e91d2/master/pass/airbnb-beach-dominican-6939168.jpeg" 
                         alt="anh" 
                     /> 
@@ -152,19 +159,93 @@ function DetailPage() {
                                 <p>4.9</p>
                                 <p>260 đánh giá</p>                       
                         </div>
-                        
-                        <StarRating className = {styles.ratingRow} number = {5} size = {18} value = {90}/>
-                        <StarRating className = {styles.ratingRow} number = {4} size = {18} value = {90}/>
-                        <StarRating className = {styles.ratingRow} number = {3} size = {18} value = {90}/>
-                        <StarRating className = {styles.ratingRow} number = {2} size = {18} value = {90}/>
-                        <StarRating className = {styles.ratingRow} number = {1} size = {18} value = {90}/>
+                        <div className = {styles.rowRating}>
+                            <Rating 
+                                icon={<StarFill size={20} style={{marginRight: 5}}/>} 
+                                emptyIcon={<Star size={20} style={{marginRight: 5}}/>} 
+                                sx={{color: "#00A699"}}
+                                value={5}
+                                readOnly
+                            />
+                            <p>100</p>
+                        </div>
+                        <div className = {styles.rowRating}>
+                            <Rating 
+                                icon={<StarFill size={20} style={{marginRight: 5}}/>} 
+                                emptyIcon={<Star size={20} style={{marginRight: 5}}/>} 
+                                sx={{color: "#00A699"}}
+                                value={4}
+                                readOnly
+                            />
+                            <p>100</p>
+                        </div>
+                        <div className = {styles.rowRating}>
+                            <Rating 
+                                icon={<StarFill size={20} style={{marginRight: 5}}/>} 
+                                emptyIcon={<Star size={20} style={{marginRight: 5}}/>} 
+                                sx={{color: "#00A699"}}
+                                value={3}
+                                readOnly
+                            />
+                            <p>100</p>
+                        </div>
+                        <div className = {styles.rowRating}>
+                            <Rating 
+                                icon={<StarFill size={20} style={{marginRight: 5}}/>} 
+                                emptyIcon={<Star size={20} style={{marginRight: 5}}/>} 
+                                sx={{color: "#00A699"}}
+                                value={2}
+                                readOnly
+                            />
+                            <p>100</p>
+                        </div>
+                        <div className = {styles.rowRating}>
+                            <Rating 
+                                icon={<StarFill size={20} style={{marginRight: 5}}/>} 
+                                emptyIcon={<Star size={20} style={{marginRight: 5}}/>} 
+                                sx={{color: "#00A699"}}
+                                value={1}
+                                readOnly
+                            />
+                            <p>100</p>
+                        </div>
                     </div>
- 
+                    <div className = {styles.review}>
+                        <div className = {styles.reviewInput}>
+                            <textarea class={styles.reviewText} rows="4" cols="50" max placeholder='Nhập đánh giá tại đây ... '>
+                            </textarea>
+                            <div className = {styles.rowRatingInput}>
+                                <Rating 
+                                    icon={<StarFill size={32} style={{marginRight: 5}}/>} 
+                                    emptyIcon={<Star size={32} style={{marginRight: 5}}/>} 
+                                    sx={{color: "#00A699"}}
+                                    value={starValue}
+                                    onChange={(event, newValue) => {
+                                        setStarValue(newValue);
+                                    }}
+                                />
+                                <button className = {styles.submitReviewBtn}>Gửi đánh giá </button>
+                            </div>
+                        </div>
+                        
+                        <div className = {styles.userReviews}>
+                            <ReviewItem />
+                            <ReviewItem />
+                            <ReviewItem />
+                            <ReviewItem />
+
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div> 
     
         );
 }
+
+
 
 export default DetailPage;
