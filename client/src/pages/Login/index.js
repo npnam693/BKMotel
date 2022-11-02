@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
-import React, { useState, useCallback, Fragment } from 'react';
+import { useState } from 'react';
 import { useSnackbar } from 'notistack';
-
 
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
@@ -82,60 +81,34 @@ const theme1 = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderRadius: '20px',
-                    fontSize: '15px',
-                    fontFamily: '"Inter", sans-serif',
-                    fontWeight: 600,
-                    height: '50px',
-                    width: '400px',
-                    color: '#1488DB',
+                    borderRadius: '20px',fontSize: '15px',fontFamily: '"Inter", sans-serif',
+                    fontWeight: 600,height: '50px',width: '400px',color: '#1488DB',
                 },
             }
         },
 },
 });
 
-const snackbarMessage = {
-    lackInfo: {
-        variant: 'warning',
-        message: "Bạn phải điền đầy đủ các thông tin cần thiết."
-    },
-    wrongInfo: {
-        variant: 'error', 
-        message: 'Email hoặc mật khẩu không hợp lệ.'
-    },
-    successLogin: {
-        variant: 'success', 
-        message: 'Đăng nhập thành công.'
-    },
-    connectFail: {
-        variant: 'error', 
-        message: 'Không kết nối được đến server.'
-    },
-}
-
 
 function LoginPage({children}) {
     let navigate = useNavigate();
+    
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const showSnackbar = useCallback((detail) => {
-        enqueueSnackbar(snackbarMessage[detail].message, {
-            variant: snackbarMessage[detail].variant,
+    const toast = (message, variantType) => {
+        enqueueSnackbar(message, {
+            variant: variantType,
             action: (key) => (
-                <Fragment>
-                    <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
-                        Dismiss
-                    </Button>
-                </Fragment>
+                <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
+                    Dismiss
+                </Button>
             )
         });
-    }, [enqueueSnackbar, closeSnackbar]);
-
+    };
 
     const handleSubmit = async ({email, password}) => {
         
         if (!email || !password) {
-            showSnackbar('lackInfo')
+            toast('Bạn phải điền đầy đủ các thông tin cần thiết.', 'warning')
             return
         }
         try {
@@ -144,19 +117,15 @@ function LoginPage({children}) {
                 { email, password },
             );
 
-
-            // console.log(JSON.stringify(data))
-
             localStorage.setItem("userInfo", JSON.stringify(data));
-            showSnackbar('successLogin')
-
+            
+            toast('Đăng nhập thành công.', 'success')
             navigate('/')
-        } catch (error) {    
-            if (error.response.status === 500) {
-                showSnackbar('connectFail')
-            } else {
-                showSnackbar('wrongInfo')
-            }
+        }  catch (error) {    
+            if (error.response.status === 500) 
+                toast('Không kết nối được đến server.', 'error')
+            else 
+                toast('Email hoặc mật khẩu không hợp lệ.', 'error')    
         }
     };
 
@@ -224,7 +193,7 @@ function LoginPage({children}) {
                     
             <Divider variant="middle" theme = {theme}/>
 
-            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản </p>
+            <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản ?</p>
             </ThemeProvider>
 
             <Button 
@@ -232,10 +201,7 @@ function LoginPage({children}) {
                 className = {styles.logInBTN} 
                 variant="outlined"  
                 size='large' 
-                onClick = { () => {
-                        navigate('/signup')
-                    }
-                }
+                onClick = { () => navigate('/signup') }
             >
                 ĐĂNG KÝ TÀI KHOẢN
             </Button>

@@ -7,8 +7,7 @@ import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
 
-import { Divider, TextField, Button} from '@mui/material';
-import { createTheme, ThemeProvider  } from '@mui/material/styles';
+import { Divider, TextField, Button, CircularProgress, createTheme, ThemeProvider } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
@@ -108,6 +107,7 @@ const snackbarMessage = {
 
 function SinUpPage({children}) {
     let navigate = useNavigate()
+    const [isUpload, setUpload] = useState(false);
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -117,16 +117,21 @@ function SinUpPage({children}) {
         avatar: '',
     })
     
-    function uploadFile(imageUpload) {
+    function uploadFile(imageUpload, progessRef) {
+        setUpload(true)
         if (imageUpload == null) return;
         if (imageUpload.type !== "image/jpeg" && imageUpload.type !== "image/png" && imageUpload.type !== "image/webp") {
             showSnackbar('notImg')
+            setUpload(false)
             return
         }
+
         const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+        
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 setValues({...values, 'avatar': url})
+                setUpload(false)
             });
         });
     };
@@ -267,6 +272,10 @@ function SinUpPage({children}) {
                 <div className={styles.fileDummy}>
                     <div className={styles.fileSuccess}>Ảnh đại diện đã được chọn</div>
                     <div className={styles.fileDefault}>Click để chọn ảnh đại diện của bạn</div>
+                    {isUpload ? 
+                        <div>
+                        <CircularProgress className={styles.iconProgess} /> 
+                        </div> : null}
                 </div>
             </div>
 
@@ -279,7 +288,6 @@ function SinUpPage({children}) {
                     handleSubmit(values)
                 }}
             >ĐĂNG KÝ
-
             </Button>
 
             </ThemeProvider>

@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
+import {Menu, MenuItem, Divider, Button} from '@mui/material';
+import { useSnackbar } from 'notistack';
+
 import { List, PersonCircle , ClipboardPlus, BoxArrowInRight , Heart , Cloud, PencilSquare, BoxArrowLeft} from 'react-bootstrap-icons'
 import styles from './style.module.css';
 import { Link } from 'react-router-dom';
 
 const userMenu = [
     {
-        icon: <BoxArrowInRight size={24} style={{margin: "-4px 2px 0px -4px"}}/>,
+        icon: <BoxArrowInRight size={24} style={{margin: "-4px 0px 0px -5px"}}/>,
         title: 'Đăng nhập',
         to: '/login',
     },
@@ -41,13 +41,13 @@ const userActivedMenu = [
         divider: true,
         action: function() {
             localStorage.clear();
-            window.location.reload(false);
-
+            
         },
     },
 ];
 
-function AccountMenu({userLoggedIn}) {
+function AccountMenu({userInfo}) {
+    const [currentUser, setCurrentUser] = React.useState(userInfo)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -56,15 +56,43 @@ function AccountMenu({userLoggedIn}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const toast = (message, variantType) => {
+        enqueueSnackbar(message, {
+            variant: variantType,
+            action: (key) => (
+                <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
+                    Dismiss
+                </Button>
+            )
+        });
+    };
+
+
     return (
         <React.Fragment>    
-            <button 
-                className={styles.avatarOption} 
-                onClick={handleClick} 
-                onMouseOver={handleClick} >
-                                <List color="currentColor" size={18} />
-                                <PersonCircle color="#A1A1A1" size={24} />
-            </button>    
+            {
+                (currentUser ?
+                    <button 
+                        className={styles.avatarOption} 
+                        onClick={handleClick} 
+                        onMouseOver={handleClick} 
+                    >
+                        <List color="currentColor" size={18} />
+                        <img className = {styles.avatarUser} src={currentUser.avatar} alt="alt"/>
+                    </button> 
+                    :
+                    <button 
+                        className={styles.avatarOption} 
+                        onClick={handleClick} 
+                        onMouseOver={handleClick} 
+                    >
+                        <List color="currentColor" size={18} />
+                        <PersonCircle color="#A1A1A1" size={24} />
+                    </button>    
+                )
+            }
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -101,13 +129,15 @@ function AccountMenu({userLoggedIn}) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-            {(userLoggedIn ? userActivedMenu : userMenu).map((item, index) => {
+            {(currentUser ? userActivedMenu : userMenu).map((item, index) => {
                 return (
                         <Link 
-                        onClick = { () => {
-                                if (item.action) {
-                                    item.action();
-                                }
+                            onClick = { () => {
+                                    if (item.action) {
+                                        item.action();
+                                        setCurrentUser(null)
+                                        toast("Đăng xuất thành công.", "success")
+                                    }
                             }}
                             to={item.to} 
                             className={styles.menuItemWrapper}

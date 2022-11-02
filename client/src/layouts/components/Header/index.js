@@ -10,30 +10,23 @@ import { UserState } from "../../../Context/UserProvider";
 
 function Header() {
     const { userInfo } = UserState();
-    console.log(userInfo)
+    var curentUserInfo = userInfo()
 
-    const [userLogIn, setUserLogIn] = useState(false)
-
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("userInfo"));
-        if (user) setUserLogIn(true)
-    }, [userLogIn]);
     
     return (
         <>
             <div className = {styles.container}></div>
             <header className = {styles.wrapper}>
                 <div className = {styles.inner}>
-                    <Link to = '' className = {styles.logo}>
+                    <Link to = '/' className = {styles.logo}>
                         <span className = {styles.bklogo}>BK</span>
                         Motel
                     </Link>
                     <Search />
                     <div className = {styles.action}>
                         <Link to = '/' className = {styles.uploadBtn}>ĐĂNG BÀI</Link>
-                        <Menu userLoggedIn = {userLogIn}/>        
+                        <Menu  userInfo = {curentUserInfo}/>        
                     </div>  
-                
                 </div>
             </header>
         </>

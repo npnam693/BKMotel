@@ -1,23 +1,25 @@
 .wrapper {
-    height: 315px;
-    width: 323px;
+    width: 320px;
     text-decoration: none;
     color: #000000;
 
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;    
-    border-radius: 6px;
+    border-radius: 10px;
     margin-bottom: var(--default-horizontal-spacer);
 }
+
+.wrapper:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;    
+}
 .img{
-    width: 323px;
-    height: 177px;
+    width: 320px;
+    height: 280px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 .content{
     display: flex;
     flex-direction: column;
-    padding: 0 8px;
+    padding: 0 10px;
 }
 .contentAction{
     display: flex;
@@ -39,7 +41,7 @@
 .location, .cost, .area {
     display:flex;
     align-items: center;
-    margin: 3px 0px 9px 3px;
+    margin: 0px 0px 9px 3px;
 }
 
 
@@ -73,17 +75,23 @@
 .locationContent{
     padding-left: 10px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 21px;
     /* identical to box height, or 150% */
     color: #000000;
+    font-family: var(--font-Josefin);
+    color: var(--text-color)
+
 }
 
 .costContent,
 .areaContent{
     padding-left: 10px;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 21px;
     color: #060606;
+    font-family: var(--font-Josefin);
+    color: var(--text-color)
+
 }

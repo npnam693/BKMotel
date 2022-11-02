@@ -20,7 +20,6 @@ function App() {
     <StyledSnackbarProvider maxSnack={3}  anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}>
       <Router>
           <Routes>
-
             {
               publicRoutes.map((route, idx) => {
                 let Layout = route.layout
@@ -28,7 +27,6 @@ function App() {
                 if(!Layout) Layout = Fragment
                 return (<Route key={idx} path={route.path} element={<Layout><Page /></Layout>}/>)
             })}
-
           </Routes>
       </Router>
     </StyledSnackbarProvider>

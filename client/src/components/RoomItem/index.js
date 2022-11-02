@@ -5,7 +5,7 @@ import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
 function RoomItem() {
     return (
         <Link to = '/detail/id' className = {styles.wrapper}>
-            <img className = {styles.img} src="https://media.gq.com/photos/6283ce92bad17dc46fce8234/master/w_2000,h_1333,c_limit/East_Hampton,_New_York.jpg" 
+            <img className = {styles.img} src="https://www.territorysupply.com/wp-content/uploads/2020/11/best-airbnbs-oklahoma.jpg" 
                 alt="Avatar" 
             />
                      
@@ -22,15 +22,15 @@ function RoomItem() {
                     </div>
                 </div>
                 <div className = {styles.location}>
-                    <GeoAlt color="#000000" size={18} />
+                    <GeoAlt color="#000000" size={18}  style={{marginTop: -3}}/>
                     <span className = {styles.locationContent}>Thủ Đức, TP.HCM</span>
                 </div>
                 <div className = {styles.cost}>
-                    <Cash color="#000000" size={18} />
+                    <Cash color="#000000" size={18} style={{marginTop: -4}}/>
                     <span className = {styles.costContent}>500.000 / tháng </span>
                 </div>
                 <div className = {styles.area}>
-                    <House color="#000000" size={18} />
+                    <House color="#000000" size={18} style={{marginTop: -4}}/>
                     <span className = {styles.areaContent}>10m2</span>
                 </div>
             </div>
