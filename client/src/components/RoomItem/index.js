@@ -17,7 +17,7 @@ function RoomItem() {
                     </div>
 
                     <div className = {styles.rating}> 
-                        <StarFill color="#00A699" size={9} />
+                        <StarFill color="#00A699" size={10} style={{marginTop: -2}} />
                         <p className={styles.ratingPoint}>4.9</p>
                     </div>
                 </div>

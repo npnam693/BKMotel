@@ -8,7 +8,7 @@
 }
 
 .wrapper:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;    
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 .img{
     width: 320px;
@@ -70,13 +70,13 @@
     font-weight: 700;
     font-size: 12px;
     color: #484848;
-    padding-left: 2px;
+    padding-left: 4px;
 }
 .locationContent{
     padding-left: 10px;
     font-weight: 600;
     font-size: 16px;
-    line-height: 21px;
+    line-height: 18px;
     /* identical to box height, or 150% */
     color: #000000;
     font-family: var(--font-Josefin);

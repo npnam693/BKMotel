@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import UserProvider from './Context/UserProvider';
 
 import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(< App />);
+root.render(
+    <UserProvider>
+        < App />
+    </UserProvider>
+);

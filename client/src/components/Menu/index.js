@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const userMenu = [
     {
-        icon: <BoxArrowInRight size={24} style={{margin: "-4px 0px 0px -5px"}}/>,
+        icon: <BoxArrowInRight size={23} style={{margin: "-4px 1px 0px -5px"}}/>,
         title: 'Đăng nhập',
         to: '/login',
     },
@@ -22,17 +22,17 @@ const userActivedMenu = [
     {
         icon: <Heart />,
         title: 'Danh sách quan tâm',
-        to: '/myfavourites',
+        to: '/favourite',
     },
     {
         icon: <Cloud />,
         title: 'Bài đăng của tôi',
-        to: '/myrooms',
+        to: '/profile',
     },
     {
         icon: <PencilSquare />,
         title: 'Đánh giá của tôi',
-        to: '/myreviews',
+        to: '/review',
     },
     {
         icon: <BoxArrowLeft size={24} style={{margin: "-4px 2px 0px -4px"}} />,
