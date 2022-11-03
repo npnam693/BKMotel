@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
@@ -8,7 +8,7 @@ import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
 
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import {FormControlLabel, Checkbox, Link, Divider, TextField, Button} from '@mui/material'
+import {FormControlLabel, Checkbox, Divider, TextField, Button} from '@mui/material'
 
 const theme = createTheme({
     components: {
@@ -172,7 +172,7 @@ function LoginPage({children}) {
         
                 <div className = {styles.loginActionContainer}>
                     <div className = {styles.loginAction}>
-                        <Link href="/resetpassword" underline="none" color='#00A699'> Quên mật khẩu ?</Link>
+                        <Link to="/resetpassword" underline="none" color='#00A699'>Quên mật khẩu ?</Link>
                         
                         <FormControlLabel 
                             control={<Checkbox defaultChecked color='bkmotel' sx={{ '& .MuiSvgIcon-root': { fontSize: 22 }}}/> } 

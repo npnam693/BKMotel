@@ -1,6 +1,9 @@
 import styles from './style.module.css'
 import { Link } from 'react-router-dom';
 import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
+import Button from '@mui/material/Button';
+
+
 
 function RoomItem() {
     return (
@@ -12,8 +15,21 @@ function RoomItem() {
             <div className={styles.content}>
                 <div className = {styles.contentAction}>
                     <div className = {styles.likeWrapper}>
-                        <button className = {styles.likeBtn}>YÊU THÍCH</button>
-                        <p className = {styles.province}> TPHCM </p>
+                        <Button  
+                            variant="outlined" 
+                            color='info'
+                            sx={{
+                                display: 'inline',
+                                fontWeight: 'bold',
+                                mx: 0.5,
+                                fontSize: 14,
+                                padding: '1px 10px',
+                              }}
+                            onClick = {(e) => e.preventDefault()}
+                        >
+                            Yêu thích
+                        </Button>
+                        <p className = {styles.province} > TPHCM </p>
                     </div>
 
                     <div className = {styles.rating}> 

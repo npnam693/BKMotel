@@ -61,4 +61,41 @@
     margin-right: 32px;
 }
 
+.loginBtn{
+    box-sizing: border-box;
+    padding: 10px 30px;
+    background: #00A699;
+    border-radius: var(--button-border-radius);
+    text-decoration: none;
 
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-right: 32px;
+    
+}
+
+.modalUpload{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-shadow: 24;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.modalUploadContent{
+    font-family: var(--font-Josefin);
+}
+
+.modalUploadContent{
+    margin: 30px 0px 5px 0px;
+}

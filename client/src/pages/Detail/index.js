@@ -8,7 +8,7 @@ import { Rating  } from '@mui/material';
 function DetailPage() {
     const [starValue, setStarValue] = useState(0);
     
-    
+
     
     return ( 
         <div className = {styles.wrapper}>

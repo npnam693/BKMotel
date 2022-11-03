@@ -139,6 +139,7 @@ function AccountMenu({userInfo}) {
                                         toast("Đăng xuất thành công.", "success")
                                     }
                             }}
+                            key ={index}
                             to={item.to} 
                             className={styles.menuItemWrapper}
                             >

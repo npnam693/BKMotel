@@ -38,13 +38,11 @@ function App() {
                 let Layout = route.layout
                 const Page = route.component
                 if(!Layout) Layout = Fragment
-                console.log('alo')
                 if (curentUserInfo != null) {
                   return (<Route key={idx} path={route.path} element={<Layout><Page /></Layout>}/>)
                 }
                 else 
-
-                  return (<Route path={route.path}  element={<Navigate replace to="/login" />} />)
+                  return (<Route key = {idx + publicRoutes.length }path={route.path}  element={<Navigate replace to="/login" />} />)
               })
             }
           </Routes>
