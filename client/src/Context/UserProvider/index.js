@@ -1,15 +1,19 @@
-import React, { createContext, useContext} from "react";
+import React, { createContext, useContext, useState, useEffect} from "react";
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-    const userInfo = () => JSON.parse(localStorage.getItem("userInfo"))
+    const [userInfo, setUserInfo] = useState()
+    
+    useEffect(() => {
+      setUserInfo(JSON.parse(localStorage.getItem("userInfo")))
+    }, [])
 
     return (
       <UserContext.Provider
         value={{
             userInfo,
-            // userReview,
+            setUserInfo,
             // userFavourite,
         }}
       >

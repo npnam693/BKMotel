@@ -13,6 +13,7 @@ const privateRoutes = [
     { path: '/favourite', component: FavouritePage, layout: DefaultLayout },
     { path: '/profile', component: ProfilePage, layout: DefaultLayout },
     { path: '/review', component: ProfilePage, layout: DefaultLayout },
+    { path: '/upload', component: ProfilePage, layout: DefaultLayout },
 ];
 
 export { publicRoutes, privateRoutes };

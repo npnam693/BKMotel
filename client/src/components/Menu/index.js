@@ -1,6 +1,8 @@
-import * as React from 'react';
+import { useState, } from 'react';
 import {Menu, MenuItem, Divider, Button} from '@mui/material';
 import { useSnackbar } from 'notistack';
+import { UserState } from "../../Context/UserProvider";
+
 
 import { List, PersonCircle , ClipboardPlus, BoxArrowInRight , Heart , Cloud, PencilSquare, BoxArrowLeft} from 'react-bootstrap-icons'
 import styles from './style.module.css';
@@ -41,14 +43,14 @@ const userActivedMenu = [
         divider: true,
         action: function() {
             localStorage.clear();
-            
         },
     },
 ];
 
-function AccountMenu({userInfo}) {
-    const [currentUser, setCurrentUser] = React.useState(userInfo)
-    const [anchorEl, setAnchorEl] = React.useState(null);
+function AccountMenu() {
+    const { userInfo, setUserInfo } = UserState();
+
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -71,16 +73,16 @@ function AccountMenu({userInfo}) {
 
 
     return (
-        <React.Fragment>    
+        <>    
             {
-                (currentUser ?
+                (userInfo ?
                     <button 
                         className={styles.avatarOption} 
                         onClick={handleClick} 
                         onMouseOver={handleClick} 
                     >
                         <List color="currentColor" size={18} />
-                        <img className = {styles.avatarUser} src={currentUser.avatar} alt="alt"/>
+                        <img className = {styles.avatarUser} src={userInfo.avatar} alt="alt"/>
                     </button> 
                     :
                     <button 
@@ -129,13 +131,13 @@ function AccountMenu({userInfo}) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-            {(currentUser ? userActivedMenu : userMenu).map((item, index) => {
+            {(userInfo ? userActivedMenu : userMenu).map((item, index) => {
                 return (
                         <Link 
                             onClick = { () => {
                                     if (item.action) {
+                                        setUserInfo(null)
                                         item.action();
-                                        setCurrentUser(null)
                                         toast("Đăng xuất thành công.", "success")
                                     }
                             }}
@@ -157,7 +159,7 @@ function AccountMenu({userInfo}) {
                 })
             }
             </Menu>
-        </React.Fragment>
+        </>
   );
 }
 

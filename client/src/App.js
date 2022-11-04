@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { privateRoutes, publicRoutes} from './routes'
 import { SnackbarProvider } from 'notistack';
@@ -17,10 +17,7 @@ const StyledSnackbarProvider = styled(SnackbarProvider)`
 
 function App() {
   const { userInfo } = UserState();
-  const curentUserInfo = userInfo()
-  console.log(curentUserInfo)
   
-
   return (
     <StyledSnackbarProvider maxSnack={3}  anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}>
       <Router>
@@ -38,7 +35,7 @@ function App() {
                 let Layout = route.layout
                 const Page = route.component
                 if(!Layout) Layout = Fragment
-                if (curentUserInfo != null) {
+                if (userInfo != null) {
                   return (<Route key={idx} path={route.path} element={<Layout><Page /></Layout>}/>)
                 }
                 else 

@@ -2,14 +2,13 @@ import axios from "axios";
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
-
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
 
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
 import {FormControlLabel, Checkbox, Divider, TextField, Button} from '@mui/material'
-
+import {UserState} from '../../Context/UserProvider'
 const theme = createTheme({
     components: {
         // Name of the component
@@ -91,6 +90,8 @@ const theme1 = createTheme({
 
 
 function LoginPage({children}) {
+    const { userInfo, setUserInfo } = UserState();
+
     let navigate = useNavigate();
     
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -118,7 +119,7 @@ function LoginPage({children}) {
             );
 
             localStorage.setItem("userInfo", JSON.stringify(data));
-            
+            setUserInfo(JSON.parse(localStorage.getItem("userInfo")))
             toast('Đăng nhập thành công.', 'success')
             navigate('/')
         }  catch (error) {    

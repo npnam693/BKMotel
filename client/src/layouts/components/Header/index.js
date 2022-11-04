@@ -23,17 +23,8 @@ const theme1 = createTheme({
 
 function Header() {
     const { userInfo } = UserState();
-    var currentUserInfo = userInfo()
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     const [modalOpen, setModalOpen] = useState(false);
-    
-    const handleClickUpload = () => {
-        if (!currentUserInfo) {
-
-        }
-    }
-
-
     return (
         <>
             <div className = {styles.container}></div>
@@ -45,13 +36,13 @@ function Header() {
                     </Link>
                     <Search />
                     <div className = {styles.action}>
-                            {!currentUserInfo ? 
+                            {!userInfo ? 
                                 <Link  onClick={() => setModalOpen(true)} className = {styles.uploadBtn}>ĐĂNG BÀI</Link>
                                 :
                                 <Link  to='/upload' className = {styles.uploadBtn}>ĐĂNG BÀI</Link>
                             }
                             
-                            <Menu  userInfo = {currentUserInfo}/>        
+                            <Menu/>        
                     </div>  
                     
                     <Modal
