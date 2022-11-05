@@ -1,0 +1,133 @@
+:root {
+    --primary-color: #00A699;
+}
+* {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+.wrapper {
+    display: flex;
+    justify-self: center;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.postForm {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    min-width: 640px;
+    /* width: fit-content; */
+    width: 640px;
+    height: fit-content;
+    border-radius: 4px;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, .2);
+}
+
+.formTitle {
+    margin: 36px 50px;
+    text-align: center;
+    font-size: 20px;
+    color: #000;
+}
+
+.formLine {
+    margin: 0 50px 12px 50px;
+    border: none;
+    border-bottom: solid 2px #D9DADC;
+    height: 0;
+    outline: none;
+}
+
+.formItem {
+    margin: 12px 50px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.itemLabel {
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.itemInput {
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 12px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    outline: none;
+    box-shadow: 0px 0px 0px 1px #878787;
+}
+.itemInput:focus {
+    transition: all ease-in .2s;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.wrapFull {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.addrBox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-shadow: 0px 0px 0px 1px #878787;
+    border-radius: 4px;
+    justify-content: space-between;
+}
+
+.addrBox .addr {
+    margin: 12px;
+    width: calc(50% - 24px);
+    display: flex;
+    flex-direction: column;
+}
+.formItem.flex-row .addr label {
+    margin-bottom: 4px;
+    color: #6B778C;
+}
+
+.formItem.flex-row .addr select {
+    height: 42px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0px 0px 0px 1px #DCDFE4;
+}
+.uploadImgs {
+    margin: 12px 50px;
+    border: 1px dashed  #6B778C;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    min-width: 160px;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    margin: 12px auto 36px auto;
+    user-select: none;
+}
+.btn:hover {
+    transition: all ease-in .2s;
+    opacity: .9;
+}
