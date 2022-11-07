@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
@@ -7,91 +7,11 @@ import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
 
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import {FormControlLabel, Checkbox, Divider, TextField, Button} from '@mui/material'
+import {FormControlLabel, Checkbox, Divider, TextField, Button, Link} from '@mui/material'
 import {UserState} from '../../Context/UserProvider'
-const theme = createTheme({
-    components: {
-        // Name of the component
-            MuiButton: {
-                styleOverrides: {
-                    root: {
-                        borderRadius: '20px',
-                        fontSize: '12px',
-                        fontFamily: '"Inter", sans-serif',
-                        fontWeight: 600,
-                        height: '42px',
-                        color: "white"
-                    },
-                }
-            },
-            MuiDivider: {
-                styleOverrides: {
-                    root: {
-                        width: '480px',
-                        marginBottom: '30px'
-                    }
-                }
-            },
-            MuiTextField: {
-                styleOverrides: {
-                    root: {
-                        marginBottom: '20px',
-                        fontSize: '30px',
-                    }
-                }
-            },
-
-            MuiFormControlLabel: {
-                styleOverrides: {
-                    label: {
-                        fontSize: '16px',
-                        fontFamily: "'Josefin Sans', sans-serif",
-                    }
-                }
-            },
-            MuiInputLabel: {
-                defaultProps: {
-                  sx: {
-                    fontSize: "16px",
-                    fontFamily: "'Josefin Sans', sans-serif",
-
-                  },
-                },
-              },
-            MuiOutlinedInput: {
-                defaultProps: {
-                  sx: {
-                    fontSize: "16px",
-                    fontFamily: "'Josefin Sans', sans-serif",
-                  }
-                }
-              }
-            },
-    palette: {
-      bkmotel: {
-        main: '#00A699',
-      },
-    },
-  });
-
-const theme1 = createTheme({
-    components: {
-    // Name of the component
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    borderRadius: '20px',fontSize: '15px',fontFamily: '"Inter", sans-serif',
-                    fontWeight: 600,height: '50px',width: '400px',color: '#1488DB',
-                },
-            }
-        },
-},
-});
-
 
 function LoginPage({children}) {
     const { userInfo, setUserInfo } = UserState();
-
     let navigate = useNavigate();
     
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -107,7 +27,6 @@ function LoginPage({children}) {
     };
 
     const handleSubmit = async ({email, password}) => {
-        
         if (!email || !password) {
             toast('Bạn phải điền đầy đủ các thông tin cần thiết.', 'warning')
             return
@@ -219,5 +138,84 @@ function LoginPage({children}) {
 
     );
 }
+
+const theme = createTheme({
+    components: {
+        // Name of the component
+            MuiButton: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: '20px',
+                        fontSize: '12px',
+                        fontFamily: '"Inter", sans-serif',
+                        fontWeight: 600,
+                        height: '42px',
+                        color: "white"
+                    },
+                }
+            },
+            MuiDivider: {
+                styleOverrides: {
+                    root: {
+                        width: '480px',
+                        marginBottom: '30px'
+                    }
+                }
+            },
+            MuiTextField: {
+                styleOverrides: {
+                    root: {
+                        marginBottom: '20px',
+                        fontSize: '30px',
+                    }
+                }
+            },
+
+            MuiFormControlLabel: {
+                styleOverrides: {
+                    label: {
+                        fontSize: '16px',
+                        fontFamily: "'Josefin Sans', sans-serif",
+                    }
+                }
+            },
+            MuiInputLabel: {
+                defaultProps: {
+                  sx: {
+                    fontSize: "16px",
+                    fontFamily: "'Josefin Sans', sans-serif",
+
+                  },
+                },
+              },
+            MuiOutlinedInput: {
+                defaultProps: {
+                  sx: {
+                    fontSize: "16px",
+                    fontFamily: "'Josefin Sans', sans-serif",
+                  }
+                }
+              }
+            },
+    palette: {
+      bkmotel: {
+        main: '#00A699',
+      },
+    },
+  });
+
+const theme1 = createTheme({
+    components: {
+    // Name of the component
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '20px',fontSize: '15px',fontFamily: '"Inter", sans-serif',
+                    fontWeight: 600,height: '50px',width: '400px',color: '#1488DB',
+                },
+            }
+        },
+},
+});
 
 export default LoginPage;

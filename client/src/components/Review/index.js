@@ -11,9 +11,7 @@ function ReviewItem() {
                 />
                 <p className= {styles.name}>Nguyễn Việt Hoàng</p>
             </div>
-            
-            
-            
+                   
             <div className={styles.rating}>
                 <Rating 
                     icon={<StarFill size={20} style={{marginRight: 5}}/>} 

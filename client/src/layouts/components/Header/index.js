@@ -53,7 +53,7 @@ function Header() {
                     >
                         <div className={styles.modalUpload}>
                             <p className={styles.modalUploadContent}> Để đăng tải bài mới, hãy đăng nhập trước.</p>
-                            <Link to='/login' className = {styles.loginBtn}>ĐĂNG NHẬP</Link>
+                            <Link to='/login' className = {styles.loginBtn} style={{marginRight:0}}>ĐĂNG NHẬP</Link>
                             
                             <p className={styles.modalUploadContent}> Bạn chưa có tài khoản ? </p>
                             

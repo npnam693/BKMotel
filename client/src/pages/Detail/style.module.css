@@ -24,8 +24,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 20px;
+    height: 110px;
+    top: 0;
+    left: 0;
+    width: var(--font-family-detail);
 }
+
 
 .introContainer{
     display: flex;
@@ -69,9 +73,6 @@
     display: flex;
     flex-direction: column;
     padding: 10px 20px 10px 20px;
-    
-
-
     font-family: var(--font-family-detail);
     font-size: 16px;
     font-weight: 600;
@@ -95,38 +96,12 @@
     font-size: 24px;
 }
 
-.imageContainer{
-    display: flex;
-    flex-direction: row;
-}
-.imgCover {
-    width: 660px;
-    height: 660px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.restImg{
-    display: flex;
-    flex-direction: row;
-    flex-wrap : wrap;
-}
-
-.img {
-    width: 315px;
-    height: 315px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-left: var(--default-horizontal-spacer);
-    margin-bottom: 30px;
-}
-
 .infoContainer{
     display: flex;
     flex-direction: row;
+    margin-top: 20px;
 }
 .infoRoom{
-    width: 900px;
     margin-right: var(--default-horizontal-spacer);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     border-radius: 15px;
@@ -159,7 +134,7 @@
     align-items: center;
     justify-content: center;
     height: 80px;
-    width: 230px;
+    width: 220px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.1);
     font-family: var(--font-family-detail);
@@ -196,13 +171,14 @@
     margin-top: 40px;
 }
 .descRoomParagraph{
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 
 
 .infoContact{
     width: 428px;
+    height: 600px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     border-radius: 15px;
     padding: 45px;
@@ -280,11 +256,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 310px;
+    width: 300px;
     height: 300px;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-
 }
 .ratingTitle{
     font-size: 24px;
@@ -300,7 +275,7 @@
     background: #eeeeee;
     border-radius: 30px;
     padding: 5px 10px 5px 10px;
-    width: 70%;
+    width: 85%;
     justify-content: space-evenly;
     line-height: 18px;
     font-size: 18px;
@@ -310,8 +285,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    margin-left: -15px;
-
+    margin-left: -5px;
     font-family: var(--font-family-detail);
     font-weight: 500;
 }
@@ -357,4 +331,19 @@
     margin-left: 30px;
     display: flex;
     flex-direction: column;
+}
+
+.loadReviewBtn{
+    padding: 10px 32px;
+    border-radius: 5px;
+    border: 1px solid black;
+
+    font-family: var(--font-family-detail);
+    font-weight: 500;
+    font-size: 18px;
+    background-color: white;
+    position: relative;
+    right: calc(-100% + 200px);
+    margin: 20px 0;
+    width: 200px
 }

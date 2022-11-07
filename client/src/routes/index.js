@@ -6,7 +6,7 @@ const publicRoutes = [
     { path: '/', component: HomePage, layout: DefaultLayout },
     { path: '/login', component: LoginPage },
     { path: '/signup', component: SignupPage },
-    { path: '/detail/:id', component: DetailPage, layout: DefaultLayout },
+    { path: '/detail/:id', component: DetailPage, layout: DefaultLayout},
 ];
 
 const privateRoutes = [
