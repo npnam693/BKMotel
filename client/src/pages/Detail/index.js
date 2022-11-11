@@ -3,64 +3,181 @@ import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Tele
 import { useState } from 'react';
 import ReviewItem from '../../components/Review';
 
-import { Rating  } from '@mui/material';
+
+import { Rating, ImageList , ImageListItem, Button   } from '@mui/material';
 
 function DetailPage() {
-    const [starValue, setStarValue] = useState(0);
-    
+    const [review, setReview] = useState({
+        star: 0,
+        content: '',
+    });
+    console.log(review)
 
+    const fakeImg = [
+        'https://media.cntraveler.com/photos/5e18e330ac1cea00092e91d2/master/pass/airbnb-beach-dominican-6939168.jpeg',
+        'https://www.territorysupply.com/wp-content/uploads/2020/11/best-airbnbs-oklahoma.jpg',
+        'https://www.territorysupply.com/wp-content/uploads/2020/10/best-airbnb-in-new-mexico.jpg',
+        'https://baoxaydung.com.vn/stores/news_dataimages/hiep/082020/04/11/1126_image001.jpg',
+        // 'https://baoxaydung.com.vn/stores/news_dataimages/hiep/082020/04/11/1126_image001.jpg'
+    ]
     
-    return ( 
+    const fakeConentInfo = ` Tọa lạc tại Thành phố Hồ Chí Minh, cách Bảo tàng Lịch sử Việt Nam 700 m và Chợ Tân Định 1,4 km, Bear's House - The Riverside cung cấp chỗ nghỉ với sân hiên và WiFi miễn phí trong toàn bộ khuôn viên cũng như chỗ đỗ xe riêng miễn phí cho khách lái xe. Chỗ nghỉ này nằm trong bán kính khoảng 1,7 km từ Trung tâm mua sắm Vincom, 1,9 km từ Nhà Hát Lớn Sài Gòn và 1,9 km từ Trụ sở UBND Thành phố Hồ Chí Minh. Trung tâm thương mại Union Square và Dinh Thống Nhất nằm cách nhà khách lần lượt 1,9 km và 2 km.
+Phòng nghỉ tại Bear's House - The Riverside được trang bị bàn làm việc, TV màn hình phẳng, phòng tắm riêng, ga trải giường và khăn tắm. Một số phòng có tầm nhìn ra quang cảnh thành phố. Tất cả các phòng đều được bố trí ấm đun nước, máy điều hòa và tủ để quần áo.
+Các địa danh nổi tiếng gần Bear's House - The Riverside bao gồm trung tâm thương mại Diamond Plaza, Bưu điện Trung tâm Sài Gòn và Nhà thờ Đức Bà. Sân bay gần nhất là sân bay quốc tế Tân Sơn Nhất, cách nhà khách 6 km.
+Các địa danh nổi tiếng gần Bear's House - The Riverside bao gồm trung tâm thương mại Diamond Plaza, Bưu điện Trung tâm Sài Gòn và Nhà thờ Đức Bà. Sân bay gần nhất là sân bay quốc tế Tân Sơn Nhất, cách nhà khách 6 km.
+`
+
+
+    const renderImg = () => {
+        if (fakeImg.length === 1) {
+            return( <ImageListItem key={fakeImg[0]}>
+                        <img src={fakeImg[0]} alt={'Room'} 
+                            style={{borderRadius:20}}
+                        />
+                </ImageListItem>
+            )
+        }
+
+        else if (fakeImg.length === 2){
+            return (
+                <ImageList sx={{ width: 1300, height: 640 }} cols={2} rowHeight={640} gap={20}>
+                    {fakeImg.map((item) => (
+                        <ImageListItem key={item}>
+                        <img
+                            src={item}
+                            alt={'itemle'}
+                            loading="lazy"
+                            style = {{borderRadius: 15, objectFit: 'cover'}}
+                        />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+            )
+        }
+
+        else if (fakeImg.length === 3){
+            return (
+                <ImageList sx={{ width: 1300, height: 560 }} cols={3} rowHeight={560} gap={20}>
+                    {fakeImg.map((item) => (
+                        <ImageListItem key={item}>
+                        <img
+                            src={item}
+                            alt={'itemle'}
+                            loading="lazy"
+                            style = {{borderRadius: 15, objectFit: 'cover'}}
+                        />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+            )
+        }
+
+        else if (fakeImg.length === 4){
+            return (
+            <div style={{display:'flex'}}>
+                <img
+                src={fakeImg[0]}
+                alt={'itemle'}
+                loading="lazy"
+                style = {{borderRadius: 15, objectFit: 'cover', width: 508, height: 508, marginRight:20 }}
+                />
+                        
+
+                <ImageList sx={{ width: 244, height: 508 }} cols={1} rowHeight={244} gap={20}>
+                    {fakeImg.slice(2).map((item, index) => (
+                        <ImageListItem key={item}>
+                            <img
+                                src={item}
+                                alt={'itemle'}
+                                loading="lazy"
+                                style = {{borderRadius: 15, objectFit: 'cover'}}
+                            />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+                    <img
+                    src={fakeImg[1]}
+                    alt={'itemle'}
+                    loading="lazy"
+                    style = {{borderRadius: 15, objectFit: 'cover', width: 508, height: 508, marginLeft:20 }}
+                    />
+            
+            </div>
+
+            )
+        }
+
+        else if (fakeImg.length >= 5){
+            return (
+            <div style={{display:'flex'}}>
+                <img
+                    src={fakeImg[0]}
+                    alt={'itemle'}
+                    loading="lazy"
+                    style = {{borderRadius: 15, objectFit: 'cover', width: 640, height: 640, marginRight:20 }}
+                />
+                
+                <ImageList sx={{ width: 640, height: 640 }} cols={2} rowHeight={310} gap={20}>
+                        {fakeImg.slice(1).map((item, index) => (
+                            <ImageListItem key={item}>
+                                <img
+                                    src={item}
+                                    alt={'itemle'}
+                                    loading="lazy"
+                                    style = {{borderRadius: 15, objectFit: 'cover'}}
+                                />
+                            </ImageListItem>
+                        ))}
+                </ImageList>
+            
+            </div>
+            )
+        }
+    }
+
+    return (
         <div className = {styles.wrapper}>
             <div className = {styles.inner}> 
+                
+                
                 <div className = {styles.titleContainer}>
-                    <div className = {styles.title}>
-                        <h1 className = {styles.titleContent}>Phòng trọ Bear's House - The Riverside </h1>
-                        <div className = {styles.introContainer}>
-                            <div className = {styles.rating}> 
-                                <StarFill color="#00A699" size={9} />
-                                <p className={styles.ratingPoint}>4.9</p>
-                                <p className={styles.ratingCount}>260 đánh giá</p>
-                            </div>
-                            <div className = {styles.location}>
-                                <GeoAlt color="#000000" size={18} />
-                                <p className = {styles.locationContent}>Thủ Đức, TP.HCM</p>
-                            </div>
-
-                            <button className = {styles.likeBtn}>YÊU THÍCH</button>
-
+                <div>
+                    <h1 className = {styles.titleContent}>Phòng trọ Bear's House - The Riverside </h1>  
+                    <div className = {styles.introContainer}>
+                        <div className = {styles.rating}> 
+                            <StarFill color="#00A699" size={9} />
+                            <p className={styles.ratingPoint}>4.9</p>
+                            <p className={styles.ratingCount}>260 đánh giá</p>
                         </div>
-                    </div>
-                       
-                    <div className = {styles.costContainer}>
-                        <p className = {styles.costTitle}> GIÁ PHÒNG </p>
-                        <div className = {styles.cost}>
-                            <p className = {styles.costContent}> 1.000.000đ </p>
-                            <p> / tháng </p>
+                        <div className = {styles.location}>
+                            <GeoAlt color="#000000" size={18} />
+                            <p className = {styles.locationContent}>Thủ Đức, TP.HCM</p>
                         </div>
+                        <Button  
+                            variant="outlined" 
+                            color='info'
+                            sx={{
+                                display: 'inline',
+                                fontWeight: 'bold',
+                                mx: 0.5,
+                                fontSize: 14,
+                                padding: '1px 10px',
+                            }}
+                            onClick = {(e) => e.preventDefault()}
+                        >   Yêu thích   </Button>
                     </div>
                 </div>
-                <div className = {styles.imageContainer}>
-
-                    <img className = {styles.imgCover} src="https://media.cntraveler.com/photos/5e18e330ac1cea00092e91d2/master/pass/airbnb-beach-dominican-6939168.jpeg" 
-                        alt="anh" 
-                    /> 
-                    <div className = {styles.restImg}>
-                        <img className = {styles.img} src="https://imgix.theurbanlist.com/content/general/best-airbnbs-bali-4.jpg" 
-                            alt="anh" 
-                        /> 
-                        <img className = {styles.img} src="https://media.gq.com/photos/6283ce92bad17dc46fce8234/master/w_2000,h_1333,c_limit/East_Hampton,_New_York.jpg" 
-                            alt="anh" 
-                        /> 
-                        <img className = {styles.img} src="https://www.territorysupply.com/wp-content/uploads/2020/10/best-airbnb-in-new-mexico.jpg" 
-                            alt="anh" 
-                        /> 
-                        <img className = {styles.img} src="https://baoxaydung.com.vn/stores/news_dataimages/hiep/082020/04/11/1126_image001.jpg" 
-                            alt="anh" 
-                        /> 
+                
+                <div className = {styles.costContainer}>
+                    <p className = {styles.costTitle}> GIÁ PHÒNG </p>
+                    <div className = {styles.cost}>
+                        <p className = {styles.costContent}> 1.000.000đ </p>
+                        <p> / tháng </p>
                     </div>
-                    
                 </div>
+                </div>
+                {renderImg()}               
+            
                 <div className = {styles.infoContainer}>
                     <div className = {styles.infoRoom}>
                         <div className = {styles.infoTitleWrapper}> 
@@ -99,17 +216,11 @@ function DetailPage() {
                                 </div>
                             </div>
                             <div className = {styles.descriptionRoom}>
-                                <p className = {styles.descRoomParagraph}>
-                                Tọa lạc tại Thành phố Hồ Chí Minh, cách Bảo tàng Lịch sử Việt Nam 700 m và Chợ Tân Định 1,4 km, Bear's House - The Riverside cung cấp chỗ nghỉ với sân hiên và WiFi miễn phí trong toàn bộ khuôn viên cũng như chỗ đỗ xe riêng miễn phí cho khách lái xe. Chỗ nghỉ này nằm trong bán kính khoảng 1,7 km từ Trung tâm mua sắm Vincom, 1,9 km từ Nhà Hát Lớn Sài Gòn và 1,9 km từ Trụ sở UBND Thành phố Hồ Chí Minh. Trung tâm thương mại Union Square và Dinh Thống Nhất nằm cách nhà khách lần lượt 1,9 km và 2 km.        
-                                </p>
-                            
-                                <p className = {styles.descRoomParagraph}>
-                                Phòng nghỉ tại Bear's House - The Riverside được trang bị bàn làm việc, TV màn hình phẳng, phòng tắm riêng, ga trải giường và khăn tắm. Một số phòng có tầm nhìn ra quang cảnh thành phố. Tất cả các phòng đều được bố trí ấm đun nước, máy điều hòa và tủ để quần áo.
-                                </p>
-
-                                <p className = {styles.descRoomParagraph}>
-                                Các địa danh nổi tiếng gần Bear's House - The Riverside bao gồm trung tâm thương mại Diamond Plaza, Bưu điện Trung tâm Sài Gòn và Nhà thờ Đức Bà. Sân bay gần nhất là sân bay quốc tế Tân Sơn Nhất, cách nhà khách 6 km.
-                                </p>
+                                {fakeConentInfo.split('\n').map((item) => (
+                                    <p className = {styles.descRoomParagraph}>
+                                        {item}
+                                    </p>
+                                ))}
                             </div>
                         </div>
 
@@ -150,6 +261,8 @@ function DetailPage() {
                     </div>
                         
                 </div>
+
+                
                 <div className = {styles.reviewsContainer}>
                     <div className = {styles.ratingContainer}>
                         <p className = {styles.ratingTitle}>Đánh giá</p>
@@ -188,6 +301,7 @@ function DetailPage() {
                             />
                             <p>100</p>
                         </div>
+
                         <div className = {styles.rowRating}>
                             <Rating 
                                 icon={<StarFill size={20} style={{marginRight: 5}}/>} 
@@ -211,16 +325,24 @@ function DetailPage() {
                     </div>
                     <div className = {styles.review}>
                         <div className = {styles.reviewInput}>
-                            <textarea class={styles.reviewText} rows="4" cols="50" max placeholder='Nhập đánh giá tại đây ... '>
+                            <textarea 
+                                class={styles.reviewText} 
+                                rows="4" cols="50" max 
+                                placeholder='Nhập đánh giá tại đây ... '
+                                value={review.content}
+                                onChange={(e) => {
+                                    setReview({...review, content: e.target.value});
+                                }}
+                                >
                             </textarea>
                             <div className = {styles.rowRatingInput}>
                                 <Rating 
                                     icon={<StarFill size={32} style={{marginRight: 5}}/>} 
                                     emptyIcon={<Star size={32} style={{marginRight: 5}}/>} 
                                     sx={{color: "#00A699"}}
-                                    value={starValue}
+                                    value={review.star}
                                     onChange={(event, newValue) => {
-                                        setStarValue(newValue);
+                                        setReview({...review, star: newValue});
                                     }}
                                 />
                                 <button className = {styles.submitReviewBtn}>Gửi đánh giá </button>
@@ -232,17 +354,16 @@ function DetailPage() {
                             <ReviewItem />
                             <ReviewItem />
                             <ReviewItem />
-
-
+                            <button className = {styles.loadReviewBtn}>Tải thêm</button>
                         </div>
+
 
                     </div>
 
                 </div>
             </div>
         </div> 
-    
-        );
+    );
 }
 
 

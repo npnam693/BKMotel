@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import HeaderOnlyLogo from "../../layouts/components/Header/HeaderOnlyLogo";
 import Footer from "../../layouts/components/Footer";
 import styles from './style.module.css'
+import {UserState} from '../../Context/UserProvider'
+
 
 import { Divider, TextField, Button, CircularProgress, createTheme, ThemeProvider } from '@mui/material';
 import { useSnackbar } from 'notistack';
@@ -106,6 +108,8 @@ const snackbarMessage = {
 
 
 function SinUpPage({children}) {
+    const { setUserInfo } = UserState();
+
     let navigate = useNavigate()
     const [isUpload, setUpload] = useState(false);
     const [values, setValues] = useState({
@@ -154,8 +158,9 @@ function SinUpPage({children}) {
             "/api/users",
             { name, email, password, avatar, phoneNumber},
           );
-    
-          localStorage.setItem("userInfo", JSON.stringify(data));
+
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            setUserInfo(JSON.parse(localStorage.getItem("userInfo")))
           navigate('/')
         } catch (error) {    
             showSnackbarMessage(error.response.data.message)

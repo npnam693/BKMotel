@@ -2,7 +2,7 @@
     padding: 20px;
     position: relative;
     width: 1005px;
-    border: 1px solid rgb(125, 122, 122);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     margin-top: 30px;
 }
 
