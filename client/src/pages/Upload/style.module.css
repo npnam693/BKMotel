@@ -1,11 +1,4 @@
-:root {
-    --primary-color: #00A699;
-}
-* {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    color: #000;
-}
+
 .wrapper {
     display: flex;
     justify-self: center;
