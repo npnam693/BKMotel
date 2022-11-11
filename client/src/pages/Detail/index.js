@@ -16,8 +16,8 @@ function DetailPage() {
     const fakeImg = [
         'https://media.cntraveler.com/photos/5e18e330ac1cea00092e91d2/master/pass/airbnb-beach-dominican-6939168.jpeg',
         'https://www.territorysupply.com/wp-content/uploads/2020/11/best-airbnbs-oklahoma.jpg',
-        'https://www.territorysupply.com/wp-content/uploads/2020/10/best-airbnb-in-new-mexico.jpg',
-        'https://baoxaydung.com.vn/stores/news_dataimages/hiep/082020/04/11/1126_image001.jpg',
+        // 'https://www.territorysupply.com/wp-content/uploads/2020/10/best-airbnb-in-new-mexico.jpg',
+        // 'https://baoxaydung.com.vn/stores/news_dataimages/hiep/082020/04/11/1126_image001.jpg',
         // 'https://baoxaydung.com.vn/stores/news_dataimages/hiep/082020/04/11/1126_image001.jpg'
     ]
     
