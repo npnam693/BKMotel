@@ -59,6 +59,11 @@
     border-bottom: 2px solid var(--primary-color);
 }
 
+textarea {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+}
+
 .wrapFull {
     width: 100%;
     margin: 0;
