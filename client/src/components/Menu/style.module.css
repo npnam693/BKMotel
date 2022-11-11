@@ -1,0 +1,39 @@
+.avatarOption{
+    height: 34px;
+    width: 74px;
+    align-content: center;
+    border: 1px solid #A1A1A1;
+    border-radius: var(--button-border-radius);
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.menuItemWrapper{
+    font-family: var(--font-Josefin);
+    padding: 5px 0px;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.menuItem{
+    min-width: 225px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600; 
+    padding: 5px 0px;
+}
+.menuTitle{
+    margin-left: 10px;
+    font-family: var(--font-Josefin);
+}
+.menuActions:hover{
+    background-color: #bfbfbf;
+}
+.avatarUser{
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 1px solid black
+}

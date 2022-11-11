@@ -269,9 +269,14 @@
     text-align: center;
 }
 
+
+.reviewsContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+}
 .ratingContainer{
     padding: 10px;
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -285,6 +290,7 @@
     font-size: 24px;
     font-weight: 600;    
 }
+
 
 .ratingOverview{
     margin: 10px 0 5px 0;
@@ -300,6 +306,55 @@
     font-size: 18px;
 }
 
-.ratingRow{
+.rowRating{
+    display: flex;
+    flex-direction: row;
     margin-top: 10px;
+    margin-left: -15px;
+
+    font-family: var(--font-family-detail);
+    font-weight: 500;
+}
+
+.reviewText{
+    height: 126px;
+    width: 790px;
+    margin-left: 30px;
+    resize: none;
+    border-radius: 5px;
+    padding: 10px;
+    
+    font-family: var(--font-family-detail);
+    font-weight: 400;
+    font-size: 20px;
+    color:rgba(0, 0, 0, 0.7)
+}
+.review{
+
+}
+.reviewInput{
+    display: flex;
+    flex-direction: row;
+}
+.rowRatingInput{
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.submitReviewBtn{
+    padding: 10px 32px;
+    border-radius: 5px;
+    border: 1px solid black;
+
+    font-family: var(--font-family-detail);
+    font-weight: 500;
+    font-size: 18px;
+    background-color: white;
+}
+.userReviews{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
 }

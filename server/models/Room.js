@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import slug from 'mongoose-slug-generator';
 
 const RoomSchema = new mongoose.Schema({
     title: String,
@@ -13,8 +12,13 @@ const RoomSchema = new mongoose.Schema({
     ratingPoint: Number,
     area: Number,
     description: String,
-    
-    slug: {type: String, slug: 'title', unique: true},
+    price: Number,
+    remainCount: Number,
+    address: String,
+    province: String,
+    district: String,
+    ward: String,
+    contact: String,
 }, {
     timestamps: true
 })

@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
     --font-family: 'Roboto', sans-serif;
+    --font-Josefin: 'Josefin Sans', sans-serif;
     --primary-color: #00A699;
     --black: #000;
     --text-color: #333;
@@ -47,3 +48,8 @@ html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
 }
+
+/* .SnackbarItem-variantWarning{
+    font-size:12px !important;
+    padding: 100px !important;
+} */
