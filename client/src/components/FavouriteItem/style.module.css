@@ -2,6 +2,11 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--default-horizontal-spacer);
+    cursor: pointer;
+}
+
+.wrapper:hover {
+    opacity: 0.8;
 }
 
 .img {

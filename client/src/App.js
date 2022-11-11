@@ -39,7 +39,7 @@ function App() {
                   return (<Route key={idx} path={route.path} element={<Layout><Page /></Layout>}/>)
                 }
                 else 
-                  return (<Route key = {idx + publicRoutes.length }path={route.path}  element={<Navigate replace to="/login" />} />)
+                  return (<Route key = {idx + publicRoutes.length } path={route.path}  element={<Navigate replace to="/login" />} />)
               })
             }
           </Routes>

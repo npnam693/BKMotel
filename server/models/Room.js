@@ -8,8 +8,8 @@ const RoomSchema = new mongoose.Schema({
     },
     image: [String],
     
-    ratingCount: Number,
-    ratingPoint: Number,
+    ratingCount: {type: Number, default: 0},
+    ratingPoint: {type: mongoose.Schema.Types.Decimal128, default: 0},
     area: Number,
     description: String,
     price: Number,
