@@ -91,7 +91,6 @@ function UploadPage() {
   const handleDeleteImgs = (e) => {
     e.preventDefault();
     setImages([]);
-    console.log("DeleteIMGS");
   };
 
   const handleUpload = () => {};
