@@ -107,7 +107,7 @@ const snackbarMessage = {
 
 
 
-function SinUpPage({children}) {
+function SignUpPage({children}) {
     const { setUserInfo } = UserState();
 
     let navigate = useNavigate()
@@ -304,4 +304,4 @@ function SinUpPage({children}) {
     );
 }
 
-export default SinUpPage;
+export default SignUpPage;
