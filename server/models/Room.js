@@ -11,6 +11,7 @@ const RoomSchema = new mongoose.Schema({
     ratingCount: {type: Number, default: 0},
     ratingPoint: {type: mongoose.Schema.Types.Decimal128, default: 0},
     area: Number,
+    num: Number,
     description: String,
     price: Number,
     remainCount: Number,

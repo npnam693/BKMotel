@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from "react";
-// import { storage } from "../../firebase";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  Fragment,
+  useRef,
+} from "react";
+import { Button } from "@mui/material";
 
 import { XCircle } from "react-bootstrap-icons";
-
+import { useSnackbar } from "notistack";
 import classNames from "classnames/bind";
 import styles from "./style.module.css";
+import { storage } from "./../../firebase";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import { v4 } from "uuid";
+import { getDownloadURL } from "firebase/storage";
+import axios from "axios";
+import { UserState } from './../../Context/UserProvider/index';
 const cx = classNames.bind(styles);
 
+
 function UploadPage() {
+  const {userInfo} = UserState();
   const [province, setProvince] = useState("0");
   const [provinces, setProvinces] = useState([]);
   const [district, setDistrict] = useState("0");
@@ -15,6 +29,28 @@ function UploadPage() {
   // eslint-disable-next-line
   const [ward, setWard] = useState("0");
   const [wards, setWards] = useState([]);
+
+  const inputTitleRef = useRef(null);
+  const inputAreaRef = useRef(null);
+  const inputPriceRef = useRef(null);
+  const inputRestRef = useRef(null);
+  const inputAddrRef = useRef(null);
+  const inputContactRef = useRef(null);
+  const inputInforRef = useRef(null);
+  const provinceRef = useRef(null);
+  const districtRef = useRef(null);
+  const wardRef = useRef(null);
+
+  const toast = (message, variantType) => {
+    enqueueSnackbar(message, {
+        variant: variantType,
+        action: (key) => (
+            <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
+                Dismiss
+            </Button>
+        )
+    });
+};
 
   // Handle select province
   useEffect(() => {
@@ -74,8 +110,6 @@ function UploadPage() {
   };
 
   const [images, setImages] = useState([]);
-  // const [urls, setUrls] = useState([]);
-  // const [progress, setProgress] = useState(0);
 
   const handleChange = (e) => {
     for (let i = 0; i < e.target.files.length; i++) {
@@ -85,19 +119,181 @@ function UploadPage() {
         setImages((prevState) => [...prevState, newImg]);
     }
   };
-  // eslint-disable-next-line
-  const handleUploadImgs = () => {};
 
   const handleDeleteImgs = (e) => {
     e.preventDefault();
     setImages([]);
   };
 
-  const handleUpload = () => {};
+  const resetValue = () => {
+    inputTitleRef.current.value = "";
+    inputAddrRef.current.value = "";
+    wardRef.current.value = "0";
+    districtRef.current.value = "0";
+    provinceRef.current.value = "0";
+    inputContactRef.current.value = "";
+    inputInforRef.current.value = "";
+    inputPriceRef.current.value = "1000000";
+    inputRestRef.current.value = "1";
+    inputAreaRef.current.value = "100";
+    setImages([]);
+  };
 
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
+  const getTextAddress = async (province, district, ward, resolve) => {
+    let result = { p: "", d: "", w: "" };
+    let temp = await fetch(`https://provinces.open-api.vn/api/p/${province}`);
+    let tempJson = await temp.json();
+    result.p = tempJson.name;
+    temp = await fetch(`https://provinces.open-api.vn/api/d/${district}`);
+    tempJson = await temp.json();
+    result.d = tempJson.name;
+    temp = await fetch(`https://provinces.open-api.vn/api/w/${ward}`);
+    tempJson = await temp.json();
+    result.w = tempJson.name;
+    resolve(result);
+  };
+
+  const uploadImage = async (image) => {
+    return new Promise((resolve, reject) => {
+      const imageRef = ref(storage, `images/${image.name + v4()}`);
+      const uploadTask = uploadBytesResumable(imageRef, image);
+      uploadTask.on(
+        "state_changed",
+        () => {},
+        (error) => {
+          console.log(error);
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+            resolve(downloadURL)
+          );
+        }
+      );
+    });
+  };
+
+  const uploadImages = (imgs) => {
+    let links = [];
+    return new Promise(async (resolve) => {
+      for (let i = 0; i < imgs.length; i++) {
+        await uploadImage(imgs[i]).then((res) => {
+          links.push(res);
+        });
+      }
+      resolve(links);
+    });
+  };
+
+  const HandleUpload = (e) => {
+    if (inputTitleRef.current.value.trim() === "") {
+      showSnackbarMessage("Phải điền tiêu đề bài viết");
+      return;
+    }
+    if (inputAreaRef.current.value === "") {
+      showSnackbarMessage("Phải điền diện tích phòng trọ");
+      return;
+    }
+    if (inputAreaRef.current.value <= 0) {
+      showSnackbarMessage("Diện tích phải lớn hơn 0");
+      return;
+    }
+    if (inputPriceRef.current.value === "") {
+      showSnackbarMessage("Phải điền giá phòng trọ");
+      return;
+    }
+    if (inputPriceRef.current.value <= 0) {
+      showSnackbarMessage("Giá phòng phải lớn hơn 0");
+      return;
+    }
+    if (inputRestRef.current.value === "") {
+      showSnackbarMessage("Phải điền số phòng");
+      return;
+    }
+    if (inputRestRef.current.value <= 0) {
+      showSnackbarMessage("Số phòng phải lớn hơn 0");
+      return;
+    }
+    if (
+      province === "0" ||
+      district === "0" ||
+      ward === "0" ||
+      inputAddrRef.current.value.trim() === ""
+    ) {
+      showSnackbarMessage("Phải điển đầy đủ địa chỉ");
+      return;
+    }
+    if (inputContactRef.current.value.trim() === "") {
+      showSnackbarMessage("Phải điền thông tin liên hệ");
+      return;
+    }
+    if (inputInforRef.current.value.trim() === "") {
+      showSnackbarMessage("Phải điền mô tả phòng");
+      return;
+    }
+    if (images.length < 1) {
+      showSnackbarMessage("Bắt buộc phải tải ảnh lên");
+      return;
+    }
+    try {
+      let data = {};
+      const add = new Promise((resolve) => {
+        getTextAddress(province, district, ward, resolve);
+      });
+      data.title = inputTitleRef.current.value.trim();
+      data.area = parseFloat(inputAreaRef.current.value);
+      data.price = parseFloat(inputPriceRef.current.value);
+      data.remainCount = parseInt(inputRestRef.current.value);
+      data.address = inputAddrRef.current.value.trim();
+      data.contact = inputContactRef.current.value.trim();
+      data.description = inputInforRef.current.value.trim();
+      data._id = userInfo._id;
+      Promise.all([add, uploadImages(images)])
+        .then((value) => {
+          data.province = value[0].p;
+          data.district = value[0].d;
+          data.ward = value[0].w;
+          data.image = value[1];
+          resetValue();
+        })
+        .then(async () => {
+          try {
+            const response = await axios.post("/api/rooms/upload", data);
+            if (response.data._id) {
+              toast("Upload thành công", "success");
+            } else {
+              toast(response.data.message, "error");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        });
+    } catch (error) {
+      showSnackbarMessage("Something wrong @@");
+    }
+  };
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const showSnackbarMessage = useCallback(
+    (message) => {
+      enqueueSnackbar(message, {
+        variant: "warning",
+        action: (key) => (
+          <Fragment>
+            <Button
+              style={{ fontSize: "12px", fontWeight: "600" }}
+              size="small"
+              onClick={() => closeSnackbar(key)}
+            >
+              Dismiss
+            </Button>
+          </Fragment>
+        ),
+      });
+    },
+    [enqueueSnackbar, closeSnackbar]
+  );
+  
 
   return (
     <div className={cx("wrapper")}>
@@ -114,6 +310,7 @@ function UploadPage() {
             placeholder="Nhập tiêu đề"
             name="titleInput"
             id="titleInput"
+            ref={inputTitleRef}
           />
         </div>
         <div className={cx("formItem")}>
@@ -126,6 +323,8 @@ function UploadPage() {
             placeholder="Nhập diện tích phòng (m^2)"
             name="areaInput"
             id="areaInput"
+            ref={inputAreaRef}
+            defaultValue={100}
           />
         </div>
         <div className={cx("wrapFull")}>
@@ -139,6 +338,8 @@ function UploadPage() {
               placeholder="Nhập giá phòng VND/tháng"
               name="costInput"
               id="costInput"
+              ref={inputPriceRef}
+              defaultValue={1000000}
             />
           </div>
           <div className={cx("formItem")}>
@@ -151,6 +352,10 @@ function UploadPage() {
               placeholder="Nhập số lượng còn lại"
               name="amountInput"
               id="amountInput"
+              ref={inputRestRef}
+              defaultValue={1}
+              min="0"
+              step={1}
             />
           </div>
         </div>
@@ -163,6 +368,7 @@ function UploadPage() {
                 id="province"
                 name="province"
                 onChange={(e) => handleProvinceSelect(e)}
+                ref={provinceRef}
               >
                 <option key={"0"} value="0" defaulvalue={0}>
                   --Chọn Tỉnh/Thành phố--
@@ -180,6 +386,7 @@ function UploadPage() {
                 id="district"
                 name="district"
                 onChange={(e) => handleDistrictSelect(e)}
+                ref={districtRef}
               >
                 <option value="0" defaulvalue={0}>
                   --Chọn Quận/Huyện--
@@ -197,6 +404,7 @@ function UploadPage() {
                 id="ward"
                 name="ward"
                 onChange={(e) => handleWardSelect(e)}
+                ref={wardRef}
               >
                 <option value="0" defaulvalue={0}>
                   --Chọn Xã/Phường--
@@ -217,6 +425,7 @@ function UploadPage() {
                 name="addressInput"
                 id="addressInput"
                 style={{ boxShadow: "0px 0px 0px 1px #DCDFE4" }}
+                ref={inputAddrRef}
               />
             </div>
           </div>
@@ -231,6 +440,7 @@ function UploadPage() {
             placeholder="Nhập thông tin liên hệ"
             name="inforInput"
             id="inforInput"
+            ref={inputContactRef}
           />
         </div>
         <div className={cx("formItem")}>
@@ -244,17 +454,14 @@ function UploadPage() {
             id="descInput"
             rows={2}
             style={{ resize: "none" }}
+            ref={inputInforRef}
           ></textarea>
         </div>
         <div
           className={cx("uploadImgs")}
           onChange={handleChange}
           style={
-            images.length >= 4
-              ? { backgroundColor: "rgba(0,255,0,0.2)" }
-              : images.length > 0 && images.length < 4
-              ? { backgroundColor: "rgb(255 204 201)" }
-              : null
+            images.length > 0 ? { backgroundColor: "rgba(0,255,0,0.2)" } : null
           }
         >
           <input
@@ -262,20 +469,21 @@ function UploadPage() {
             name="images"
             multiple="multiple"
             accept="image/*"
+            id="imgs"
+            // ref={imgRef}
           />
           {images.length > 0 ? (
             images.map((e) => (
-              <div key={e.id} style={{ paddingLeft: "12px"}} value={e.id}>
+              <div key={e.id} style={{ paddingLeft: "12px" }} value={e.id}>
                 {e.name}
               </div>
             ))
-          
           ) : (
             <p className={cx("boxText")}>
               Click to browse or <br /> drag and drop your files <br />
             </p>
           )}
-          {images.length > 0 && images.length < 4 ? (
+          {/* {images.length > 0 && images.length < 4 ? (
             <span
               style={{
                 fontStyle: "italic",
@@ -286,12 +494,18 @@ function UploadPage() {
             >
               (at least 4 photos)
             </span>
-          ) : null}
+          ) : null} */}
           {images.length > 0 && (
             <XCircle
               size={16}
               color="/* rgb(106 106 106) */#fff"
-              style={{ zIndex: 100, position: "absolute", right: "24px", backgroundColor: "#000", borderRadius: "50%" }}
+              style={{
+                zIndex: 100,
+                position: "absolute",
+                right: "24px",
+                backgroundColor: "#000",
+                borderRadius: "50%",
+              }}
               onClick={handleDeleteImgs}
             />
           )}
@@ -301,7 +515,7 @@ function UploadPage() {
             className={cx("btn")}
             type="button"
             id="upload"
-            onClick={(e) => handleUpload(e)}
+            onClick={(e) => HandleUpload(e)}
           >
             ĐĂNG BÀI
           </button>
