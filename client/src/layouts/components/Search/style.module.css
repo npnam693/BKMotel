@@ -1,0 +1,58 @@
+.province, .money, .area{
+    height: 50px;
+}
+.province{
+    border-radius: 50px 0px 0px 50px;
+}
+.wrapperSelect::after{
+    content: "";
+    height: 36px;
+    top: 23px;
+    width: 1px;
+    position: absolute;
+    background-color:#AAA;
+    display: inline-block;
+}
+.fail{
+    background-color: #E89494 !important;
+}
+ 
+select{
+    border: none;
+    padding-left: 15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    min-width: 190px;
+}
+select:focus{
+    outline: none
+}
+select::-ms-expand{
+    display: none;
+}
+
+.containerSearchIc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    background-color: white;
+    border-radius: 0 50px 50px 0px;
+}
+
+.containerSearchIc:hover{
+    background-color: rgba(213, 213, 213, 0);
+    cursor: pointer;
+}
+
+.innerSearchIc{
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 60px;
+}

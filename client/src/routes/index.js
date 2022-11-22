@@ -1,13 +1,14 @@
 
 import DefaultLayout from "../layouts/DefaultLayout";
 
-import {HomePage, ProfilePage, DetailPage, FavouritePage, LoginPage, SignUpPage, UploadPage} from '../pages'
+import {HomePage, ProfilePage, DetailPage, FavouritePage, LoginPage, SignUpPage, UploadPage, ResultPage} from '../pages'
 
 const publicRoutes = [
     { path: '/', component: HomePage, layout: DefaultLayout },
     { path: '/login', component: LoginPage },
     { path: '/signup', component: SignUpPage },
-    { path: '/detail/:id', component: DetailPage, layout: DefaultLayout },
+    { path: '/detail/:id', component: DetailPage, layout: DefaultLayout},
+    { path: '/search/:id', component: ResultPage, layout: DefaultLayout}
 ];
 
 const privateRoutes = [
