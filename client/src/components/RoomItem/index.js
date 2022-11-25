@@ -7,11 +7,10 @@ import Button from '@mui/material/Button';
 
 function RoomItem() {
     return (
-        <Link to = '/detail/id' className = {styles.wrapper}>
+        <Link to = '/detail/6380775f07a4659e0ad91f60' className = {styles.wrapper}>
             <img className = {styles.img} src="https://www.territorysupply.com/wp-content/uploads/2020/11/best-airbnbs-oklahoma.jpg" 
                 alt="Avatar" 
             />
-                     
             <div className={styles.content}>
                 <div className = {styles.contentAction}>
                     <div className = {styles.likeWrapper}>
