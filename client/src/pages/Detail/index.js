@@ -3,9 +3,8 @@ import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Tele
 import { useState, useEffect } from 'react';
 import ReviewItem from '../../components/Review';
 import axios from 'axios';
-import { UserState } from '../../Context/UserProvider'
+// import { UserState } from '../../Context/UserProvider'
 import Skeleton from '@mui/material/Skeleton';
-
 
 import { Rating, ImageList , ImageListItem, Button   } from '@mui/material';
 function DetailPage() {
@@ -22,9 +21,10 @@ function DetailPage() {
                 setLoading(false)
             })
             .catch(err => console.log(err))
-    }, [])
+            // eslint-disable-next-line
+    }, []) 
 
-    if (loading==false){
+    if (loading===false){
         console.log('helo', data.rooms.creator)
         locationStr = data.rooms.district +',' + data.rooms.province
     }
@@ -144,11 +144,15 @@ function DetailPage() {
     return (
         <div className = {styles.wrapper}>
         {loading ? 
-            (<>
-                <Skeleton />
-                <Skeleton animation="wave" />
-                <Skeleton animation={false} />
-            </>)
+            (<div className = {styles.inner}>
+                <Skeleton animation="wave" height={50} width="70%" style={{ marginBottom: 6 }} />
+                <Skeleton animation="wave" height={50} width="70%" style={{ marginBottom: 6 }} />
+                <Skeleton sx={{ height: 480, width: '100%' }} animation="wave" variant="rectangular" />
+                <Skeleton animation="wave" height={50}  style={{ marginBottom: 6 }} />
+                <Skeleton animation="wave" height={50}  style={{ marginBottom: 6 }} />
+                <Skeleton animation="wave" height={50}  style={{ marginBottom: 6 }} />
+            
+            </div>)
         :
             (<div className = {styles.inner}> 
             <div className = {styles.titleContainer}>
@@ -157,8 +161,7 @@ function DetailPage() {
                 <div className = {styles.introContainer}>
                     <div className = {styles.rating}> 
                         <StarFill color="#00A699" size={9} />
-                        <p className={styles.ratingPoint}>{data.rooms.ratingPoint.$numberDecimal
-}</p>
+                        <p className={styles.ratingPoint}>{data.rooms.ratingPoint.$numberDecimal}</p>
                         <p className={styles.ratingCount}>{data.rooms.ratingCount} đánh giá</p>
                     </div>
                     <div className = {styles.location}>
@@ -264,9 +267,8 @@ function DetailPage() {
 
                         <div className = {styles.phoneContainer}>
                             <Telephone color="#000000" size={32}/>
-                            <a className = {styles.phoneContact}href = "tel:+0843092021">{data.rooms.creator.phoneNumber}</a>
+                            <a className = {styles.phoneContact}href = "tel:+0843092021">{data.rooms.contact === "none" ? data.rooms.creator.phoneNumber : data.rooms.contact}</a>
                         </div>
-
                         <div className = {styles.emailContainer}>
                             <Envelope color="#000000" size={32}/>
                             <a className = {styles.emailContact}href = "mailto:nguyenphinam@gmail.com">{data.rooms.creator.email}</a>
