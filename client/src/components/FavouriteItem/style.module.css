@@ -2,6 +2,12 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--default-horizontal-spacer);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.wrapper:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .title:hover, .img:hover, .heart:hover {
@@ -10,8 +16,8 @@
 }
 
 .img {
-    width: 25%;
-    height: 160px;
+    width: 360px;
+    height: 200px;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -35,7 +41,7 @@
 
 .name {
     font-weight: 500;
-    font-size: 2rem;
+    font-size: 2.0rem;
     line-height: 3.2rem;
 }
 

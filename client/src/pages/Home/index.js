@@ -7,20 +7,19 @@ import { useEffect, useState } from 'react';
 
 function HomePage() {
     const [data, setData] = useState()
+    const [paging, setPaing] = useState(0)
     const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
-        axios.get(`api/rooms/`)
+        axios.get('api/rooms/', {params: {num: 12 + 8*paging}})
             .then (res => {
                 setLoading(true)
                 setData(res.data)
                 setLoading(false)
             })
             .catch (err => console.error(err))
-    }, [])
-
-
+    }, [paging])
 
     if (!loading)
         console.log(data)
@@ -30,7 +29,7 @@ function HomePage() {
                 <div className = {styles.itemList}>
                     {
                         loading ?  
-                        Array(10).fill(1).map((el, i) =>
+                        Array(12+8*paging).fill(1).map((el, i) =>
                             <SkeletonItem key={i} />
                         ) : 
                         data.map((item, index) => 

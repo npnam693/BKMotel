@@ -111,7 +111,7 @@ function FavouritePage() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className={styles.wrapper}>
+            <div className={styles.inner}>
                 <div className={styles.heading}>
                     <div className={styles.header}>Danh sách quan tâm</div>
                     <Button 

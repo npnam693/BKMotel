@@ -6,11 +6,11 @@
 }
 .wrapperSelect::after{
     content: "";
-    height: 36px;
+    height: 32px;
     top: 23px;
     width: 1px;
     position: absolute;
-    background-color:#AAA;
+    background-color:rgb(213, 209, 209);
     display: inline-block;
 }
 .fail{
@@ -25,12 +25,19 @@ select{
     text-indent: 1px;
     text-overflow: '';
     min-width: 190px;
+    font-family: var(font-Josefin);
 }
 select:focus{
     outline: none
 }
 select::-ms-expand{
     display: none;
+}
+
+option p{
+    font-family: var(--font-Josefin);
+    margin: 10px 0;
+    color: red
 }
 
 .containerSearchIc{

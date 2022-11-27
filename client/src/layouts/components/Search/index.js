@@ -67,8 +67,9 @@ function Search() {
                     onFocus = {(e) => e.target.classList.remove(cx('fail'))}
                 >
                     <option key={"0"} value="0" defaulvalue={0}>
-                    Khu vực
+                        <p>Khu vực</p>
                     </option>
+                   
                     {provinces.map((e) => (
                     <option key={e.code} value={e.code}>
                         {e.name}
@@ -93,12 +94,7 @@ function Search() {
                   </option>
                 ))}
               </select>
-
             </div>
-
-
-            
-                        
             <select
                 className={cx("money")}
                 name="money"

@@ -3,16 +3,51 @@ import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Tele
 import { useState, useEffect } from 'react';
 import ReviewItem from '../../components/Review';
 import axios from 'axios';
-// import { UserState } from '../../Context/UserProvider'
+import { UserState } from '../../Context/UserProvider'
 import Skeleton from '@mui/material/Skeleton';
+import { useSnackbar } from 'notistack';
 
 import { Rating, ImageList , ImageListItem, Button   } from '@mui/material';
+
 function DetailPage() {
     const url = window.location.pathname;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var locationStr = ''
+    
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState()
+    const { userInfo, userFavourites, setUserFavourites } = UserState()
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    
+    const toast = (message, variantType) => {
+        enqueueSnackbar(message, {
+            variant: variantType,
+            action: (key) => (
+                <Button style={{ fontSize: '12px', fontWeight: '600' }} size='small' onClick={() => closeSnackbar(key)}>
+                    Dismiss
+                </Button>
+            )
+        });
+    }
+    const config = userInfo ? {
+        headers: {
+            Authorization: `Bearer ${userInfo.token}`
+        }
+    } : {}
+
+    const handleLikeClick = () => {
+        axios.put('/api/rooms/favourites/add', {
+            roomId: data.rooms._id
+        }, config)
+            .then(response => {
+                setUserFavourites(response.data.favourites)
+                toast(response.data.message, 'success')
+            })
+            .catch(err => {
+                toast(err.response.data.message, 'error')
+            })
+    }
+
 
     useEffect(()=>{
         axios.get(`/api/rooms/${id}`)
@@ -22,6 +57,7 @@ function DetailPage() {
             })
             .catch(err => console.log(err))
             // eslint-disable-next-line
+    
     }, []) 
 
     if (loading===false){
@@ -168,18 +204,41 @@ function DetailPage() {
                         <GeoAlt color="#000000" size={18} />
                         <p className = {styles.locationContent}>{locationStr}</p>
                     </div>
-                    <Button  
-                        variant="outlined" 
-                        color='info'
-                        sx={{
-                            display: 'inline',
-                            fontWeight: 'bold',
-                            mx: 0.5,
-                            fontSize: 14,
-                            padding: '1px 10px',
-                        }}
-                        onClick = {(e) => e.preventDefault()}
-                    >   Yêu thích   </Button>
+                    {userFavourites.some(userFavourite => userFavourite._id === data.rooms._id) ? (
+                        <Button
+                            variant="contained"
+                            color='success'
+                            sx={{
+                                display: 'inline',
+                                fontWeight: 'bold',
+                                mx: 0.5,
+                                fontSize: 14,
+                                padding: '1px 10px',
+                            }}
+                            onClick={(e) =>{
+                                e.preventDefault()
+                                handleLikeClick()
+                            }}
+                        >
+                            Đã yêu thích
+                        </Button>): 
+                        (<Button  
+                            variant = "outlined" 
+                            color = 'info'
+                            sx = {{
+                                display: 'inline',
+                                fontWeight: 'bold',
+                                mx: 0.5,
+                                fontSize: 14,
+                                padding: '1px 10px',
+                            }}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                handleLikeClick()
+                            }}
+                        >
+                            Yêu thích
+                        </Button>)}
                 </div>
             </div>
             

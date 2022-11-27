@@ -46,7 +46,7 @@ function FavouriteItem({data, onRemove}) {
                         </div>
                         <HeartFill onClick={()=>{onRemove(data._id)}} className={styles.heart} color="#00A699" size={25}/>
                     </div>
-                    <Divider />
+                    <Divider/>
                     <div className={styles.footer}>
                         <div className={styles.eval}>
                             <p>{data.ratingPoint.$numberDecimal} </p>
