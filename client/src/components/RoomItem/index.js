@@ -2,6 +2,7 @@ import styles from './style.module.css'
 import { Link } from 'react-router-dom';
 import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
 import Button from '@mui/material/Button';
+
 import {memo} from 'react'
 import { useSnackbar } from 'notistack';
 import { UserState } from '../../Context/UserProvider';
@@ -28,6 +29,9 @@ function RoomItem({ data }) {
         }
     } : {}
 
+
+
+    
     const handleLikeClick = () => {
         axios.put('/api/rooms/favourites/add', {
             roomId: data._id
@@ -45,7 +49,7 @@ function RoomItem({ data }) {
         if (name.substring(0, 9) === 'Thành phố') 
             return name.substring(10)
         if (name.substring(0, 4) === 'Tỉnh') 
-            return name.substring(10)
+            return name.substring(5)
         return name
     }
 

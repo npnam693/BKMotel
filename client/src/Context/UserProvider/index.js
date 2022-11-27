@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect} from "react";
+import axios from 'axios';
 
 const UserContext = createContext();
 
@@ -9,7 +10,19 @@ const UserProvider = ({ children }) => {
     useEffect(() => {
       const user = JSON.parse(localStorage.getItem("userInfo"))
       setUserInfo(user)
-      if(user) setUserFavourites(user.favourites)
+      if(user){
+        const config = {
+          headers: {
+              Authorization: `Bearer ${user.token}`
+          }
+        }
+        axios.get(`/api/rooms/favourites/${user._id}`, config)
+          .then(res => {
+              // console.log(res)
+              setUserFavourites(res.data)
+          })
+          .catch(err => {console.log(err)})
+      }
     }, [])
 
     return (

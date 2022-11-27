@@ -4,8 +4,8 @@ function DefaultLayout({children}) {
     return ( 
         <div className="App">
             <Header />
-            <Footer />
             {children}
+            <Footer />
         </div> 
     );
 }

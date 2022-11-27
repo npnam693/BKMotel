@@ -3,6 +3,7 @@
     height: 50px;
     left: 0px;
     bottom:0;
+    display: block;
 }
 
 .wrapper{
