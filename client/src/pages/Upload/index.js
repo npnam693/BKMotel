@@ -17,6 +17,7 @@ import { v4 } from "uuid";
 import { getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import { UserState } from "./../../Context/UserProvider/index";
+import { CircularProgress } from "@mui/material";
 const cx = classNames.bind(styles);
 
 function UploadPage() {
@@ -39,6 +40,8 @@ function UploadPage() {
   const provinceRef = useRef(null);
   const districtRef = useRef(null);
   const wardRef = useRef(null);
+
+  const [loading, setLoading] = useState(false);
 
   const toast = (message, variantType) => {
     enqueueSnackbar(message, {
@@ -189,36 +192,45 @@ function UploadPage() {
   };
 
   const HandleUpload = (e) => {
+    setLoading(true);
     if (inputTitleRef.current.value.trim() === "") {
       showSnackbarMessage("Phải điền tiêu đề bài viết");
+      setLoading(false);
       return;
     }
-    if (inputTitleRef.current.value.trim().length > 120) {
-      showSnackbarMessage("Tiêu đề không quá 120 ký tự");
+    if (inputTitleRef.current.value.trim().length > 100) {
+      showSnackbarMessage("Tiêu đề không quá 100 ký tự");
+      setLoading(false);
       return;
     }
     if (inputAreaRef.current.value === "") {
       showSnackbarMessage("Phải điền diện tích phòng trọ");
+      setLoading(false);
       return;
     }
     if (inputAreaRef.current.value <= 0) {
       showSnackbarMessage("Diện tích phải lớn hơn 0");
+      setLoading(false);
       return;
     }
     if (inputPriceRef.current.value === "") {
       showSnackbarMessage("Phải điền giá phòng trọ");
+      setLoading(false);
       return;
     }
     if (inputPriceRef.current.value <= 0) {
       showSnackbarMessage("Giá phòng phải lớn hơn 0");
+      setLoading(false);
       return;
     }
     if (inputRestRef.current.value === "") {
       showSnackbarMessage("Phải điền số phòng");
+      setLoading(false);
       return;
     }
     if (inputRestRef.current.value <= 0) {
       showSnackbarMessage("Số phòng phải lớn hơn 0");
+      setLoading(false);
       return;
     }
     if (
@@ -228,18 +240,22 @@ function UploadPage() {
       inputAddrRef.current.value.trim() === ""
     ) {
       showSnackbarMessage("Phải điển đầy đủ địa chỉ");
+      setLoading(false);
       return;
     }
     if (inputContactRef.current.value.trim() === "") {
       showSnackbarMessage("Phải điền thông tin liên hệ");
+      setLoading(false);
       return;
     }
     if (inputInforRef.current.value.trim() === "") {
       showSnackbarMessage("Phải điền mô tả phòng");
+      setLoading(false);
       return;
     }
     if (images.length < 1) {
       showSnackbarMessage("Bắt buộc phải tải ảnh lên");
+      setLoading(false);
       return;
     }
     const config = {
@@ -277,6 +293,7 @@ function UploadPage() {
             );
             if (response.data._id) {
               toast("Upload thành công", "success");
+              setLoading(false);
             } else {
               toast(response.data.message, "error");
             }
@@ -325,6 +342,7 @@ function UploadPage() {
             placeholder="Nhập tiêu đề"
             name="titleInput"
             id="titleInput"
+            maxLength="100"
             ref={inputTitleRef}
           />
         </div>
@@ -530,9 +548,11 @@ function UploadPage() {
             className={cx("btn")}
             type="button"
             id="upload"
+            disabled={loading}
             onClick={(e) => HandleUpload(e)}
+            style={loading ? { opacity: "0.5" } : null}
           >
-            ĐĂNG BÀI
+            {loading ? <CircularProgress size={16} /> : "ĐĂNG BÀI"}
           </button>
         </div>
       </div>

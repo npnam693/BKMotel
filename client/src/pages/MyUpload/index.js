@@ -55,7 +55,6 @@ function MyUploadPage() {
   const handleDeleteAll = () => {
     if (myRooms.length > 0) {
       if (window.confirm("Bạn muốn xoá tất cả bài viết?")) {
-        console.log("Delete All Posts with userId; ", userInfo._id);
         axios
           .post(
             "/api/rooms/deleteallmyrooms",
@@ -64,6 +63,7 @@ function MyUploadPage() {
           )
           .then((res) => {
             setMyRooms([]);
+            setIsChanged(!isChanged);
             toast(res.data.message, "success");
           })
           .catch((error) => toast(error.response.data.message, "error"));
@@ -102,7 +102,7 @@ function MyUploadPage() {
         toast(error.response.data.message, "error");
       });
     // eslint-disable-next-line
-  }, [isChanged]);
+  }, [isChanged, myRooms]);
 
   return (
     <ThemeProvider theme={theme}>
