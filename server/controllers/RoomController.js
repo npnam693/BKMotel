@@ -6,7 +6,7 @@ import User from "../models/User.js";
 export const roomMenu = (req, res, next) => {
   Room.find()
     .sort({ ratingCount: -1, ratingPoint: -1 })
-    .limit(24)
+    // .limit(24)
     .select("-creator -description -contact -remainCount")
     .then((rooms) => res.status(200).json(rooms))
     .catch(next);
@@ -148,7 +148,8 @@ export const clearFavouriteList = (req, res, next) => {
 // -------------- LAM ----------------
 // [POST] /api/rooms/upload
 export const uploadRoom = (req, res, next) => {
-  const userId = req._id;
+  const userId = (req.user);
+  console.log(userId._id)
   const {
     title,
     area,
@@ -164,7 +165,7 @@ export const uploadRoom = (req, res, next) => {
   } = req.body;
   Room.create({
     title,
-    creator: userId,
+    creator: userId._id,
     area,
     description,
     price,
@@ -176,7 +177,10 @@ export const uploadRoom = (req, res, next) => {
     contact,
     image,
   })
-    .then((room) => res.status(201).json(room))
+    .then((room) => {
+      console.log(room)
+      res.status(201).json(room)
+    })
     .catch(next);
 };
 

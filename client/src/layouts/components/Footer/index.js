@@ -3,7 +3,6 @@ import { Facebook, Instagram, Twitter  } from 'react-bootstrap-icons'
 function Footer() {
     return ( 
         <> 
-            <div className = {styles.container}></div>
             <footer className = {styles.wrapper}>
                 <div className = {styles.inner}>
                     <div className = {styles.action}>

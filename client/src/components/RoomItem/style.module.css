@@ -1,5 +1,6 @@
 .wrapper {
     width: 300px;
+    padding: 10px;
     text-decoration: none;
     color: #000000;
 
@@ -11,8 +12,8 @@
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 .img{
-    width: 300px;
-    height: 270px;
+    width: 280px;
+    height: 252px;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -42,6 +43,9 @@
     display:flex;
     align-items: center;
     margin: 0px 0px 9px 3px;
+}
+.area{
+    margin-bottom: 0;
 }
 
 

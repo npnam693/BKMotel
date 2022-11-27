@@ -5,13 +5,23 @@ import Button from '@mui/material/Button';
 
 
 
-function RoomItem() {
+function RoomItem({data}) {
+    console.log('item', data.address)
+
+    const formatNameAddress = (name) =>{
+        if (name.substring(0, 9) === 'Thành phố') 
+            return name.substring(10)
+        if (name.substring(0, 4) === 'Tỉnh') 
+            return name.substring(10)
+        return name
+    }
+
+
     return (
-        <Link to = '/detail/id' className = {styles.wrapper}>
-            <img className = {styles.img} src="https://www.territorysupply.com/wp-content/uploads/2020/11/best-airbnbs-oklahoma.jpg" 
+        <Link to = {`/detail/${data._id}`} className = {styles.wrapper}>
+            <img className = {styles.img} src={data.image[0]}
                 alt="Avatar" 
             />
-                     
             <div className={styles.content}>
                 <div className = {styles.contentAction}>
                     <div className = {styles.likeWrapper}>
@@ -29,25 +39,25 @@ function RoomItem() {
                         >
                             Yêu thích
                         </Button>
-                        <p className = {styles.province} > TPHCM </p>
+                        <p className = {styles.province} > {formatNameAddress(data.province)} </p>
                     </div>
 
                     <div className = {styles.rating}> 
                         <StarFill color="#00A699" size={10} style={{marginTop: -2}} />
-                        <p className={styles.ratingPoint}>4.9</p>
+                        <p className={styles.ratingPoint}>{data.ratingPoint.$numberDecimal}</p>
                     </div>
                 </div>
                 <div className = {styles.location}>
                     <GeoAlt color="#000000" size={18}  style={{marginTop: -3}}/>
-                    <span className = {styles.locationContent}>Thủ Đức, TP.HCM</span>
+                    <span className = {styles.locationContent}> {formatNameAddress(data.district)} </span>
                 </div>
                 <div className = {styles.cost}>
                     <Cash color="#000000" size={18} style={{marginTop: -4}}/>
-                    <span className = {styles.costContent}>500.000 / tháng </span>
+                    <span className = {styles.costContent}>{data.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})} /tháng </span>
                 </div>
                 <div className = {styles.area}>
                     <House color="#000000" size={18} style={{marginTop: -4}}/>
-                    <span className = {styles.areaContent}>10m2</span>
+                    <span className = {styles.areaContent}>{data.area}m2</span>
                 </div>
             </div>
         </Link>

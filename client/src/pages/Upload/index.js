@@ -235,6 +235,11 @@ function UploadPage() {
       showSnackbarMessage("Bắt buộc phải tải ảnh lên");
       return;
     }
+    const config = {
+      headers: {
+          Authorization: `Bearer ${userInfo.token}`
+      }
+  }
     try {
       let data = {};
       const add = new Promise((resolve) => {
@@ -258,7 +263,7 @@ function UploadPage() {
         })
         .then(async () => {
           try {
-            const response = await axios.post("/api/rooms/upload", data);
+            const response = await axios.post("/api/rooms/upload", data, config);
             if (response.data._id) {
               toast("Upload thành công", "success");
             } else {
