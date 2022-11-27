@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Divider, Button } from "@mui/material";
+import { Divider, Button, Modal } from "@mui/material";
 import MyUploadItem from "../../components/MyUploadItem";
 import styles from "./style.module.css";
 import { UserState } from "../../Context/UserProvider";
@@ -18,10 +18,25 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "15px",
+          fontSize: "12px",
+          fontFamily: '"Inter", sans-serif',
+          fontWeight: 600,
+          height: "42px",
+          color: "white",
+        },
+      },
+    },
   },
   palette: {
     bkmotel: {
       main: "#00A699",
+    },
+    defaultBtn: {
+      main: "#ccc",
     },
   },
 });
@@ -29,7 +44,7 @@ const theme = createTheme({
 function MyUploadPage() {
   const { userInfo } = UserState();
   const [isChanged, setIsChanged] = useState(false);
-  // eslint-disable-next-line
+  const [modalOpen, setModalOpen] = useState(false);
   const [myRooms, setMyRooms] = useState([]);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const toast = (message, variantType) => {
@@ -53,28 +68,18 @@ function MyUploadPage() {
   };
 
   const handleDeleteAll = () => {
-    if (myRooms.length > 0) {
-      if (window.confirm("Bạn muốn xoá tất cả bài viết?")) {
-        axios
-          .post(
-            "/api/rooms/deleteallmyrooms",
-            { creator: userInfo._id },
-            config
-          )
-          .then((res) => {
-            setMyRooms([]);
-            setIsChanged(!isChanged);
-            toast(res.data.message, "success");
-          })
-          .catch((error) => toast(error.response.data.message, "error"));
-      }
-    } else {
-      toast("Dánh sách phòng trống", "error");
-    }
+    axios
+      .post("/api/rooms/deleteallmyrooms", { creator: userInfo._id }, config)
+      .then((res) => {
+        setMyRooms([]);
+        setIsChanged(!isChanged);
+        toast(res.data.message, "success");
+      })
+      .catch((error) => toast(error.response.data.message, "error"));
   };
 
-  const handleDelete = useCallback((room) => {
-    if (window.confirm("Bạn muốn xoá bài viết này?")) {
+  const handleDelete = useCallback(
+    (room) => {
       axios
         .post("/api/rooms/deletebyid", { _id: room._id }, config)
         .then((res) => {
@@ -82,9 +87,10 @@ function MyUploadPage() {
           toast(res.data.message, "success");
         })
         .catch((err) => toast(err.response.data.message, "error"));
-    }
+    },
     // eslint-disable-next-line
-  }, []);
+    []
+  );
 
   useEffect(() => {
     axios
@@ -110,9 +116,50 @@ function MyUploadPage() {
         <div className={styles.inner}>
           <div className={styles.heading}>
             <div className={styles.header}>Bài đăng của tôi</div>
-            <button className={styles.deleteAllBtn} onClick={handleDeleteAll}>
+            <button
+              className={styles.deleteAllBtn}
+              onClick={() => {
+                if (myRooms.length) setModalOpen(true);
+              }}
+            >
               Xoá tất cả
             </button>
+            <Modal
+              open={modalOpen}
+              onClose={() => setModalOpen(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <div className={styles.modal}>
+                <header id="modal-modal-title" className={styles.modalHeader}>
+                  Xác nhận xóa
+                </header>
+                <p id="modal-modal-description" className={styles.modalMessage}>
+                  Bạn có chắc chắn muốn xóa ?
+                </p>
+                <div className={styles.modalFooter}>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="bkmotel"
+                    onClick={() => {
+                      handleDeleteAll();
+                      setModalOpen(false);
+                    }}
+                  >
+                    Xác nhận
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="info"
+                    onClick={() => setModalOpen(false)}
+                  >
+                    Hủy xóa
+                  </Button>
+                </div>
+              </div>
+            </Modal>
           </div>
           <Divider variant="middle" />
           <div className={styles.listItem}>
@@ -123,7 +170,9 @@ function MyUploadPage() {
                 <MyUploadItem
                   key={room._id}
                   data={room}
-                  onDelete={() => handleDelete(room, userInfo)}
+                  onDelete={() => {
+                    handleDelete(room, userInfo);
+                  }}
                 />
               ))
             )}
