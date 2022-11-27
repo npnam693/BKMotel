@@ -4,9 +4,12 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
     const [userInfo, setUserInfo] = useState()
+    const [userFavourites, setUserFavourites] = useState([])
     
     useEffect(() => {
-      setUserInfo(JSON.parse(localStorage.getItem("userInfo")))
+      const user = JSON.parse(localStorage.getItem("userInfo"))
+      setUserInfo(user)
+      if(user) setUserFavourites(user.favourites)
     }, [])
 
     return (
@@ -14,7 +17,8 @@ const UserProvider = ({ children }) => {
         value={{
             userInfo,
             setUserInfo,
-            // userFavourite,
+            userFavourites, 
+            setUserFavourites,
         }}
       >
         {children}

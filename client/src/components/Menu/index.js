@@ -48,7 +48,7 @@ const userActivedMenu = [
 ];
 
 function AccountMenu() {
-    const { userInfo, setUserInfo } = UserState();
+    const { userInfo, setUserInfo, setUserFavourites } = UserState();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -137,6 +137,7 @@ function AccountMenu() {
                             onClick = { () => {
                                     if (item.action) {
                                         setUserInfo(null)
+                                        setUserFavourites([])
                                         item.action();
                                         toast("Đăng xuất thành công.", "success")
                                     }

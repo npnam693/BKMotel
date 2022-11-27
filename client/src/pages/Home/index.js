@@ -4,9 +4,11 @@ import SkeletonItem from '../../components/RoomItem/skeleton';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+
 function HomePage() {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
         axios.get(`api/rooms/`)
@@ -32,7 +34,7 @@ function HomePage() {
                             <SkeletonItem key={i} />
                         ) : 
                         data.map((item, index) => 
-                            <RoomItem data = {item}/>
+                            <RoomItem data={item} />
                         )
                     }
                 </div>

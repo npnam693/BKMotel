@@ -2,13 +2,45 @@ import styles from './style.module.css'
 import { Link } from 'react-router-dom';
 import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
 import Button from '@mui/material/Button';
-import { UserState } from '../../Context/UserProvider'
 
+import {memo} from 'react'
+import { useSnackbar } from 'notistack';
+import { UserState } from '../../Context/UserProvider';
+import axios from 'axios';
 
+function RoomItem({ data }) {
+    console.log('item', data.address)
+    const { userInfo, userFavourites, setUserFavourites } = UserState()
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-function RoomItem({data}) {
-    const { userInfo } = UserState();
-    console.log(userInfo)
+    const toast = (message, variantType) => {
+        enqueueSnackbar(message, {
+            variant: variantType,
+            action: (key) => (
+                <Button style={{ fontSize: '12px', fontWeight: '600' }} size='small' onClick={() => closeSnackbar(key)}>
+                    Dismiss
+                </Button>
+            )
+        });
+    }
+    const config = userInfo ? {
+        headers: {
+            Authorization: `Bearer ${userInfo.token}`
+        }
+    } : {}
+
+    const handleLikeClick = () => {
+        axios.put('/api/rooms/favourites/add', {
+            roomId: data._id
+        }, config)
+            .then(response => {
+                setUserFavourites(response.data.favourites)
+                toast(response.data.message, 'success')
+            })
+            .catch(err => {
+                toast(err.response.data.message, 'error')
+            })
+    }
 
     const formatNameAddress = (name) =>{
         if (name.substring(0, 9) === 'Thành phố') 
@@ -26,20 +58,41 @@ function RoomItem({data}) {
             <div className={styles.content}>
                 <div className = {styles.contentAction}>
                     <div className = {styles.likeWrapper}>
-                        <Button  
-                            variant="outlined" 
-                            color='info'
+                        {userFavourites.some(userFavourite => userFavourite._id === data._id) ? (
+                        <Button
+                            variant="contained"
+                            color='success'
                             sx={{
                                 display: 'inline',
                                 fontWeight: 'bold',
                                 mx: 0.5,
                                 fontSize: 14,
                                 padding: '1px 10px',
-                              }}
-                            onClick = {(e) => e.preventDefault()}
+                            }}
+                            onClick={(e) =>{
+                                e.preventDefault()
+                                handleLikeClick()
+                            }}
+                        >
+                            Đã yêu thích
+                        </Button>): 
+                        (<Button  
+                            variant = "outlined" 
+                            color = 'info'
+                            sx = {{
+                                display: 'inline',
+                                fontWeight: 'bold',
+                                mx: 0.5,
+                                fontSize: 14,
+                                padding: '1px 10px',
+                            }}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                handleLikeClick()
+                            }}
                         >
                             Yêu thích
-                        </Button>
+                        </Button>)}
                         <p className = {styles.province} > {formatNameAddress(data.province)} </p>
                     </div>
 
@@ -65,4 +118,4 @@ function RoomItem({data}) {
     );
 }
 
-export default RoomItem;
+export default memo(RoomItem);
