@@ -68,13 +68,14 @@ export const authUser = async (req, res, next) => {
         next(new Error('Bạn phải điền các thông tin cần thiết'))
     }
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({ email }).populate('favourites')
     if(user && (await user.matchPassword(password))) {
         res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
             avatar: user.avatar,
+            favourites: user.favourites,
             token: generateToken(user._id)
         })
     }

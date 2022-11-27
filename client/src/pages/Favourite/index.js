@@ -45,8 +45,7 @@ const theme = createTheme({
 
 
 function FavouritePage() {
-    const {userInfo} = UserState()
-    const [favouriteRooms, setFavoriteRooms] = useState([])
+    const {userInfo, userFavourites, setUserFavourites}  = UserState()
     const [loading, setLoading] = useState(false)
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [modalOpen, setModalOpen] = useState(false)
@@ -67,26 +66,32 @@ function FavouritePage() {
     }
 
     const handleClear = ()=>{
+        setLoading(true)
         axios.put('/api/rooms/favourites/clear',{},config)
             .then(res => {
-                setFavoriteRooms(res.data.favourites)
+                setUserFavourites(res.data.favourites)
                 toast(res.data.message, 'success')
+                setLoading(false)
             })
             .catch(error => {
                 toast(error.response.data.message, 'error')
+                setLoading(false)
             })
     }
 
     const handleRemove = useCallback((id)=>{
+        setLoading(true)
         axios.put('/api/rooms/favourites/add', {
             roomId: id
         }, config)
             .then(response=>{
-                setFavoriteRooms(response.data.favourites)
+                setUserFavourites(response.data.favourites)
                 toast(response.data.message, 'success')
+                setLoading(false)
             })
             .catch(err=>{
                 toast(err.response.data.message, 'error')
+                setLoading(false)
             })
     }, [])
 
@@ -95,11 +100,12 @@ function FavouritePage() {
         axios.get(`/api/rooms/favourites/${userInfo._id}`, config)
             .then(res => {
                 // console.log(res)
-                setFavoriteRooms(res.data)
+                setUserFavourites(res.data)
                 setLoading(false)
             })
             .catch(err => {
                 toast(err.response.data.message, 'error')
+                setLoading(false)
             })
     }, [])
 
@@ -113,7 +119,7 @@ function FavouritePage() {
                         size='large'
                         color='bkmotel'
                         onClick={() =>{
-                                if (favouriteRooms.length)
+                            if (userFavourites.length)
                                     setModalOpen(true)
                             }
                         }
@@ -158,7 +164,7 @@ function FavouritePage() {
                 <Divider variant="middle"  />
                 {loading ? (<CircularProgress size={100}/>) : (
                     <div className={styles.listItem}>
-                        {!favouriteRooms.length ? (<span style={{fontSize: '20px'}}>Danh sách trống</span>) : (favouriteRooms.map(room => <FavouriteItem key={room._id} data ={room} onRemove={handleRemove}/>))}
+                        {!userFavourites.length ? (<span style={{ fontSize: '20px' }}>Danh sách trống</span>) : (userFavourites.map(room => <FavouriteItem key={room._id} data ={room} onRemove={handleRemove}/>))}
                     </div>
                 )}
             </div> 
