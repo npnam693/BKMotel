@@ -11,7 +11,7 @@ import {FormControlLabel, Checkbox, Divider, TextField, Button, Link} from '@mui
 import {UserState} from '../../Context/UserProvider'
 
 function LoginPage({children}) {
-    const { userInfo, setUserInfo } = UserState();
+    const { userInfo, setUserInfo , setUserFavourites} = UserState();
     let navigate = useNavigate();
     
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -36,9 +36,10 @@ function LoginPage({children}) {
                 "/api/users/login",
                 { email, password },
             );
-
             localStorage.setItem("userInfo", JSON.stringify(data));
-            setUserInfo(JSON.parse(localStorage.getItem("userInfo")))
+            const user = JSON.parse(localStorage.getItem("userInfo"))
+            setUserInfo(user)
+            setUserFavourites(user.favourites)
             toast('Đăng nhập thành công.', 'success')
             navigate('/')
         }  catch (error) {    
