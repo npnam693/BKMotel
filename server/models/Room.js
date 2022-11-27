@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
 
-const RoomSchema = new mongoose.Schema({
+const RoomSchema = new mongoose.Schema(
+  {
     title: String,
     creator: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     image: [String],
-    
-    ratingCount: {type: Number, default: 0},
-    ratingPoint: {type: mongoose.Schema.Types.Decimal128, default: 0},
+
+    ratingCount: { type: Number, default: 0 },
+    ratingPoint: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     area: Number,
     num: Number,
     description: String,
@@ -20,9 +21,11 @@ const RoomSchema = new mongoose.Schema({
     district: String,
     ward: String,
     contact: String,
-}, {
-    timestamps: true
-})
-const Room = mongoose.model('Room', RoomSchema)
+  },
+  {
+    timestamps: true,
+  }
+);
+const Room = mongoose.model("Room", RoomSchema);
 
 export default Room;

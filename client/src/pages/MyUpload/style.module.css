@@ -1,0 +1,49 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    font-family: 'Josefin Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: var(--default-layout-width);
+}
+
+.heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    font-size: 3.2rem;
+    color: #6B7280;
+}
+
+.listItem {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.deleteAllBtn {
+    height: 32px;
+    font-size: 12px;
+    padding: 2px 10px;
+    font-weight: 600;
+    background-color: #ffffff;
+    color: #616161;
+    box-shadow: "none";
+    border-radius: 16px;
+    border: 1px solid #616161;
+}
+
+.deleteAllBtn:hover {
+    cursor: pointer;
+    background-color: #f8f8f8;
+}

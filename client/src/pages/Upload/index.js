@@ -16,12 +16,11 @@ import { ref, uploadBytesResumable } from "firebase/storage";
 import { v4 } from "uuid";
 import { getDownloadURL } from "firebase/storage";
 import axios from "axios";
-import { UserState } from './../../Context/UserProvider/index';
+import { UserState } from "./../../Context/UserProvider/index";
 const cx = classNames.bind(styles);
 
-
 function UploadPage() {
-  const {userInfo} = UserState();
+  const { userInfo } = UserState();
   const [province, setProvince] = useState("0");
   const [provinces, setProvinces] = useState([]);
   const [district, setDistrict] = useState("0");
@@ -43,14 +42,18 @@ function UploadPage() {
 
   const toast = (message, variantType) => {
     enqueueSnackbar(message, {
-        variant: variantType,
-        action: (key) => (
-            <Button style={{fontSize: '12px', fontWeight: '600'}} size='small' onClick={() => closeSnackbar(key)}>
-                Dismiss
-            </Button>
-        )
+      variant: variantType,
+      action: (key) => (
+        <Button
+          style={{ fontSize: "12px", fontWeight: "600" }}
+          size="small"
+          onClick={() => closeSnackbar(key)}
+        >
+          Dismiss
+        </Button>
+      ),
     });
-};
+  };
 
   // Handle select province
   useEffect(() => {
@@ -190,6 +193,10 @@ function UploadPage() {
       showSnackbarMessage("Phải điền tiêu đề bài viết");
       return;
     }
+    if (inputTitleRef.current.value.trim().length > 120) {
+      showSnackbarMessage("Tiêu đề không quá 120 ký tự");
+      return;
+    }
     if (inputAreaRef.current.value === "") {
       showSnackbarMessage("Phải điền diện tích phòng trọ");
       return;
@@ -237,9 +244,9 @@ function UploadPage() {
     }
     const config = {
       headers: {
-          Authorization: `Bearer ${userInfo.token}`
-      }
-  }
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
     try {
       let data = {};
       const add = new Promise((resolve) => {
@@ -263,7 +270,11 @@ function UploadPage() {
         })
         .then(async () => {
           try {
-            const response = await axios.post("/api/rooms/upload", data, config);
+            const response = await axios.post(
+              "/api/rooms/upload",
+              data,
+              config
+            );
             if (response.data._id) {
               toast("Upload thành công", "success");
             } else {
@@ -298,7 +309,6 @@ function UploadPage() {
     },
     [enqueueSnackbar, closeSnackbar]
   );
-  
 
   return (
     <div className={cx("wrapper")}>

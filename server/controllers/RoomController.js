@@ -1,6 +1,7 @@
 import Room from "../models/Room.js";
 import Review from "../models/Review.js";
 import User from "../models/User.js";
+import { mongoose } from "mongoose";
 
 //[GET] /api/rooms/
 export const roomMenu = (req, res, next) => {
@@ -148,8 +149,8 @@ export const clearFavouriteList = (req, res, next) => {
 // -------------- LAM ----------------
 // [POST] /api/rooms/upload
 export const uploadRoom = (req, res, next) => {
-  const userId = (req.user);
-  console.log(userId._id)
+  const userId = req.user;
+  console.log(userId._id);
   const {
     title,
     area,
@@ -178,18 +179,46 @@ export const uploadRoom = (req, res, next) => {
     image,
   })
     .then((room) => {
-      console.log(room)
-      res.status(201).json(room)
+      console.log(room);
+      res.status(201).json(room);
     })
     .catch(next);
 };
 
 // [POST] /api/rooms/deletebyid
-export const deleteRoomById = (req, res, next) => {
+export const deleteRoomById = async (req, res, next) => {
   const roomId = req.body._id;
-  Room.deleteOne({ _id: roomId })
-    .then(() => {
-      res.status(200).json({ message: "Xoá thành công" });
-    })
-    .catch(next);
+  await Room.deleteOne({ _id: roomId }).then((e) => {
+    if (e.acknowledged && e.deletedCount == 1) {
+      return res.status(200).json({ message: "Xoá thành công" });
+    } else {
+      next(e);
+    }
+  });
+};
+
+// [POST] /api/rooms/deleteAllMyRooms
+export const deleteAllMyRooms = async (req, res, next) => {
+  const ObjectId = mongoose.Types.ObjectId;
+  const creatorId = new ObjectId(req.body.creator);
+  await Room.deleteMany({ creator: creatorId }).then((e) => {
+    if (e.acknowledged && e.deletedCount > 0) {
+      return res.status(200).json({ message: "Xoá thành công" });
+    } else {
+      next(e);
+    }
+  });
+};
+
+// [POST] /api/rooms/myrooms
+export const myRooms = async (req, res, next) => {
+  const ObjectId = mongoose.Types.ObjectId;
+  const creatorId = new ObjectId(req.body.creator);
+  Room.find({ creator: creatorId }, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      return res.status(200).json(data);
+    }
+  });
 };
