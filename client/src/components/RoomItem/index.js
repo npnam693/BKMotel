@@ -2,11 +2,13 @@ import styles from './style.module.css'
 import { Link } from 'react-router-dom';
 import { StarFill, GeoAlt, Cash, House} from 'react-bootstrap-icons';
 import Button from '@mui/material/Button';
+import { UserState } from '../../Context/UserProvider'
 
 
 
 function RoomItem({data}) {
-    console.log('item', data.address)
+    const { userInfo } = UserState();
+    console.log(userInfo)
 
     const formatNameAddress = (name) =>{
         if (name.substring(0, 9) === 'Thành phố') 
@@ -15,7 +17,6 @@ function RoomItem({data}) {
             return name.substring(10)
         return name
     }
-
 
     return (
         <Link to = {`/detail/${data._id}`} className = {styles.wrapper}>

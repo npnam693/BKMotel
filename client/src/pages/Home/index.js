@@ -18,6 +18,8 @@ function HomePage() {
             .catch (err => console.error(err))
     }, [])
 
+
+
     if (!loading)
         console.log(data)
     return (

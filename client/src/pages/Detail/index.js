@@ -241,8 +241,6 @@ function DetailPage() {
                         </div>
                     </div>
 
-            
-
                 </div>
 
                 <div className = {styles.infoContact}>
@@ -259,7 +257,7 @@ function DetailPage() {
 
                     <div className = {styles.infoContactContent}>
                         <img className = {styles.avatar} 
-                            src="https://as01.epimg.net/meristation_en/imagenes/2022/09/16/news/1663350140_632920_1663350705_noticia_normal.jpg"
+                            src={data.rooms.creator.avatar}
                             alt='avatar'
                         />
 
