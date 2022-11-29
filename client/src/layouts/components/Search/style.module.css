@@ -4,7 +4,7 @@
 .province{
     border-radius: 50px 0px 0px 50px;
 }
-.wrapperSelect::after{
+/* .wrapperSelect::after{
     content: "";
     height: 32px;
     top: 23px;
@@ -12,32 +12,34 @@
     position: absolute;
     background-color:rgb(213, 209, 209);
     display: inline-block;
-}
+} */
 .fail{
     background-color: #E89494 !important;
 }
  
 select{
     border: none;
-    padding-left: 15px;
+    padding-left: 20px;
     -webkit-appearance: none;
     -moz-appearance: none;
-    text-indent: 1px;
-    text-overflow: '';
     min-width: 190px;
-    font-family: var(font-Josefin);
+    font-size: 1.5rem;
+    font-family: var(--font-Josefin);
+    color: rgba(0, 0, 0, 0.9);
+    line-height: 20px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
+select>option{ 
+    height:20px;
+  }
 select:focus{
     outline: none
 }
 select::-ms-expand{
     display: none;
 }
-
-option p{
-    font-family: var(--font-Josefin);
-    margin: 10px 0;
-    color: red
+option p {
+    font-size: 3rem;
 }
 
 .containerSearchIc{
@@ -47,6 +49,7 @@ option p{
     width: 50px;
     background-color: white;
     border-radius: 0 50px 50px 0px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
 .containerSearchIc:hover{

@@ -16,8 +16,13 @@
 .titleContent {
     font-family:  var(--font-family-detail);
     font-weight: 700;
-    font-size: 36px;
+    font-size: 3rem;
     margin-bottom: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+    max-width: 1026px;
+    overflow: hidden;
+
 }
 
 .titleContainer{

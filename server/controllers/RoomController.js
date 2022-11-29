@@ -8,7 +8,7 @@ export const roomMenu = (req, res, next) => {
   const num = Number(req.query.num)
   console.log(num)
   Room.find()
-    .sort({ ratingCount: -1, ratingPoint: -1 })
+    .sort({ ratingCount: -1, _id: -1 })
     .limit(num)
     .select("-creator -description -contact -remainCount")
     .then((rooms) => res.status(200).json(rooms))

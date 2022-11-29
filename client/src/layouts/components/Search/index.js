@@ -52,10 +52,11 @@ function Search() {
             if (area == 0) {
                 const Element = document.getElementsByClassName(styles.area)[0]
                 console.log(Element.classList.add(cx('fail')))
-
             }
         }
-        else navigate('/search/id')
+        else {
+            navigate('/search/id')
+        }
     }
         return (
         <div style={{display: "flex"}}>

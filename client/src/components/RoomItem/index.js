@@ -88,6 +88,7 @@ function RoomItem({ data }) {
                                 mx: 0.5,
                                 fontSize: 14,
                                 padding: '1px 10px',
+                                minWidth: '117px'
                             }}
                             onClick={(e) => {
                                 e.preventDefault()
