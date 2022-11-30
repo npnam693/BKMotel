@@ -29,6 +29,8 @@ export const getRoom = (req, res, next) => {
 //[GET] /api/rooms/find
 export const findRooms = (req, res, next) => {
   const { lowerPrice, higherPrice, province, area } = req.query;
+  console.log(req.query)
+  
   let q = {
     $and: [],
   };
@@ -36,7 +38,7 @@ export const findRooms = (req, res, next) => {
     q.$and.push({ province });
   }
   if (area) {
-    q.$and.push({ area });
+    q.$and.push({ area : { $lte: area}});
   }
   if (lowerPrice) {
     if (higherPrice) {

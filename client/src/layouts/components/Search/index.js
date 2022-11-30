@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
-
-
-
 function Search() {
     let navigate = useNavigate();
 
@@ -31,13 +28,19 @@ function Search() {
     ]
 
     const areList = [    
+        {content: "10m", value: 10},
         {content: "20m", value: 20},
         {content: "30m", value: 30},
         {content: "40m", value: 40},
+        {content: "50m", value: 50},
+        {content: "60m", value: 60},
+        {content: "70m", value: 70},
+        {content: "80m", value: 80},
+        {content: "90m", value: 90},
+        {content: "100m", value: 100},
     ]
 
     const handleClickSearch = () => {
-        console.log(province, money, area)
         if (money == 0 || area == 0 || province == 0) {
             if (province == 0) {
                 const Element = document.getElementsByClassName(styles.province)[0]
@@ -55,7 +58,7 @@ function Search() {
             }
         }
         else {
-            navigate('/search/id')
+            navigate(`/search?province=${province}&area=${area}&money=${money}`)
         }
     }
         return (
@@ -72,7 +75,7 @@ function Search() {
                     </option>
                    
                     {provinces.map((e) => (
-                    <option key={e.code} value={e.code}>
+                    <option key={e.code} value={e.name}>
                         {e.name}
                     </option>
                     ))}

@@ -5,8 +5,8 @@ import * as RoomController from "../controllers/RoomController.js";
 const router = express.Router();
 
 router.get("/", RoomController.roomMenu);
+router.get("/find", RoomController.findRooms);
 router.get("/:id", RoomController.getRoom);
-router.get("/find", verifyToken, RoomController.findRooms);
 router.post("/create", verifyToken, RoomController.createRoom);
 router.post("/upload", verifyToken, RoomController.uploadRoom);
 router.get("/favourites/:id", verifyToken, RoomController.getAllFavouriteRooms);
