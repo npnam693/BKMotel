@@ -10,6 +10,8 @@ import {
   UploadPage,
   ResultPage,
   MyUploadPage,
+  MyReviewPage,
+  EditReview,
 } from "../pages";
 
 const publicRoutes = [
@@ -23,9 +25,10 @@ const publicRoutes = [
 const privateRoutes = [
   { path: "/favourite", component: FavouritePage, layout: DefaultLayout },
   { path: "/profile", component: ProfilePage, layout: DefaultLayout },
-  { path: "/review", component: ProfilePage, layout: DefaultLayout },
+  { path: '/review', component: MyReviewPage, layout: DefaultLayout },
   { path: "/upload", component: UploadPage, layout: DefaultLayout },
   { path: "/myupload", component: MyUploadPage, layout: DefaultLayout },
+  { path: '/EditReview', component: EditReview, layout: DefaultLayout },
 ];
 
 export { publicRoutes, privateRoutes };

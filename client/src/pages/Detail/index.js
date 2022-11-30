@@ -65,9 +65,9 @@ function DetailPage() {
         locationStr = data.rooms.district +',' + data.rooms.province
     }
 
-    const [review, setReview] = useState({
-        star: 0,
-        content: '',
+     const [review, setReview] = useState({
+        ratingPoint: 0,
+        description: '',
     });
 
     const renderImg = () => {
@@ -176,6 +176,22 @@ function DetailPage() {
             </div>
             )
         }
+    }
+    //add review click
+    const onSubmit= async review =>{
+       try {
+
+        const response = await axios.post(
+            "/api/reviews/add",
+            review,config
+        );
+        console.log(response.data)
+        return response.data
+       } catch (error) {
+        return error
+       } 
+       
+       
     }
     return (
         <div className = {styles.wrapper}>
@@ -404,7 +420,7 @@ function DetailPage() {
                             placeholder='Nhập đánh giá tại đây ... '
                             value={review.content}
                             onChange={(e) => {
-                                setReview({...review, content: e.target.value});
+                                setReview({...review, description: e.target.value});
                             }}
                             >
                         </textarea>
@@ -415,10 +431,15 @@ function DetailPage() {
                                 sx={{color: "#00A699"}}
                                 value={review.star}
                                 onChange={(event, newValue) => {
-                                    setReview({...review, star: newValue});
+                                    setReview({...review, ratingPoint: newValue});
                                 }}
                             />
-                            <button className = {styles.submitReviewBtn}>Gửi đánh giá </button>
+                             <Button 
+                                 type = 'submit'
+                                onClick={(e) => {onSubmit(review)}}
+                                >
+                                Gửi đánh giá 
+                                </Button>
                         </div>
                     </div>
                     
