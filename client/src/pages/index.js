@@ -7,3 +7,5 @@ export { default as SignUpPage } from "./Signup";
 export { default as UploadPage } from "./Upload";
 export { default as ResultPage } from "./SearchResult";
 export { default as MyUploadPage } from "./MyUpload";
+export {default as MyReviewPage} from './MyReview'
+export {default as EditReview} from '../components/Review/EditReview'
