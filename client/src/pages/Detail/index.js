@@ -179,12 +179,7 @@ function DetailPage() {
     }
     //add review click
     const onSubmit= async review =>{
-        const config = {
-            headers: {
-              Authorization: `Bearer ${userInfo.token}`,
-            },
-          };
-         //console.log(userInfo)
+       
        try {
 
         const response = await axios.post(
