@@ -1,0 +1,88 @@
+.reviewContainer{
+    padding: 20px;
+    position: relative;
+    width: 1249px;
+    height: 600px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    margin-top: 110px;
+   left:20%;
+   
+}
+
+.avatar{
+    position: absolute;
+    width: 295px;
+    height: 177px;
+    top:0%;
+    left:0%
+}
+.userIntro{
+    position: absolute;
+    width: 80%;
+    height:30%;
+    left:0%;
+    top:2%;
+    border: 2px solid black;
+}
+.name{
+    position: absolute;
+    font-family: 'Inter', sans-serif ;
+    font-size: 35px;
+    font-weight: 500;
+    margin-left: 20px;
+    top:40%;
+    left:28%;
+}
+.address
+{    position: absolute;
+    font-family: 'Inter', sans-serif ;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 20px;
+    top:18%;
+    left:29%;
+}
+.rating{
+    position: absolute;
+    top:35%;
+    left:30%;
+}
+.content{
+    position: absolute;
+    left:0%;
+    top:55%;
+    margin: 0 5px 0 5px;
+    font-size: 20px;
+    width: 1240px;
+    height: 200px;
+    border: 2px solid black;
+    
+}
+.buttonedit
+{
+    position: absolute;
+    top: 90%;
+    left:40%;
+    height: 50px;
+    width: 150px;
+    font-size: 25px;
+    background-color:D9D9D9;
+    border: 2px solid black;
+    border-radius: 4px;
+
+}
+
+.text1
+{   text-decoration: none;
+    color: black;
+}
+.reviewInput{
+    display: flex;
+    flex-direction: row;
+}
+.textEdit
+{
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+}
