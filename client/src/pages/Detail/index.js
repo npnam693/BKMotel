@@ -179,6 +179,7 @@ function DetailPage() {
     }
     //add review click
     const onSubmit= async review =>{
+       
        try {
 
         const response = await axios.post(

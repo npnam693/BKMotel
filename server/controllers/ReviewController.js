@@ -9,15 +9,13 @@ import User from '../models/User.js'
 // push review to array of Room and to array of User
 export const AddReview = async (req,res) =>{
     const {ratingPoint,description} = req.body
-    const { roomId } = req.params.id
-    const userId = req.userId
+    const userId = req.user._id
     
    try {
     const newReview = new Review({
         ratingPoint,
         description,
        creator:userId,
-        room:roomId
     }) 
     await newReview.save()
     const reviewId=newReview.id

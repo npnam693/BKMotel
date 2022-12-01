@@ -12,6 +12,7 @@ import {
   MyUploadPage,
   MyReviewPage,
   EditReview,
+ 
 } from "../pages";
 
 const publicRoutes = [
@@ -29,6 +30,7 @@ const privateRoutes = [
   { path: "/upload", component: UploadPage, layout: DefaultLayout },
   { path: "/myupload", component: MyUploadPage, layout: DefaultLayout },
   { path: '/EditReview', component: EditReview, layout: DefaultLayout },
+ 
 ];
 
 export { publicRoutes, privateRoutes };
