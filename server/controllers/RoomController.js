@@ -93,6 +93,9 @@ export const getAllFavouriteRooms = (req, res, next) => {
     .catch(next);
 };
 
+
+
+
 //[PUT] /api/rooms/favourites/add
 export const addRoomToFavoriteList = async (req, res, next) => {
   const user = req.user;

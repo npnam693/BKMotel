@@ -8,8 +8,7 @@ import {reviewReducer} from "../../components/Review/reviewReducer/reviewReducer
 export let USER=null
 function MyReviewPage() {
     const { userInfo } = UserState();
-    
-    //State
+    const [loading, setLoading] = useState(true)
     
     const [reviewState, dispatch]= useReducer(reviewReducer,{
         review:null,
@@ -30,6 +29,7 @@ function MyReviewPage() {
         try {
             const response =await axios.get("/api/reviews/reviewuser",config)
             dispatch({type:'REVIEW_LOADED_SUCCESS',payload: response.data.reviews})
+            setLoading(false)
             
         } catch (error) {
             return error
@@ -37,8 +37,9 @@ function MyReviewPage() {
     }
     useEffect(()=> {getReviewUser()},[])
     
-  let body=null
-      body=(
+
+
+  let body = loading ? null : (
          <div>
            { reviewState.reviews.map(review =>(
             

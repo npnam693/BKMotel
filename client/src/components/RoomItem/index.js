@@ -29,6 +29,16 @@ function RoomItem({ data }) {
         }
     } : {}
 
+    let pointStart = 0;
+    const countStar = [0,0,0,0,0,0] 
+    if (data.reviews) {
+        data.reviews.map(review => {
+        countStar[review.ratingPoint]++;
+        pointStart += review.ratingPoint
+    })
+    pointStart = Math.round(pointStart / data.reviews.length * 10) / 10
+    }
+
 
 
     
@@ -102,7 +112,7 @@ function RoomItem({ data }) {
 
                     <div className = {styles.rating}> 
                         <StarFill color="#00A699" size={10} style={{marginTop: -2}} />
-                        <p className={styles.ratingPoint}>{data.ratingPoint.$numberDecimal}</p>
+                        <p className={styles.ratingPoint}>{pointStart}</p>
                     </div>
                 </div>
                 <div className = {styles.location}>

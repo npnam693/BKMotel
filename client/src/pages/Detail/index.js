@@ -17,7 +17,7 @@ function DetailPage() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState()
     const { userInfo, userFavourites, setUserFavourites } = UserState()
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const {enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [reload, setReload] = useState(true)
     const [countreview,setCountReview]= useState(1)
     const toast = (message, variantType) => {
@@ -36,6 +36,17 @@ function DetailPage() {
         }
     } : {}
 
+
+
+    let pointStart = 0;
+    const countStar = [0,0,0,0,0,0] 
+    if (loading == false) {
+        data.reviews.map(review => {
+        countStar[review.ratingPoint]++;
+        pointStart += review.ratingPoint
+    })
+    pointStart = Math.round(pointStart / data.reviews.length * 10) / 10
+    }
     const handleLikeClick = () => {
         axios.put('/api/rooms/favourites/add', {
             roomId: data.rooms._id
@@ -61,31 +72,34 @@ function DetailPage() {
     
     }, [reload]) 
     
+
+
     console.log('data',data)
+
+
     let reviewRoom=null
     if (loading===false){
         console.log('helo', data.rooms.creator)
         locationStr = data.rooms.district +',' + data.rooms.province
         reviewRoom=data.reviews
     }
-    
     let reviewsRoom=null
     if(reviewRoom)
     {
         reviewsRoom=(
             <div className = {styles.userReviews}>
-                       { reviewRoom.map((reviewR, index) =>{
-                           if (index < countreview*5) return <ReviewItem reviewR={reviewR} />
-                       }
-                        )
+                { reviewRoom.map((reviewR, index) =>{
+                    if (index < countreview*5) return <ReviewItem reviewR={reviewR} />
+                }
+                )
 
-                       }
-                       
-                        <button
-                        onClick={(e) => {setCountReview(countreview +1)
-                        }}
-                        className = {styles.loadReviewBtn}>Tải thêm</button>
-                    </div>
+                }
+                
+                <button
+                onClick={(e) => {setCountReview(countreview +1)
+                }}
+                className = {styles.loadReviewBtn}>Tải thêm</button>
+            </div>
         )
     }
      const [review, setReview] = useState({
@@ -203,26 +217,25 @@ function DetailPage() {
     }
     //add review click
     const onSubmit= async review =>{
-       if(review.ratingPoint===null)
-       {
-        toast('Số sao phải lớn hơn 0', 'error')
-        return
-       }
-       else{
-        try {
-        const response = await axios.post(
-            "/api/reviews/add",
-            review,config
-        );
-        toast('Đánh giá thành công', 'success')
-        console.log(response.data)
-        setReload(!reload)
-        return response.data
-       } catch (error) {
-        return error
-       } 
+        if(review.ratingPoint===null){
+            toast('Số sao phải lớn hơn 0', 'error')
+            return
+        } else {
+            try {
+            const response = await axios.post(
+                "/api/reviews/add",
+                review,config
+            );
+                toast('Đánh giá thành công', 'success')
+                console.log(response.data)
+                setReload(!reload)
+                return response.data
+            } catch (error) {return error} 
+        }
     }
-    }
+
+
+
     return (
         <div className = {styles.wrapper}>
         {loading ? 
@@ -243,8 +256,8 @@ function DetailPage() {
                 <div className = {styles.introContainer}>
                     <div className = {styles.rating}> 
                         <StarFill color="#00A699" size={9} />
-                        <p className={styles.ratingPoint}>{data.rooms.ratingPoint.$numberDecimal}</p>
-                        <p className={styles.ratingCount}>{data.rooms.ratingCount} đánh giá</p>
+                        <p className={styles.ratingPoint}>{pointStart}</p>
+                        <p className={styles.ratingCount}>{data.reviews.length} đánh giá</p>
                     </div>
                     <div className = {styles.location}>
                         <GeoAlt color="#000000" size={18} />
@@ -387,8 +400,8 @@ function DetailPage() {
                     <p className = {styles.ratingTitle}>Đánh giá</p>
                     <div className = {styles.ratingOverview}>
                             <StarFill color="#00A699" size={20} />
-                            <p>4.9</p>
-                            <p>260 đánh giá</p>                       
+                            <p>{pointStart}</p>
+                            <p>{data.reviews.length} đánh giá</p>                       
                     </div>
                     <div className = {styles.rowRating}>
                         <Rating 
@@ -398,7 +411,7 @@ function DetailPage() {
                             value={5}
                             readOnly
                         />
-                        <p>100</p>
+                        <p>{countStar[5]}</p>
                     </div>
                     <div className = {styles.rowRating}>
                         <Rating 
@@ -408,7 +421,7 @@ function DetailPage() {
                             value={4}
                             readOnly
                         />
-                        <p>100</p>
+                        <p>{countStar[4]}</p>
                     </div>
                     <div className = {styles.rowRating}>
                         <Rating 
@@ -418,7 +431,7 @@ function DetailPage() {
                             value={3}
                             readOnly
                         />
-                        <p>100</p>
+                        <p>{countStar[3]}</p>
                     </div>
 
                     <div className = {styles.rowRating}>
@@ -429,7 +442,7 @@ function DetailPage() {
                             value={2}
                             readOnly
                         />
-                        <p>100</p>
+                        <p>{countStar[2]}</p>
                     </div>
                     <div className = {styles.rowRating}>
                         <Rating 
@@ -439,7 +452,7 @@ function DetailPage() {
                             value={1}
                             readOnly
                         />
-                        <p>100</p>
+                        <p>{countStar[1]}</p>
                     </div>
                 </div>
                 <div className = {styles.review}>

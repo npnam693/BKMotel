@@ -60,12 +60,15 @@
     background-color: white;
 }
 .ratingCount{
-    margin-left: 8px
+    margin-left: 10px;
+    font-family: var(--font-family-detail);
+    font-size: 20px;
+    font-weight: 400;
 }
 
 .ratingPoint, .locationContent{
     font-family: var(--font-family-detail);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
     margin-left: 4px;
 }
@@ -279,7 +282,7 @@
     flex-direction: row;
     align-items: center;
     background: #eeeeee;
-    border-radius: 30px;
+    border-radius: 30psx;
     padding: 5px 10px 5px 10px;
     width: 85%;
     justify-content: space-evenly;
@@ -291,9 +294,10 @@
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    margin-left: -5px;
+    margin-left: 15px;
     font-family: var(--font-family-detail);
     font-weight: 500;
+    width: 160px;
 }
 
 .reviewText{

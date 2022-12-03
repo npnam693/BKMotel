@@ -59,7 +59,7 @@ const MyReviewItem= ({review:{_id,ratingPoint,description,room}})=> {
         body=(
         <div className={styles.wrapper}>
             <div className={styles.imgbox}>
-              <img className={styles.img} src={room.image[0]} alt="Room imgae" />
+              {/* <img className={styles.img} src={room.image[0]} alt="Room imgae" /> */}
             </div>
             <div className={styles.content}>
               <div className={styles.header}>
