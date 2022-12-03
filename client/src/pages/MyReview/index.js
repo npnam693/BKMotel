@@ -41,11 +41,13 @@ function MyReviewPage() {
 
   let body = loading ? null : (
          <div>
-           { reviewState.reviews.map(review =>(
-            
-                 <MyReviewItem review={review}/>
-           
-           ))
+           { 
+               reviewState.reviews.map(review =>{
+                    if(review.room)
+                    {
+                return   <MyReviewItem review={review}/>
+                     }
+             })
            }
        
        </div>
