@@ -1,59 +1,104 @@
 import styles from './style.module.css'
-import { StarFill, Star } from 'react-bootstrap-icons';
-import { Rating,Button  } from '@mui/material';
-import {Redirect} from 'react-router-dom'
+import { StarFill, Star, PencilFill,TrashFill,} from 'react-bootstrap-icons';
+import { Rating,Button,Divider } from '@mui/material';
 import { reviewReducer } from './reviewReducer/reviewReducer';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { useState,useReducer, useContext } from 'react';
 import EditReview from './EditReview';
+import {USER} from '../../pages/MyReview/index.js'
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
 export let reviewID=null
-const MyReviewItem= ({review:{_id,ratingPoint,description}})=> {
-    
-   
-   
 
+const MyReviewItem= ({review:{_id,ratingPoint,description,room}})=> {
+    
+  const [reload, setReload] = useState(true)
+   
+    const [review, setReview] = useState({
+        _id:_id,
+        ratingPoint: ratingPoint,
+        description: description,
+        room:room
+    });
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const toast = (message, variantType) => {
+      enqueueSnackbar(message, {
+          variant: variantType,
+          action: (key) => (
+              <Button style={{ fontSize: '12px', fontWeight: '600' }} size='small' onClick={() => closeSnackbar(key)}>
+                  Dismiss
+              </Button>
+          )
+      });
+  }
     const chooseReview= async reviewId=>
     {   
-        reviewID=reviewId
+        reviewID=review
         console.log(reviewID)
         
     }
+    const config = USER ? {
+      headers: {
+          Authorization: `Bearer ${USER.token}`
+      }
+  } : {}
+  const deleteReview =async reviewId =>
+  {
+    try {
+      const response =await axios.delete(`/api/reviews/deletereview/${reviewId}`,config)
+      toast('Xóa thành công', 'success')
+      
+      return response.data
+
+    } catch (error) {
+      return error
+    }
+  }
     let body=null
    
-        body=(<div className={styles.reviewContainer}>
-            <img className = {styles.avatar} src="https://media.gq.com/photos/6283ce92bad17dc46fce8234/master/w_2000,h_1333,c_limit/East_Hampton,_New_York.jpg" 
-                    alt="Avatar" 
-                />
-            <p className= {styles.address}>Quận Bình Thạnh,Thành Phố Hồ Chí Minh</p>    
-            <div className = {styles.userIntro}>
-                
-                <p className= {styles.name}>Phòng trọ Bear's House - The Riverside</p>
+        body=(
+        <div className={styles.wrapper}>
+            <div className={styles.imgbox}>
+              <img className={styles.img} src={room.image[0]} alt="Room imgae" />
             </div>
-                   
-            <div className={styles.rating}>
-                <Rating 
+            <div className={styles.content}>
+              <div className={styles.header}>
+                <div className={styles.title}>
+                  <p className={styles.address}>
+                    {room.district + ", " + room.province}
+                  </p>
+                  <span className={styles.name}>{room.title}</span>
+                </div>
+              </div>
+              <Divider />
+              <div className={styles.footer}>
+              <div className={styles.title}>
+                  <p className={styles.address}>
+                  <Rating 
                     icon={<StarFill size={20} style={{marginRight: 5}}/>} 
                     emptyIcon={<Star size={20} style={{marginRight: 5}}/>} 
                     sx={{color: "#00A699"}}
                     value={ratingPoint}
                     readOnly
                 />
+                  </p>
+                  <span className={styles.name}>{description}</span>
+                </div>
+                
+              </div>
+              
             </div>
-           
-            <button className={styles.buttonedit}>
-            <Button onClick={chooseReview.bind(this,_id)}  >
-               <Link to='/EditReview' className={styles.text1}> 
-              Chỉnh sửa
-               </Link>
-                </Button>   
-            </button>
-           
-            <button className={styles.buttondelete}>
-                Xóa
-            </button>
-            <p className= {styles.content}>{description}</p>
-            
-        </div>)
+            <div className={styles.tools}>
+             
+              <Link to='/EditReview' onClick={chooseReview.bind(this,_id)}>
+              <PencilFill className={styles.tool} />
+              </Link>
+              <Link  onClick={deleteReview.bind(this,_id)}>
+              <TrashFill className={styles.tool} />
+              </Link>
+            </div>
+          </div>
+          )
     
     
     return (

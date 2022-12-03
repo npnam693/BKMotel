@@ -1,4 +1,4 @@
-.reviewContainer{
+/*.reviewContainer{
     padding: 20px;
     position: relative;
     width: 1155px;
@@ -79,4 +79,127 @@
     color: black;
     text-decoration: none;
     font-size: 18px;
+}
+*/
+
+
+
+
+
+.wrapper {
+    display: grid;
+    justify-content: space-between;
+    margin-bottom: var(--default-horizontal-spacer);
+    border: 1px outset transparent;
+    border-radius: 6px;
+    width: 1250px;
+    height: fit-content;
+
+}
+
+.wrapper:hover {
+    border: 1px solid rgb(221, 221, 221);
+}
+
+.imgbox {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 300px;
+    height: 160px;
+}
+
+.img {
+    width: 300px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.content {
+    height: 100%;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 24;
+    display: flex;
+    flex-direction: column;
+    margin: 0 6px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.address {
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    margin-top: 4px;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 3.2rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.pricebox {
+    min-width: 80px;
+    height: 160px;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 24;
+    grid-column-end: 25;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price {
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    color: #00A699;
+}
+
+.eval {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+    width: 50%;
+    height: 20px;
+}
+
+.tools {
+    height: 160px;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 25;
+    grid-column-end: 26;
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tool {
+    /* background-color: #00A699; */
+    color: #00A699;
+    font-size: 24px;
+}
+
+.tool:hover {
+    cursor: pointer;
 }

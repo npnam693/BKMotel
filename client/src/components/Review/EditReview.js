@@ -10,8 +10,8 @@ const EditReview = ()=>{
     
      //chua hien review de edit
      const [review, setReview] = useState({
-        ratingPoint: 0,
-        description: '',
+        ratingPoint: reviewID.ratingPoint,
+        description: reviewID.description,
     });
     
     
@@ -24,7 +24,7 @@ const EditReview = ()=>{
     
     const updateReview =async review =>{
         try {
-            const response = await axios.put(`/api/reviews/updatereview/${reviewID}`, review,config)
+            const response = await axios.put(`/api/reviews/updatereview/${reviewID._id}`, review,config)
            return response.data
         } catch (error) {
             return error
@@ -32,16 +32,19 @@ const EditReview = ()=>{
      }
     return (
         <>
-       <div >Chỉnh sửa đánh giá</div>
+         
+          <div className={edit.title} >Chỉnh sửa đánh giá</div>
+                
+      
         <div className={edit.reviewContainer}>
-
+        
            
             <div className = {edit.userIntro}>
-            <img className = {edit.avatar} src="https://media.gq.com/photos/6283ce92bad17dc46fce8234/master/w_2000,h_1333,c_limit/East_Hampton,_New_York.jpg" 
+            <img className = {edit.img} src={reviewID.room.image[0]} 
                     alt="Avatar" 
                 />
-                <p className= {edit.address}>Quận Bình Thạnh,Thành Phố Hồ Chí Minh</p>  
-                <p className= {edit.name}>Phòng trọ Bear's House - The Riverside</p>
+                <p className= {edit.address}>{reviewID.room.district},{reviewID.room.province}</p>  
+                <p className= {edit.name}>{reviewID.room.title}</p>
             </div>
             <div className = {edit.rating}>
                                 <Rating 
@@ -74,6 +77,7 @@ const EditReview = ()=>{
                 </Button>
             </button>
              </div>
+             
         </>
     );
 }
