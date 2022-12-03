@@ -4,12 +4,14 @@ import axios from 'axios';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-    const [userInfo, setUserInfo] = useState()
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")))
     const [userFavourites, setUserFavourites] = useState([])
     
+
     useEffect(() => {
       const user = JSON.parse(localStorage.getItem("userInfo"))
       setUserInfo(user)
+      console.log('blo')
       if(user){
         const config = {
           headers: {
@@ -24,6 +26,8 @@ const UserProvider = ({ children }) => {
           .catch(err => {console.log(err)})
       }
     }, [])
+
+
 
     return (
       <UserContext.Provider

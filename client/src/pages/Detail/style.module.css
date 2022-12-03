@@ -112,6 +112,7 @@
     border-radius: 15px;
     padding: 45px;
     padding-bottom: 0px;
+    min-width: 842px;
 }
 
 .infoTitleWrapper{

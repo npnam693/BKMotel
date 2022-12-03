@@ -74,7 +74,7 @@ function DetailPage() {
         if (data.rooms.image.length === 1) {
             return( <ImageListItem key={data.rooms.image[0]}>
                         <img src={data.rooms.image[0]} alt={'Room'} 
-                            style={{borderRadius:20}}
+                            style={{borderRadius:20, objectFit: '', width: 1300, height: 730}}
                         />
                 </ImageListItem>
             )

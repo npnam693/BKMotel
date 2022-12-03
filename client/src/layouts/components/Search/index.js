@@ -22,9 +22,13 @@ function Search() {
   }, []);
 
     const moneyList = [
-        {content: "dưới 500k", value: 500},
-        {content: "500k - 1 triệu", value: 1000},
-        {content: "1 triệu - 2 triệu", value: 500},
+        {content: "0 - 500k", value: [0, 500]},
+        {content: "500k - 1 triệu", value: [500, 1000]},
+        {content: "1 triệu - 2 triệu", value: [1000, 2000]},
+        {content: "2 triệu - 3 triệu", value: [2000, 3000]},
+        {content: "3 triệu - 5 triệu", value: [3000, 5000]},
+        {content: "5 triệu - 10 triệu", value: [5000, 2000]},
+        {content: "trên 10 triệu", value: [1000, -1]},
     ]
 
     const areList = [    

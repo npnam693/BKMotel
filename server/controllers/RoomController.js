@@ -40,13 +40,8 @@ export const findRooms = (req, res, next) => {
   if (area) {
     q.$and.push({ area : { $lte: area}});
   }
-  if (lowerPrice) {
-    if (higherPrice) {
-      q.$and.push({ price: { $gt: lowerPrice, $lt: higherPrice } });
-    } else {
-      q.$and.push({ price: { $gt: lowerPrice } });
-    }
-  }
+  q.$and.push({ price: { $lte: lowerPrice, $gte: higherPrice } });
+
   Room.find(q)
     .then((rooms) => res.status(200).json(rooms))
     .catch(next);

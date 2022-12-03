@@ -8,22 +8,29 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 function SearchResult({}) {
+    const [loading, setLoading] = useState(true)
+    const [data, setData] = useState()
+    
     let navigate = useNavigate()
     const search = useLocation().search
-
-    const [data, setData] = useState()
-
     const province = new URLSearchParams(search).get('province');
     const area = parseInt(new URLSearchParams(search).get('area'));
-    const money = parseInt(new URLSearchParams(search).get('money'));
-    const [loading, setLoading] = useState(true)
-    console.log(province, area, money);
+    const money = (new URLSearchParams(search).get('money')).split(',')
+
+    const lowerPrice = money[1] == '-1' ? null : parseInt(money[1]) * 1000
+    const higherPrice = parseInt(money[0]) * 1000
+
+
+
+    console.log(province, area, higherPrice , lowerPrice);
+    console.log('higher', higherPrice, 'lower' , lowerPrice);
 
     useEffect(() => {
         axios.get(`api/rooms/find`, {params: {
-                lowerPrice: money,
+                lowerPrice: lowerPrice,
+                higherPrice: higherPrice,
                 province: province,
-                area: 100
+                area: area
             }})
             .then (res => {
                 console.log(res.data)

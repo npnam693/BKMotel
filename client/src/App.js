@@ -17,6 +17,7 @@ const StyledSnackbarProvider = styled(SnackbarProvider)`
 
 function App() {
   const { userInfo } = UserState();
+  console.log('alo')
   
   return (
     <StyledSnackbarProvider maxSnack={3}  anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}>
@@ -35,11 +36,11 @@ function App() {
                 let Layout = route.layout
                 const Page = route.component
                 if(!Layout) Layout = Fragment
-                if (userInfo != null) {
+                if (JSON.parse(localStorage.getItem("userInfo")) != null) {
                   return (<Route key={idx} path={route.path} element={<Layout><Page /></Layout>}/>)
                 }
                 else 
-                  return (<Route key = {idx + publicRoutes.length } path={route.path}  element={<Navigate replace to="/login" />} />)
+                  return (<Route key = {idx + publicRoutes.length } path={route.path}  element={<Navigate replace to="/login"/>} />)
               })
             }
           </Routes>
