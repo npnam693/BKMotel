@@ -18,7 +18,8 @@ function DetailPage() {
     const [data, setData] = useState()
     const { userInfo, userFavourites, setUserFavourites } = UserState()
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    
+    const [reload, setReload] = useState(true)
+    const [countreview,setCountReview]= useState(1)
     const toast = (message, variantType) => {
         enqueueSnackbar(message, {
             variant: variantType,
@@ -58,16 +59,39 @@ function DetailPage() {
             .catch(err => console.log(err))
             // eslint-disable-next-line
     
-    }, []) 
-
+    }, [reload]) 
+    
+    console.log('data',data)
+    let reviewRoom=null
     if (loading===false){
         console.log('helo', data.rooms.creator)
         locationStr = data.rooms.district +',' + data.rooms.province
+        reviewRoom=data.reviews
     }
+    
+    let reviewsRoom=null
+    if(reviewRoom)
+    {
+        reviewsRoom=(
+            <div className = {styles.userReviews}>
+                       { reviewRoom.map((reviewR, index) =>{
+                           if (index < countreview*5) return <ReviewItem reviewR={reviewR} />
+                       }
+                        )
 
+                       }
+                       
+                        <button
+                        onClick={(e) => {setCountReview(countreview +1)
+                        }}
+                        className = {styles.loadReviewBtn}>Tải thêm</button>
+                    </div>
+        )
+    }
      const [review, setReview] = useState({
         ratingPoint: 0,
         description: '',
+        roomId:id
     });
 
     const renderImg = () => {
@@ -179,20 +203,25 @@ function DetailPage() {
     }
     //add review click
     const onSubmit= async review =>{
-       
-       try {
-
+       if(review.ratingPoint===null)
+       {
+        toast('Số sao phải lớn hơn 0', 'error')
+        return
+       }
+       else{
+        try {
         const response = await axios.post(
             "/api/reviews/add",
             review,config
         );
+        toast('Đánh giá thành công', 'success')
         console.log(response.data)
+        setReload(!reload)
         return response.data
        } catch (error) {
         return error
        } 
-       
-       
+    }
     }
     return (
         <div className = {styles.wrapper}>
@@ -437,20 +466,15 @@ function DetailPage() {
                             />
                              <Button 
                                  type = 'submit'
-                                onClick={(e) => {onSubmit(review)}}
+                                onClick={(e) => {onSubmit(review)
+                                }}
                                 >
                                 Gửi đánh giá 
                                 </Button>
                         </div>
                     </div>
                     
-                    <div className = {styles.userReviews}>
-                        <ReviewItem />
-                        <ReviewItem />
-                        <ReviewItem />
-                        <ReviewItem />
-                        <button className = {styles.loadReviewBtn}>Tải thêm</button>
-                    </div>
+                    {reviewsRoom}
 
 
                 </div>

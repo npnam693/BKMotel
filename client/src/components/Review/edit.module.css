@@ -4,8 +4,9 @@
     width: 1249px;
     height: 600px;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-    margin-top: 110px;
-   left:20%;
+    margin-top: 150px;
+   left:15%;
+   
    
 }
 
@@ -16,13 +17,20 @@
     top:0%;
     left:0%
 }
+.img {
+    width: 300px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+}
 .userIntro{
     position: absolute;
     width: 80%;
-    height:30%;
+    height:27.3%;
     left:0%;
-    top:2%;
+    top:0%;
     border: 2px solid black;
+    border-radius: 5px;
 }
 .name{
     position: absolute;
@@ -31,7 +39,7 @@
     font-weight: 500;
     margin-left: 20px;
     top:40%;
-    left:28%;
+    left:29%;
 }
 .address
 {    position: absolute;
@@ -56,6 +64,7 @@
     width: 1240px;
     height: 200px;
     border: 2px solid black;
+    border-radius: 5px;
     
 }
 .buttonedit
@@ -85,4 +94,20 @@
     color: black;
     text-decoration: none;
     font-size: 18px;
+}
+.inner {
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: var(--default-layout-width);
+}
+.title
+{
+    position: absolute;
+    left:15%;
+    font-size: 3.2rem;
+    color: #6B7280;
 }

@@ -8,6 +8,6 @@ router.post('/add',verifyToken, ReviewController.AddReview)
 router.get('/reviewuser',verifyToken,ReviewController.GetReviewUser)
 router.get('/reviewroom',verifyToken,ReviewController.GetReviewRoom)
 router.put('/updatereview/:id',verifyToken,ReviewController.UpdateReview)
-
+router.delete('/deletereview/:id',verifyToken,ReviewController.DeleteReview)
 
 export default router;

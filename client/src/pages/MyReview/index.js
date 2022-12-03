@@ -2,12 +2,15 @@ import MyReviewItem from '../../components/Review/Myreview.js';
 import styles from './style.module.css';
 import {UserState} from '../../Context/UserProvider/index.js'
 import axios from "axios"
-import { useContext,useEffect,useReducer } from "react"
+import { useContext,useEffect,useReducer,useState } from "react"
+import {Divider} from '@mui/material'
 import {reviewReducer} from "../../components/Review/reviewReducer/reviewReducer.js"
 export let USER=null
 function MyReviewPage() {
     const { userInfo } = UserState();
+    
     //State
+    
     const [reviewState, dispatch]= useReducer(reviewReducer,{
         review:null,
         reviews:[],
@@ -36,7 +39,7 @@ function MyReviewPage() {
     
   let body=null
       body=(
-        <div className = {styles.userReviews}>
+         <div>
            { reviewState.reviews.map(review =>(
             
                  <MyReviewItem review={review}/>
@@ -44,15 +47,25 @@ function MyReviewPage() {
            ))
            }
        
-         </div>
+       </div>
     )
     
     return (
         <>
-        <div className = {styles.userReviews}>
-            <p className={styles.text1}>My review</p>
+        <div className = {styles.wrapper}>
+
+            <div className={styles.inner}>
+        
+                <div className={styles.heading}>
+                    <div className={styles.header}>Đánh giá của tôi</div>
+                </div>
+                <Divider variant="middle"  />
+                {body}
+            </div>
+       
+        
+        
         </div>
-        {body}
         </>
         )
 }
