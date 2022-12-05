@@ -9,17 +9,23 @@ import { useSnackbar } from 'notistack';
 
 import { Rating, ImageList , ImageListItem, Button   } from '@mui/material';
 
+
 function DetailPage() {
     const url = window.location.pathname;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var locationStr = ''
-    
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState()
     const { userInfo, userFavourites, setUserFavourites } = UserState()
     const {enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [reload, setReload] = useState(true)
-    const [countreview,setCountReview]= useState(1)
+    const [curNumReview,setCurNumReview]= useState(1)
+    const [review, setReview] = useState({
+        ratingPoint: 0,
+        description: '',
+        roomId:id
+    });
+
     const toast = (message, variantType) => {
         enqueueSnackbar(message, {
             variant: variantType,
@@ -30,6 +36,7 @@ function DetailPage() {
             )
         });
     }
+
     const config = userInfo ? {
         headers: {
             Authorization: `Bearer ${userInfo.token}`
@@ -37,16 +44,7 @@ function DetailPage() {
     } : {}
 
 
-
-    let pointStart = 0;
-    const countStar = [0,0,0,0,0,0] 
-    if (loading == false) {
-        data.reviews.map(review => {
-        countStar[review.ratingPoint]++;
-        pointStart += review.ratingPoint
-    })
-    pointStart = Math.round(pointStart / data.reviews.length * 10) / 10
-    }
+    
     const handleLikeClick = () => {
         axios.put('/api/rooms/favourites/add', {
             roomId: data.rooms._id
@@ -71,43 +69,77 @@ function DetailPage() {
             // eslint-disable-next-line
     
     }, [reload]) 
-    
 
-
-    console.log('data',data)
 
 
     let reviewRoom=null
     if (loading===false){
-        console.log('helo', data.rooms.creator)
         locationStr = data.rooms.district +',' + data.rooms.province
         reviewRoom=data.reviews
     }
+    
     let reviewsRoom=null
     if(reviewRoom)
     {
         reviewsRoom=(
             <div className = {styles.userReviews}>
-                { reviewRoom.map((reviewR, index) =>{
-                    if (index < countreview*5) return <ReviewItem reviewR={reviewR} />
-                }
-                )
+                {reviewRoom.map((reviewR, index) =>{
+                    if (index < curNumReview*5) return <ReviewItem reviewR={reviewR} />
+                })}
 
+                {
+                    curNumReview*5 >= reviewRoom.length ? undefined 
+                    : 
+                    <Button
+                        sx={{fontSize: '18px', color: 'black', border: '1px solid', marginTop: '20px', marginBottom: '20px'}} 
+                        onClick={(e) => setCurNumReview(curNumReview +1)}
+                        className = {styles.loadReviewBtn}>
+                    Tải thêm
+                    </Button>
                 }
-                
-                <button
-                onClick={(e) => {setCountReview(countreview +1)
-                }}
-                className = {styles.loadReviewBtn}>Tải thêm</button>
+
             </div>
         )
     }
-     const [review, setReview] = useState({
-        ratingPoint: 0,
-        description: '',
-        roomId:id
-    });
 
+
+    let numPointStart = 0;
+    const countStar = [0,0,0,0,0,0] 
+    if (loading == false) {
+        data.reviews.map(review => {
+            countStar[review.ratingPoint]++;
+            numPointStart += review.ratingPoint
+        })
+    }
+
+    const onSubmit= async review =>{
+        if(review.ratingPoint===null){
+            toast('Số sao phải lớn hơn 0', 'error')
+            return
+        } else {
+            try {
+            const response = await axios.post(
+                "/api/reviews/add",
+                review,config
+            );
+            console.log('alo', data.reviews.length + 1, (numPointStart + review.ratingPoint)/(data.reviews.length + 1))
+            axios.put('/api/rooms/editrooms/reviews',{
+                roomId: data.rooms._id,
+                ratingCount: data.reviews.length + 1,
+                ratingPoint: Math.round((numPointStart + review.ratingPoint)/(data.reviews.length + 1) * 10)/10
+            }, config)
+                .then(response => {
+                    // setUserFavourites(response.data.favourites)
+                    // toast(response.data.message, 'success')
+                })
+                .catch(err => {
+                    // toast(err.response.data.message, 'error')
+                })
+                toast('Đánh giá thành công', 'success')
+                setReload(!reload)
+            } catch (error) {return error} 
+        }
+    }
     const renderImg = () => {
         if (data.rooms.image.length === 1) {
             return( <ImageListItem key={data.rooms.image[0]}>
@@ -117,8 +149,6 @@ function DetailPage() {
                 </ImageListItem>
             )
         }
-    
-
         else if (data.rooms.image.length === 2){
             return (
                 <ImageList sx={{ width: 1300, height: 640 }} cols={2} rowHeight={640} gap={20}>
@@ -135,7 +165,7 @@ function DetailPage() {
                 </ImageList>
             )
         }
-
+    
         else if (data.rooms.image.length === 3){
             return (
                 <ImageList sx={{ width: 1300, height: 560 }} cols={3} rowHeight={560} gap={20}>
@@ -152,7 +182,7 @@ function DetailPage() {
                 </ImageList>
             )
         }
-
+    
         else if (data.rooms.image.length === 4){
             return (
             <div style={{display:'flex'}}>
@@ -163,7 +193,7 @@ function DetailPage() {
                 style = {{borderRadius: 15, objectFit: 'cover', width: 508, height: 508, marginRight:20 }}
                 />
                         
-
+    
                 <ImageList sx={{ width: 244, height: 508 }} cols={1} rowHeight={244} gap={20}>
                     {data.rooms.image.slice(2).map((item, index) => (
                         <ImageListItem key={item}>
@@ -184,10 +214,10 @@ function DetailPage() {
                     />
             
             </div>
-
+    
             )
         }
-
+    
         else if (data.rooms.image.length >= 5){
             return (
             <div style={{display:'flex'}}>
@@ -215,26 +245,6 @@ function DetailPage() {
             )
         }
     }
-    //add review click
-    const onSubmit= async review =>{
-        if(review.ratingPoint===null){
-            toast('Số sao phải lớn hơn 0', 'error')
-            return
-        } else {
-            try {
-            const response = await axios.post(
-                "/api/reviews/add",
-                review,config
-            );
-                toast('Đánh giá thành công', 'success')
-                console.log(response.data)
-                setReload(!reload)
-                return response.data
-            } catch (error) {return error} 
-        }
-    }
-
-
 
     return (
         <div className = {styles.wrapper}>
@@ -256,7 +266,7 @@ function DetailPage() {
                 <div className = {styles.introContainer}>
                     <div className = {styles.rating}> 
                         <StarFill color="#00A699" size={9} />
-                        <p className={styles.ratingPoint}>{pointStart}</p>
+                        <p className={styles.ratingPoint}>{Math.round(numPointStart / data.reviews.length * 10) / 10}</p>
                         <p className={styles.ratingCount}>{data.reviews.length} đánh giá</p>
                     </div>
                     <div className = {styles.location}>
@@ -400,7 +410,7 @@ function DetailPage() {
                     <p className = {styles.ratingTitle}>Đánh giá</p>
                     <div className = {styles.ratingOverview}>
                             <StarFill color="#00A699" size={20} />
-                            <p>{pointStart}</p>
+                            <p>{Math.round(numPointStart / data.reviews.length * 10) / 10}</p>
                             <p>{data.reviews.length} đánh giá</p>                       
                     </div>
                     <div className = {styles.rowRating}>
@@ -458,7 +468,7 @@ function DetailPage() {
                 <div className = {styles.review}>
                     <div className = {styles.reviewInput}>
                         <textarea 
-                            class={styles.reviewText} 
+                            className={styles.reviewText} 
                             rows="4" cols="50" max 
                             placeholder='Nhập đánh giá tại đây ... '
                             value={review.content}
@@ -498,6 +508,7 @@ function DetailPage() {
         </div> 
     );
 }
+
 
 
 

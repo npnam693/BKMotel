@@ -9,7 +9,7 @@ import { UserState } from '../../Context/UserProvider';
 import axios from 'axios';
 
 function RoomItem({ data }) {
-    console.log('item', data.address)
+    // console.log('item', data.address)
     const { userInfo, userFavourites, setUserFavourites } = UserState()
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -28,20 +28,6 @@ function RoomItem({ data }) {
             Authorization: `Bearer ${userInfo.token}`
         }
     } : {}
-
-    let pointStart = 0;
-    const countStar = [0,0,0,0,0,0] 
-    if (data.reviews) {
-        data.reviews.map(review => {
-        countStar[review.ratingPoint]++;
-        pointStart += review.ratingPoint
-    })
-    pointStart = Math.round(pointStart / data.reviews.length * 10) / 10
-    }
-
-
-
-    
     const handleLikeClick = () => {
         axios.put('/api/rooms/favourites/add', {
             roomId: data._id
@@ -112,7 +98,7 @@ function RoomItem({ data }) {
 
                     <div className = {styles.rating}> 
                         <StarFill color="#00A699" size={10} style={{marginTop: -2}} />
-                        <p className={styles.ratingPoint}>{pointStart}</p>
+                        <p className={styles.ratingPoint}>{(data.ratingPoint != null) ? data.ratingPoint.$numberDecimal : 0  }</p>
                     </div>
                 </div>
                 <div className = {styles.location}>

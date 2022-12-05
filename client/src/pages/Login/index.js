@@ -111,12 +111,10 @@ function LoginPage({children}) {
                         ĐĂNG NHẬP
                     </Button>
                 </div>
-                    
             <Divider variant="middle" theme = {theme}/>
 
             <p style = {{fontSize:20, fontWeight: 500, marginBottom: 20, marginTop: 30}}>Bạn chưa có tài khoản ?</p>
             </ThemeProvider>
-
             <Button 
                 theme={theme1} 
                 className = {styles.logInBTN} 

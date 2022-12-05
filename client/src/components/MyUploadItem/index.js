@@ -48,8 +48,7 @@ function MyUploadItem({ data, onDelete }) {
           <Divider />
           <div className={styles.footer}>
             <div className={styles.eval}>
-              <p>{data.ratingPoint.$numberDecimal} </p>
-              <StarFill color="#00A699" size={12} />
+            {(data.ratingPoint != null) ? data.ratingPoint.$numberDecimal : 0  }              <StarFill color="#00A699" size={12} />
               <p>{data.ratingCount.toString()} đánh giá</p>
             </div>
           </div>

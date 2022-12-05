@@ -49,7 +49,7 @@ function FavouriteItem({data, onRemove}) {
                     <Divider/>
                     <div className={styles.footer}>
                         <div className={styles.eval}>
-                            <p>{data.ratingPoint.$numberDecimal} </p>
+                            <p>{(data.ratingPoint != null) ? data.ratingPoint.$numberDecimal : 0 } </p>
                             <StarFill color="#00A699" size={12}/>
                             <p>{data.ratingCount.toString()} đánh giá</p>
                         </div>

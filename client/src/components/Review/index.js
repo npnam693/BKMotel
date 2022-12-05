@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
 import { StarFill, Star } from 'react-bootstrap-icons';
 import { Rating  } from '@mui/material';
+import Divider from '@mui/material/Divider';
 
 function ReviewItem({reviewR}) {
     return (
@@ -21,6 +22,8 @@ function ReviewItem({reviewR}) {
                     readOnly
                 />
             </div>
+            <Divider sx={{marginLeft: "100px", marginTop:'10px'}}/>
+
             <p className= {styles.content}>{reviewR.description}</p>
             
         </div>

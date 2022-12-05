@@ -7,15 +7,11 @@ import axios from 'axios';
 import { reviewID } from './Myreview';
 import {USER} from '../../pages/MyReview/index.js'
 const EditReview = ()=>{
-    
      //chua hien review de edit
      const [review, setReview] = useState({
         ratingPoint: reviewID.ratingPoint,
         description: reviewID.description,
     });
-    
-    
-    
     const config = USER ? {
         headers: {
             Authorization: `Bearer ${USER.token}`

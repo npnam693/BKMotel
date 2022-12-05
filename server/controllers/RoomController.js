@@ -96,6 +96,7 @@ export const getAllFavouriteRooms = (req, res, next) => {
 
 
 
+
 //[PUT] /api/rooms/favourites/add
 export const addRoomToFavoriteList = async (req, res, next) => {
   const user = req.user;
@@ -224,3 +225,18 @@ export const myRooms = async (req, res, next) => {
     }
   });
 };
+
+
+//  [PUT] /api/editrooms/reviews
+export const updateReviewinRoom = (req, res, next) => {
+  // const user = req.user;
+  const {roomId, ratingCount, ratingPoint} = req.body
+  console.log(roomId, ratingCount, ratingPoint)
+  console.log('alo')
+  Room.findByIdAndUpdate(roomId,
+    {
+      ratingCount: ratingCount,
+      ratingPoint: ratingPoint
+    }, () => console.log('oke r')
+  )
+}
