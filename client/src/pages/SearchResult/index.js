@@ -1,5 +1,4 @@
 import styles from './style.module.css'
-import FavouriteItem from '../../components/FavouriteItem';
 import RoomItem from '../../components/RoomItem'
 import SkeletonItem from '../../components/RoomItem/skeleton';
 import axios from 'axios';
@@ -7,8 +6,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-function SearchResult({}) {
-    const [loading, setLoading] = useState(true)
+function SearchResult() {
     const [data, setData] = useState()
     
     let navigate = useNavigate()
@@ -17,7 +15,7 @@ function SearchResult({}) {
     const area = parseInt(new URLSearchParams(search).get('area'));
     const money = (new URLSearchParams(search).get('money')).split(',')
 
-    const lowerPrice = money[1] == '-1' ? null : parseInt(money[1]) * 1000
+    const lowerPrice = money[1] === '-1' ? null : parseInt(money[1]) * 1000
     const higherPrice = parseInt(money[0]) * 1000
 
 
@@ -33,10 +31,7 @@ function SearchResult({}) {
                 area: area
             }})
             .then (res => {
-                console.log(res.data)
-                setLoading(true)
                 setData(res.data)
-                setLoading(false)
             })
             .catch (err => console.error(err))
     }, [search, navigate])
@@ -56,10 +51,6 @@ function SearchResult({}) {
             return data.map(item => <RoomItem data={item}/>)
         }
     }
-
-
-
-
     return (    
         <div className = {styles.wrapper}>
         <div className = {styles.inner}>

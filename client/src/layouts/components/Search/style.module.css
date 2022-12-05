@@ -4,15 +4,6 @@
 .province{
     border-radius: 50px 0px 0px 50px;
 }
-/* .wrapperSelect::after{
-    content: "";
-    height: 32px;
-    top: 23px;
-    width: 1px;
-    position: absolute;
-    background-color:rgb(213, 209, 209);
-    display: inline-block;
-} */
 .fail{
     background-color: #E89494 !important;
 }

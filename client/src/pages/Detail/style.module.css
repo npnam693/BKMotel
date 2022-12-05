@@ -35,7 +35,6 @@
     width: var(--font-family-detail);
 }
 
-
 .introContainer{
     display: flex;
     flex-direction: row;
@@ -183,8 +182,6 @@
     margin-bottom: 15px;
 }
 
-
-
 .infoContact{
     width: 428px;
     height: 600px;
@@ -275,7 +272,6 @@
     font-weight: 600;    
 }
 
-
 .ratingOverview{
     margin: 10px 0 5px 0;
     display: flex;
@@ -313,9 +309,7 @@
     font-size: 20px;
     color:rgba(0, 0, 0, 0.7)
 }
-.review{
 
-}
 .reviewInput{
     display: flex;
     flex-direction: row;

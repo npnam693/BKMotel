@@ -2,7 +2,7 @@ import MyReviewItem from '../../components/Review/Myreview.js';
 import styles from './style.module.css';
 import {UserState} from '../../Context/UserProvider/index.js'
 import axios from "axios"
-import { useContext,useEffect,useReducer,useState } from "react"
+import {useEffect,useReducer,useState} from "react"
 import {Divider} from '@mui/material'
 import {reviewReducer} from "../../components/Review/reviewReducer/reviewReducer.js"
 export let USER=null
@@ -39,7 +39,7 @@ function MyReviewPage() {
     
 
 
-  let body = loading ? null : (
+    let body = loading ? null : (
          <div>
            { 
                reviewState.reviews.map(review =>{

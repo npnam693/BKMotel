@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +18,8 @@
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.2",
-    "mongoose-slug-generator": "^1.0.4"
+    "mongoose-slug-generator": "^1.0.4",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

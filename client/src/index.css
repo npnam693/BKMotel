@@ -11,13 +11,10 @@
     --black: #000;
     --text-color: #333;
     
-    /* Default layout */
     --default-layout-header-height: 80px;
     --default-layout-footer-height: 50px;
     --default-horizontal-spacer: 30px;
 
-
-    /* Variable */
 
     --button-border-radius: 20px;
     --default-layout-width: 1300px;
@@ -31,7 +28,6 @@
 
 html {
     font-size: 62.5%;
-    /* font-size: 55.5555%; */
 }
 
 body {
@@ -43,7 +39,6 @@ body {
     overflow-y: overlay;
 }
 
-/* Scrollbar css */ */
 *::-webkit-scrollbar,
 *::-webkit-scrollbar-thumb {
   width: 26px;
@@ -53,12 +48,3 @@ body {
   border: 10px solid transparent;
 }
 
-/* *::-webkit-scrollbar-thumb {        
-  box-shadow: inset 0 0 0 10px;
-} */
-
-
-/* .SnackbarItem-variantWarning{
-    font-size:12px !important;
-    padding: 100px !important;
-} */

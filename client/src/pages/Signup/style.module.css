@@ -28,7 +28,6 @@
 }
 
 
-/* CSS FILE INPUT */
 .fileArea {
     width: 100%;
     position: relative;
@@ -76,7 +75,6 @@
 .inputFile:valid + .fileDummy  .fileDefault {
     display: none;
 }
-
 
 .iconProgess{
     margin-top: 1px;
