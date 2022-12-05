@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
 import route from './routes/index.js'
 import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
-import path from 'path';
+// import path from 'path';
 
 dotenv.config()
 
@@ -13,21 +13,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // --------------------------DEPLOYMENT-----------------------
-let __dirname1 = path.resolve();
-__dirname1 = __dirname1.substring(0, __dirname1.length - 7)
-console.log(__dirname1)
+// let __dirname1 = path.resolve();
+// __dirname1 = __dirname1.substring(0, __dirname1.length - 7)
+// console.log(__dirname1)
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname1, "/client/build")));
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname1, "/client/build")));
   
-    app.get("*", (req, res) =>
-      res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"))
-    );
-  } else {
-    app.get("/", (req, res) => {
-      res.send("API BKMotel is running..");
-    });
-}
+//     app.get("*", (req, res) =>
+//       res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"))
+//     );
+//   } else {
+//     app.get("/", (req, res) => {
+//       res.send("API BKMotel is running..");
+//     });
+// }
 // --------------------------DEPLOYMENT-----------------------
 
 
