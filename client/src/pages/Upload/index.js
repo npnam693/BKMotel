@@ -15,7 +15,7 @@ import { storage } from "./../../firebase";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { v4 } from "uuid";
 import { getDownloadURL } from "firebase/storage";
-import axios from "axios";
+import axiosClient from '../../api/axiosClient.js';
 import { UserState } from "./../../Context/UserProvider/index";
 import { CircularProgress } from "@mui/material";
 const cx = classNames.bind(styles);
@@ -286,7 +286,7 @@ function UploadPage() {
         })
         .then(async () => {
           try {
-            const response = await axios.post(
+            const response = await axiosClient.post(
               "/api/rooms/upload",
               data,
               config

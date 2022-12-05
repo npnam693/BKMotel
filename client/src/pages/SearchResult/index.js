@@ -1,7 +1,7 @@
 import styles from './style.module.css'
 import RoomItem from '../../components/RoomItem'
 import SkeletonItem from '../../components/RoomItem/skeleton';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ function SearchResult() {
     console.log('higher', higherPrice, 'lower' , lowerPrice);
 
     useEffect(() => {
-        axios.get(`api/rooms/find`, {params: {
+        axiosClient.get(`api/rooms/find`, {params: {
                 lowerPrice: lowerPrice,
                 higherPrice: higherPrice,
                 province: province,

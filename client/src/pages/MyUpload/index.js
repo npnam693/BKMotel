@@ -5,7 +5,7 @@ import MyUploadItem from "../../components/MyUploadItem";
 import styles from "./style.module.css";
 import { UserState } from "../../Context/UserProvider";
 import { useSnackbar } from "notistack";
-import axios from "axios";
+import axiosClient from '../../api/axiosClient.js';
 
 const theme = createTheme({
   components: {
@@ -68,7 +68,7 @@ function MyUploadPage() {
   };
 
   const handleDeleteAll = () => {
-    axios
+    axiosClient
       .post("/api/rooms/deleteallmyrooms", { creator: userInfo._id }, config)
       .then((res) => {
         setMyRooms([]);
@@ -80,7 +80,7 @@ function MyUploadPage() {
 
   const handleDelete = useCallback(
     (room) => {
-      axios
+      axiosClient
         .post("/api/rooms/deletebyid", { _id: room._id }, config)
         .then((res) => {
           setIsChanged(!isChanged);
@@ -93,7 +93,7 @@ function MyUploadPage() {
   );
 
   useEffect(() => {
-    axios
+    axiosClient
       .post(
         `/api/rooms/myrooms`,
         {

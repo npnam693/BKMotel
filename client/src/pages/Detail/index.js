@@ -2,7 +2,7 @@ import styles from './style.module.css';
 import { StarFill, GeoAlt, House, HouseDoor, PersonCheck, Ticket, Envelope, Telephone, Star} from 'react-bootstrap-icons';
 import { useState, useEffect } from 'react';
 import ReviewItem from '../../components/Review';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 import { UserState } from '../../Context/UserProvider'
 import Skeleton from '@mui/material/Skeleton';
 import { useSnackbar } from 'notistack';
@@ -46,7 +46,7 @@ function DetailPage() {
 
     
     const handleLikeClick = () => {
-        axios.put('/api/rooms/favourites/add', {
+        axiosClient.put('/api/rooms/favourites/add', {
             roomId: data.rooms._id
         }, config)
             .then(response => {
@@ -60,7 +60,7 @@ function DetailPage() {
 
 
     useEffect(()=>{
-        axios.get(`/api/rooms/${id}`)
+        axiosClient.get(`/api/rooms/${id}`)
             .then(res => {
                 setData(res.data)
                 setLoading(false)
@@ -118,12 +118,12 @@ function DetailPage() {
             return
         } else {
             try {
-            const response = await axios.post(
+            const response = await axiosClient.post(
                 "/api/reviews/add",
                 review,config
             );
             console.log('alo', data.reviews.length + 1, (numPointStart + review.ratingPoint)/(data.reviews.length + 1))
-            axios.put('/api/rooms/editrooms/reviews',{
+            axiosClient.put('/api/rooms/editrooms/reviews',{
                 roomId: data.rooms._id,
                 ratingCount: data.reviews.length + 1,
                 ratingPoint: Math.round((numPointStart + review.ratingPoint)/(data.reviews.length + 1) * 10)/10

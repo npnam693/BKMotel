@@ -5,7 +5,7 @@ import { Button, CircularProgress, Divider, Modal} from '@mui/material'
 import { useSnackbar } from 'notistack';
 import { UserState } from '../../Context/UserProvider'
 import { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 
 
 const theme = createTheme({
@@ -67,7 +67,7 @@ function FavouritePage() {
 
     const handleClear = ()=>{
         setLoading(true)
-        axios.put('/api/rooms/favourites/clear',{},config)
+        axiosClient.put('/api/rooms/favourites/clear',{},config)
             .then(res => {
                 setUserFavourites(res.data.favourites)
                 toast(res.data.message, 'success')
@@ -81,7 +81,7 @@ function FavouritePage() {
 
     const handleRemove = useCallback((id)=>{
         setLoading(true)
-        axios.put('/api/rooms/favourites/add', {
+        axiosClient.put('/api/rooms/favourites/add', {
             roomId: id
         }, config)
             .then(response=>{
@@ -97,7 +97,7 @@ function FavouritePage() {
 
     useEffect(()=>{
         setLoading(true)
-        axios.get(`/api/rooms/favourites/${userInfo._id}`, config)
+        axiosClient.get(`/api/rooms/favourites/${userInfo._id}`, config)
             .then(res => {
                 // console.log(res)
                 setUserFavourites(res.data)

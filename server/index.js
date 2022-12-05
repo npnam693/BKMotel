@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import route from './routes/index.js'
 import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
 // import path from 'path';
-
+import cors from 'cors'
 dotenv.config()
 
 const app = express();
@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     });
 // }
 // --------------------------DEPLOYMENT-----------------------
+app.use(cors());
 
 
 

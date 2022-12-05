@@ -1,9 +1,8 @@
 import styles from './style.module.css'
 import RoomItem from '../../components/RoomItem'
 import SkeletonItem from '../../components/RoomItem/skeleton';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 import { useEffect, useState } from 'react';
-import { Pass } from 'react-bootstrap-icons';
 
 function HomePage() {
     const [data, setData] = useState([])
@@ -22,7 +21,7 @@ function HomePage() {
     };
 
     useEffect(() => {
-        axios.get('api/rooms/', {params: {num: 12 + 8*paging}})
+        axiosClient.get('api/rooms/', {params: {num: 12 + 8*paging}})
             .then (res => {
                 // console.log(res.data)
                 setLoading(true)

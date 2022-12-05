@@ -6,10 +6,9 @@ import Button from '@mui/material/Button';
 import {memo} from 'react'
 import { useSnackbar } from 'notistack';
 import { UserState } from '../../Context/UserProvider';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 
 function RoomItem({ data }) {
-    // console.log('item', data.address)
     const { userInfo, userFavourites, setUserFavourites } = UserState()
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -29,7 +28,7 @@ function RoomItem({ data }) {
         }
     } : {}
     const handleLikeClick = () => {
-        axios.put('/api/rooms/favourites/add', {
+        axiosClient.put('/api/rooms/favourites/add', {
             roomId: data._id
         }, config)
             .then(response => {

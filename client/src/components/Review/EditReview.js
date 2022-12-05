@@ -1,36 +1,68 @@
 import edit from './edit.module.css'
 import { StarFill, Star } from 'react-bootstrap-icons';
 import { Rating, Button  } from '@mui/material';
-import { useState,useReducer,useEffect,useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 import { reviewID } from './Myreview';
 import {USER} from '../../pages/MyReview/index.js'
+import { useSnackbar } from 'notistack';
+
 const EditReview = ()=>{
      //chua hien review de edit
-     const [review, setReview] = useState({
+    const [reload, setReload] = useState(false)
+    const [review, setReview] = useState({
         ratingPoint: reviewID.ratingPoint,
         description: reviewID.description,
     });
+    const {enqueueSnackbar, closeSnackbar } = useSnackbar();
     const config = USER ? {
         headers: {
             Authorization: `Bearer ${USER.token}`
         }
     } : {}
+
+    const toast = (message, variantType) => {
+        enqueueSnackbar(message, {
+            variant: variantType,
+            action: (key) => (
+                <Button style={{ fontSize: '12px', fontWeight: '600' }} size='small' onClick={() => closeSnackbar(key)}>
+                    Dismiss
+                </Button>
+            )
+        });
+    }   
     
     const updateReview =async review =>{
         try {
-            const response = await axios.put(`/api/reviews/updatereview/${reviewID._id}`, review,config)
-           return response.data
+            axiosClient.put(`/api/reviews/updatereview/${reviewID._id}`, review,config)
+                .then(res => {
+                    axiosClient.put('/api/rooms/editrooms/reviews',{
+                        roomId: reviewID.room._id,
+                        ratingPoint: 
+                        Math.round(((reviewID.room.ratingCount * parseFloat(reviewID.room.ratingPoint.$numberDecimal)) - reviewID.ratingPoint + review.ratingPoint)/(reviewID.room.ratingCount) * 10)/10,
+                        ratingCount: reviewID.room.ratingCount
+                    }, config)
+                        .then(response => {
+                            toast('Chỉnh sửa đánh giá thành công', 'success')
+                            setReload(!reload)
+                        })
+                        .catch(err => {
+                            toast('Chỉnh sửa đánh giá thất bại', 'error')
+                        })
+
+                })
+                .catch(err => console.log(err))
         } catch (error) {
             return error
         }
      }
+
+     
+
     return (
         <>
-         
-          <div className={edit.title} >Chỉnh sửa đánh giá</div>
-                
+        <div className={edit.title} >Chỉnh sửa đánh giá</div>
       
         <div className={edit.reviewContainer}>
         

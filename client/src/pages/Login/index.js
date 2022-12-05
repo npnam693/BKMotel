@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosClient from '../../api/axiosClient.js';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
@@ -32,7 +32,7 @@ function LoginPage({children}) {
             return
         }
         try {
-            const { data } = await axios.post(
+            const { data } = await axiosClient.post(
                 "/api/users/login",
                 { email, password },
             );

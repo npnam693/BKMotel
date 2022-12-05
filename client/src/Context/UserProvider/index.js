@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect} from "react";
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 
 const UserContext = createContext();
 
@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
               Authorization: `Bearer ${user.token}`
           }
         }
-        axios.get(`/api/rooms/favourites/${user._id}`, config)
+        axiosClient.get(`/api/rooms/favourites/${user._id}`, config)
           .then(res => {
               // console.log(res)
               setUserFavourites(res.data)

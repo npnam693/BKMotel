@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosClient from '../../api/axiosClient.js';
 import { useState, Fragment, useCallback } from "react";
 import { useNavigate } from 'react-router-dom'
 
@@ -154,7 +154,7 @@ function SignUpPage({children}) {
         }
         
         try {
-          const { data } = await axios.post(
+          const { data } = await axiosClient.post(
             "/api/users",
             { name, email, password, avatar, phoneNumber},
           );

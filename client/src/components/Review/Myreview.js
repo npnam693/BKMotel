@@ -1,37 +1,36 @@
 import styles from './style.module.css'
 import { StarFill, Star, PencilFill,TrashFill,} from 'react-bootstrap-icons';
 import { Rating,Button,Divider } from '@mui/material';
-import { reviewReducer } from './reviewReducer/reviewReducer';
 import { Link } from 'react-router-dom'
-import { useState,useReducer, useContext } from 'react';
-import EditReview from './EditReview';
+import { useEffect, useState} from 'react';
 import {USER} from '../../pages/MyReview/index.js'
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient.js';
 import { useSnackbar } from 'notistack';
 export let reviewID=null
 
 const MyReviewItem= ({review:{_id,ratingPoint,description,room}})=> {
     
   const [reload, setReload] = useState(true)
+  useEffect(()=>{}, reload)
    
-    const [review, setReview] = useState({
+  const [review, setReview] = useState({
         _id:_id,
         ratingPoint: ratingPoint,
         description: description,
         room:room
-    });
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const toast = (message, variantType) => {
-      enqueueSnackbar(message, {
-          variant: variantType,
-          action: (key) => (
-              <Button style={{ fontSize: '12px', fontWeight: '600' }} size='small' onClick={() => closeSnackbar(key)}>
-                  Dismiss
-              </Button>
-          )
+  });
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const toast = (message, variantType) => {
+    enqueueSnackbar(message, {
+        variant: variantType,
+        action: (key) => (
+            <Button style={{ fontSize: '12px', fontWeight: '600' }} size='small' onClick={() => closeSnackbar(key)}>
+                Dismiss
+            </Button>
+        )
       });
   }
-    const chooseReview= async reviewId=>
+  const chooseReview= async reviewId=>
     {   
         reviewID=review
         console.log(reviewID)
@@ -42,17 +41,28 @@ const MyReviewItem= ({review:{_id,ratingPoint,description,room}})=> {
           Authorization: `Bearer ${USER.token}`
       }
   } : {}
+
   const deleteReview =async reviewId =>
   {
-    try {
-      const response =await axios.delete(`/api/reviews/deletereview/${reviewId}`,config)
-      toast('Xóa thành công', 'success')
-      
-      return response.data
+      console.log(review)
+      // console.log(review.room._id, review.room.ratingCount, reviewID.room.ratingPoint.$numberDecimal)
+      // console.log(review.room._id, review.room.ratingCount, parseFloat(reviewID.room.ratingPoint.$numberDecimal))
+      axiosClient.delete(`/api/reviews/deletereview/${reviewId}`,config)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+      axiosClient.put('/api/rooms/editrooms/reviews',{
+        roomId: review.room._id,
+        ratingCount: review.room.ratingCount - 1,
+        ratingPoint: review.room.ratingCount == 1 ? 0 : ((Math.round(((review.room.ratingCount * parseFloat(review.room.ratingPoint.$numberDecimal)) - review.ratingPoint)/(review.room.ratingCount-1) * 10)/10 > 5) ? 5 : Math.round(((review.room.ratingCount * parseFloat(review.room.ratingPoint.$numberDecimal)) - review.ratingPoint)/(review.room.ratingCount-1) * 10)/10 > 5)
+      }, config)
+          .then(response => {
+            toast('Xoá đánh giá thành công', 'success')
+            setReload(!reload)
+          })
+          .catch(err => {
+              toast('Xoá đánh giá thất bại', 'error')
+          })
 
-    } catch (error) {
-      return error
-    }
   }
     let body=null
    

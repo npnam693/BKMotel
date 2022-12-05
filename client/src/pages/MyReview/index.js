@@ -1,7 +1,7 @@
 import MyReviewItem from '../../components/Review/Myreview.js';
 import styles from './style.module.css';
 import {UserState} from '../../Context/UserProvider/index.js'
-import axios from "axios"
+import axiosClient from '../../api/axiosClient.js';
 import {useEffect,useReducer,useState} from "react"
 import {Divider} from '@mui/material'
 import {reviewReducer} from "../../components/Review/reviewReducer/reviewReducer.js"
@@ -27,7 +27,7 @@ function MyReviewPage() {
     const getReviewUser = async()=>
     {
         try {
-            const response =await axios.get("/api/reviews/reviewuser",config)
+            const response =await axiosClient.get("/api/reviews/reviewuser",config)
             dispatch({type:'REVIEW_LOADED_SUCCESS',payload: response.data.reviews})
             setLoading(false)
             
