@@ -201,6 +201,7 @@ function DetailPage() {
                                 alt={'itemle'}
                                 loading="lazy"
                                 style = {{borderRadius: 15, objectFit: 'cover'}}
+                                variant="contained"
                             />
                         </ImageListItem>
                     ))}
@@ -392,11 +393,11 @@ function DetailPage() {
 
                         <div className = {styles.phoneContainer}>
                             <Telephone color="#000000" size={32}/>
-                            <a className = {styles.phoneContact}href = "tel:+0843092021">{data.rooms.contact === "none" ? data.rooms.creator.phoneNumber : data.rooms.contact}</a>
+                            <a className = {styles.phoneContact}href = "tel:+data.rooms.creator.phoneNumber">{data.rooms.contact === "none" ? data.rooms.creator.phoneNumber : data.rooms.contact}</a>
                         </div>
                         <div className = {styles.emailContainer}>
                             <Envelope color="#000000" size={32}/>
-                            <a className = {styles.emailContact}href = "mailto:nguyenphinam@gmail.com">{data.rooms.creator.email}</a>
+                            <a className = {styles.emailContact}href = "data.rooms.creator.email">{data.rooms.creator.email}</a>
                         </div>
                     </div>
                 </div>
@@ -487,9 +488,10 @@ function DetailPage() {
                                 }}
                             />
                              <Button 
-                                 type = 'submit'
+                                type = 'submit'
                                 onClick={(e) => {onSubmit(review)
                                 }}
+                                style={{fontSize: 16}}
                                 >
                                 Gửi đánh giá 
                                 </Button>
