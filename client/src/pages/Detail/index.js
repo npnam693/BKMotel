@@ -192,7 +192,6 @@ function DetailPage() {
                 loading="lazy"
                 style = {{borderRadius: 15, objectFit: 'cover', width: 508, height: 508, marginRight:20 }}
                 />
-                        
     
                 <ImageList sx={{ width: 244, height: 508 }} cols={1} rowHeight={244} gap={20}>
                     {data.rooms.image.slice(2).map((item, index) => (
@@ -228,14 +227,14 @@ function DetailPage() {
                     style = {{borderRadius: 15, objectFit: 'cover', width: 640, height: 640, marginRight:20 }}
                 />
                 
-                <ImageList sx={{ width: 640, height: 640 }} cols={2} rowHeight={310} gap={20}>
+                <ImageList sx={{ width: 640, height: 640 }} cols={2} gap={20}>
                         {data.rooms.image.slice(1).map((item, index) => (
                             <ImageListItem key={item}>
                                 <img
                                     src={item}
                                     alt={'itemle'}
                                     loading="lazy"
-                                    style = {{borderRadius: 15, objectFit: 'cover'}}
+                                    style = {{borderRadius: 15, objectFit: 'cover', height: '310px'}}
                                 />
                             </ImageListItem>
                         ))}
