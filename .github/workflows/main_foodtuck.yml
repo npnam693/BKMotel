@@ -23,8 +23,8 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          server/npm install
-          server/npm start
+          npm install --prefix server 
+          npm start --prefix server
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
